@@ -32,7 +32,7 @@ form#edit-device
       if channels.length
         option(selected, disabled, value='') Choose a Channel...
         each c in channels
-          if device.channel && (c._id.toString() == device.channel._id.toString())
+          if device && device.channel && (c._id.toString() == device.channel._id.toString())
             option(value=c._id, selected)= c.name
           else
             option(value=c._id)= c.name

@@ -211,7 +211,7 @@ app.get('/devices', (req, res) => {
 })
 
 app.get('/device/new', (req, res) => {
-  Channel.find().exec((err, channels) => {
+  Channel.find().sort('name').exec((err, channels) => {
     if (err) console.log(err)
     res.render('index', { render: 'device', devices: devices.filter(d => d.unregistered), channels: channels })
   })
@@ -319,7 +319,7 @@ app.delete('/device/:device_id/edit', (req, res) => {
 app.get('/device/:device_id/edit', (req, res) => {
   Chromecast.findOne({ deviceId: req.params.device_id }).populate('channel').exec((err, device) => {
     if (err) console.log(err)
-    Channel.find().exec((err, channels) => {
+    Channel.find().sort('name').exec((err, channels) => {
       if (err) console.log(err)
       if (device) {
         var localDevice = devices.find(d => d.deviceId == req.params.device_id)
@@ -332,7 +332,7 @@ app.get('/device/:device_id/edit', (req, res) => {
 /* Channels */
 
 app.get('/channels', (req, res) => {
-  Channel.find().exec((err, channels) => {
+  Channel.find().sort('name').exec((err, channels) => {
     res.render('index', { render: 'channels', channels: channels })
   })
 })
@@ -382,7 +382,7 @@ app.delete('/channel/:channel_id/edit', (req, res) => {
       if (d.channel && d.channel._id.toString() == req.params.channel_id.toString()) {
 
         /* remove channel listing from local info of relevant devices */
-        devices[i].channel = undefined
+        delete devices[i].channel
 
         /* send devices on this channel back to setup page */
         var c = clients.find(c => stripIPv6(c.handshake.address) == devices[i].address)
@@ -416,16 +416,16 @@ app.get('/new/push', (req, res) => {
 app.post('/new/push', (req, res) => {
   clients.forEach(c => {
     c.emit('push', {
-      message: 'Test alert',
-      style: 'success',
-      duration: 30 * 1000
+      message: req.body.message,
+      style: req.body.style,
+      duration: req.body.duration
     })
   })
   res.sendStatus(200)
 })
 
 app.get('/new/takeover', (req, res) => {
-  Channel.find().exec((err, channels) => {
+  Channel.find().sort('name').exec((err, channels) => {
     res.render('index', { render: 'takeover', channels: channels })
   })
 })
@@ -452,7 +452,8 @@ app.post('/takeover/end', (req, res) => {
 /* Server */
 
 server.listen(port, () => {
-  console.log(`app is listening at port ${port}`)
+  console.log('MultiCast is live!')
+  console.log(`listening at port ${port}...`)
 
   /* load saved devices */
   Chromecast.find().populate('channel').exec((err, _devices) => {

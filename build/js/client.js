@@ -18,7 +18,7 @@ socket.on('push', function(opts) {
   notify({
     title: opts.message,
     style: opts.style,
-    duration: opts.duration,
+    duration: parseInt(opts.duration),
     fullWidth: true
   })
 })

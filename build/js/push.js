@@ -38,7 +38,11 @@ $('#edit-alert [type="submit"]').on('click', function(e) {
   if ($('#alert-text').val()) {
     $.ajax({
       method: 'post',
-      data: $('#edit-alert').serialize(),
+      data: {
+        message: $('#alert-text').val(),
+        style: $('#alert-style .toast.active').attr('data-style'),
+        duration: $('#alert-duration .btn-primary').attr('data-duration')
+      },
       success: function(response) {
         notify({
           title: 'Push Alert Sent!',

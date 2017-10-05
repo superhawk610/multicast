@@ -22,9 +22,10 @@ form#edit-channel
       .form-group.display-section.visible
         label.form-label.label-lg Section #{i+1}
         input.form-input.input-lg(type='text', name='URLs', placeholder='http://192.168.1.100/page.html', value=url)
+  - var maxSectionCount = 4
   - var length = 0
   - if (channel && channel.URLs) length = channel.URLs.length
-  each url, i in [...Array(3-length)]
+  each url, i in [...Array(maxSectionCount-length)]
     .form-group.display-section(class=((!channel && i == 0) ? 'visible' : '' ))
       label.form-label.label-lg Section #{length+i+1}
       input.form-input.input-lg(type='text', name='URLs', placeholder='http://192.168.1.100/page.html')

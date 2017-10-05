@@ -4,15 +4,15 @@ function notify(opts) {
   notifyIsActive = true
   var title = opts.title || '',
       msg = opts.message || '',
-      style = opts.style || 'primary',
+      style = opts.style != '' ? `toast-${opts.style}` : '',
       full = opts.fullWidth || false,
       dur = opts.duration || 3000
   $('#toast').find('.title').text(title).end()
              .find('.text').text(msg).end()
-             .addClass(`toast-${style}${full ? ' full-width' : ''}`).fadeIn()
+             .addClass(`${style}${full ? ' full-width' : ''}`).fadeIn()
   setTimeout(function() {
     $('#toast').fadeOut(500, function() {
-      $('#toast').removeClass(`toast-${style} full-width`)
+      $('#toast').removeClass(`${style} full-width`)
       notifyIsActive = false
     })
   }, dur)

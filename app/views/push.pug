@@ -6,21 +6,21 @@ form#edit-alert
     #char-counter.text-gray.float-right.mt-1 150
   .form-group#alert-style
     label.form-label.label-lg Alert Style
-    .toast.active(style='margin-bottom: 10px')
+    .toast.active(style='margin-bottom: 10px', data-style='')
       h5 Default
-    .toast.toast-success(style='margin-bottom: 10px')
+    .toast.toast-success(style='margin-bottom: 10px', data-style='success')
       h5 Greenscreen
-    .toast.toast-error
+    .toast.toast-error(data-style='error')
       h5 Urgent
   .form-group#alert-duration
     label.form-label.label-lg Alert Duration
-    button.btn.btn-lg.btn-primary 1m
-    button.btn.btn-lg 5m
-    button.btn.btn-lg 30m
-    button.btn.btn-lg 1h
-    button.btn.btn-lg 6m
-    button.btn.btn-lg 12h
-    button.btn.btn-lg 24h
+    button.btn.btn-lg.btn-primary(data-duration=60 * 1000) 1m
+    button.btn.btn-lg(data-duration= 5 * 60 * 1000) 5m
+    button.btn.btn-lg(data-duration=30 * 60 * 1000) 30m
+    button.btn.btn-lg(data-duration=60 * 60 * 1000) 1h
+    button.btn.btn-lg(data-duration= 6 * 60 * 60 * 1000) 6h
+    button.btn.btn-lg(data-duration=12 * 60 * 60 * 1000) 12h
+    button.btn.btn-lg(data-duration=24 * 60 * 60 * 1000) 24h
   .columns(style='margin-top: 15px')
     .column
       button.btn.btn-primary.btn-lg.btn-block(type='submit') Push Alert
