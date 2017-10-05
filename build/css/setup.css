@@ -1,0 +1,27 @@
+body {
+  background: #32b643;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+#center {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#center .emphasis {
+  font-weight: 700;
+}
+
+#center .info {
+  font-weight: 400;
+  color: #5755d9;
+}
+
+#center h1, #center h2 {
+  font-weight: 100;
+}

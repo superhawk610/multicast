@@ -1,0 +1,7 @@
+a.btn.btn-lg.btn-primary.btn-block(href='/devices') Chromecasts
+a.btn.btn-lg.btn-primary.btn-block(href='/channels') Channels
+a.btn.btn-lg.btn-primary.btn-block(href='/new/push') Push Alert
+unless takeover
+  a.btn.btn-lg.btn-primary.btn-block(href='/new/takeover') Channel Takeover
+else
+  a.btn.btn-lg.btn-error.btn-block#stop-takeover Stop Channel Takeover

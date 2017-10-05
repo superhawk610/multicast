@@ -1,0 +1,27 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body.fullscreen iframe {
+  width: 100vw; height: 100vh;
+}
+
+body.right-panel iframe:first-of-type {
+  position: absolute;
+  top: 0; left: 0;
+  width: 80vw; height: 100vh;
+}
+
+body.right-panel iframe:nth-of-type(2) {
+  position: absolute;
+  top: 0; left: 80vw;
+  width: 20vw; height: 100vh;
+}
+
+#toast.full-width {
+  width: calc(100% - 20px);
+  left: 10px; bottom: 15px; right: 10px;
+}

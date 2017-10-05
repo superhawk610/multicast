@@ -1,0 +1,65 @@
+#channel-layout .layout {
+  display: inline-block;
+  cursor: pointer;
+}
+
+#channel-layout .layout:not(:last-child) {
+  margin-right: 15px;
+}  
+
+#channel-layout .layout label {
+  margin-top: 8px;
+  display: block;
+}
+
+#channel-layout .layout .contents {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 700;
+  vertical-align: middle;
+  position: relative;
+  display: table-cell;
+  width: 250px;
+  height: 150px;
+  border: 1px solid rgb(202, 206, 215);
+}
+
+#channel-layout .layout:not(.active):hover .contents,
+#channel-layout .layout:not(.active):hover .contents::after {
+  background: rgba(50, 182, 67, 0.1);
+  border: 1px solid rgb(80, 89, 108);
+}
+
+#channel-layout .layout.active .contents,
+#channel-layout .layout.active .contents::after {
+  background: rgba(50, 182, 67, 0.2);
+  border: 2px solid rgb(80, 89, 108) !important;
+}
+
+#channel-layout .layout.active .contents::after {
+  line-height: 144px !important;
+  top: -2px !important;
+}
+
+#channel-layout .layout.right-panel .contents {
+  width: 200px;
+}
+
+#channel-layout .layout.right-panel .contents::after {
+  content: "2";
+  position: absolute;
+  top: -1px; right: -50px;
+  height: 150px; width: 50px;
+  display: block;
+  line-height: 146px;
+  border: 1px solid rgb(202, 206, 215);
+  border-left: none;
+}
+
+#channel-layout ~ .display-section:not(.visible) {
+  display: none;
+}
+
+#channel-layout + .display-section {
+  display: block;
+}

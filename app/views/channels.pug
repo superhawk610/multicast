@@ -1,0 +1,20 @@
+h1 Channels  
+  a.btn.btn-primary.float-right(href='/channel/new')
+    i.fa.fa-plus
+    | &nbsp;&nbsp;Add Channel
+table.table
+  thead
+    tr
+      th Name
+      th.text-right Edit
+  tbody
+    if channels && channels.length
+      each c in channels
+        tr
+          td
+            a(href=`/channel/${c._id}/edit`)= c.name
+          td.text-right
+            a(href=`/channel/${c._id}`) Preview
+    else
+      tr
+        td.text-gray(colspan=42) No channels available.

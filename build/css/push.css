@@ -1,0 +1,20 @@
+.toast.active {
+  position: relative;
+}
+
+.toast.active::after {
+  content: "\f058";
+  font-family: FontAwesome;
+  position: absolute;
+  top: 0; right: 10px;
+  font-size: 2em;
+  color: #fff;
+}
+
+#alert-style .toast {
+  cursor: pointer;
+}
+
+#alert-duration button:not(:last-of-type) {
+  margin-right: 10px;
+}

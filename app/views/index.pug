@@ -1,0 +1,46 @@
+doctype html
+html(lang='en')
+  head
+    title MultiCast | #{render}
+    include include/head.pug
+    case render
+      when 'channel'
+        link(rel='stylesheet', href='/css/channel-edit.css')
+      when 'devices'
+        link(rel='stylesheet', href='/css/devices.css')
+      when 'push'
+        link(rel='stylesheet', href='/css/push.css')
+  
+  body
+    include include/nav.pug
+    #wrapper
+      case render
+        when 'home'
+          include home.pug
+        when 'devices'
+          include devices.pug
+        when 'device'
+          include device.pug
+        when 'channels'
+          include channels.pug
+        when 'channel'
+          include channel.pug
+        when 'push'
+          include push.pug
+        when 'takeover'
+          include takeover.pug
+        default
+          include 404.pug
+
+    include include/foot.pug
+    case render
+      when 'home'
+        script(type='text/javascript', src='/js/home.js')
+      when 'device'
+        script(type='text/javascript', src='/js/device.js')
+      when 'channel'
+        script(type='text/javascript', src='/js/channel.js')
+      when 'push'
+        script(type='text/javascript', src='/js/push.js')
+      when 'takeover'
+        script(type='text/javascript', src='/js/takeover.js')

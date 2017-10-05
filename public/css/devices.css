@@ -1,0 +1,1 @@
+.badge:not([data-badge])::after{transform:translate(0,-.5rem)}.badge.offline:not([data-badge])::after{background:#e85600}.badge.waiting:not([data-badge])::after{background:#ffb700}.badge.online:not([data-badge])::after{background:#32b643}

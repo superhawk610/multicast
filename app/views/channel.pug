@@ -1,0 +1,35 @@
+if channel
+  h1 Edit Channel  
+    button#delete-channel.btn.btn-error.float-right
+      i.fa.fa-close
+      | &nbsp;&nbsp;Delete Channel
+else
+  h1 New Channel
+form#edit-channel
+  .form-group
+    label.form-label.label-lg(for='channel-name') Name
+    input.form-input.input-lg#channel-name(type='text', name='name', placeholder='Name', value=channel && channel.name)
+  .form-group#channel-layout
+    label.form-label.label-lg Channel Layout
+    .layout.fullscreen(class=(channel && channel.layout == 'fullscreen' ? 'active' : ''))
+      .contents 1
+      label Fullscreen
+    .layout.right-panel(class=(channel && channel.layout == 'right-panel' ? 'active' : ''))
+      .contents 1
+      label Contents with Sidebar
+  if channel
+    each url, i in channel.URLs
+      .form-group.display-section.visible
+        label.form-label.label-lg Section #{i+1}
+        input.form-input.input-lg(type='text', name='URLs', placeholder='http://192.168.1.100/page.html', value=url)
+  - var length = 0
+  - if (channel && channel.URLs) length = channel.URLs.length
+  each url, i in [...Array(3-length)]
+    .form-group.display-section(class=((!channel && i == 0) ? 'visible' : '' ))
+      label.form-label.label-lg Section #{length+i+1}
+      input.form-input.input-lg(type='text', name='URLs', placeholder='http://192.168.1.100/page.html')
+  .columns(style='margin-top: 15px')
+    .column
+      button.btn.btn-primary.btn-lg.btn-block(type='submit') Save Channel
+    .column
+      a.btn.btn-lg.btn-block(href='/channels') Cancel

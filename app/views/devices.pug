@@ -1,0 +1,34 @@
+h1 Chromecasts  
+  a.btn.btn-primary.float-right(href='/device/new')
+    i.fa.fa-plus
+    | &nbsp;&nbsp;Register Chromecast
+table.table
+  thead
+    tr
+      th Name
+      th Channel
+      th.text-right Edit
+  tbody
+    if devices && devices.length
+      each d in devices
+        tr
+          td
+            if d.unregistered
+              a.badge(href='/device/new', class=d.status)= d.name
+              div Unregistered
+            else
+              a.badge(href=`/device/${d.deviceId}/edit`, class=d.status)= d.name
+              div= d.location
+          td
+            if d.unregistered
+              | unregistered
+            else
+              if d.channel
+                a(href=`/channel/${d.channel._id}/edit`)= d.channel.name
+              else
+                .text-gray no channel
+          td.text-right
+            a(href=`/device/${d.deviceId}`) Preview
+    else
+      tr
+        td.text-gray(colspan=42) No devices available.
