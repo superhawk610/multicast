@@ -4,6 +4,7 @@
   "description": "Service for persisting a session indefinitely across multiple Chromecast devices.",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
     "test": "echo \"No tests configured\""
   },
   "repository": {
