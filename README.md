@@ -68,7 +68,7 @@ This project depends on [node_mdns](https://github.com/agnat/node_mdns), which i
 
 If you don't already have access to a MongoDB server installation, follow the guide [here](https://docs.mongodb.com/manual/administration/install-community/).
 
-Grab the latest copy of Node/NPM from [here](https://nodejs.org/en/download/) or install it via [nvm](http://nvm.sh).
+Grab the latest stable copy of Node/NPM from [here](https://nodejs.org/en/download/) or install it via [nvm](http://nvm.sh). (**NOTE**: Avoid Node 8.6 for now, it breaks compability with node_mdns. See [this](https://github.com/agnat/node_mdns/pull/200) for more details).
 
 In order to access the Chromecast API, you need to [register as a Cast developer](https://cast.google.com/publish/) (it costs $5).
 
@@ -127,10 +127,24 @@ Make sure that the device running MultiCast has these ports open, as well as the
 Don't worry about this. This warning shows up in all Node apps on Linux that depend on `libavahi-compat-libdnssd-dev`. You can safely ignore it.
 
 **Multicast can't find your devices?**
-
 Make sure they've already been setup and powered on and the display that they're connected to is powered on and displaying their output.
 
 If you can view them from other Cast-enabled apps but not from Multicast, its likely an issue with your firewall. Make sure you configured your firewall correctly (see [Firewall Settings](#firewall-settings)).
+
+**Using Node 8.6?**
+The most recent version of node_mdns has an incompatibility with v8.6 due to changed syntax for a method (see [this pull request](https://github.com/agnat/node_mdns/pull/200)). Until it is fixed in the main branch, you will need to patch it yourself. Edit `node_modules/node_mdns/lib/resolver_sequence_tasks.js` and make the following change (roughly line 115):
+
+```diff
+
+   function getaddrinfo_0_11(host, family, cb) {
+     var req = new cares.GetAddrInfoReqWrap()
+-      , err = cares.getaddrinfo(req, host, family)
++      , err = cares.getaddrinfo(req, host, family, 0, false)
+       ;
+     req.oncomplete = function oncomplete(err, addresses) {
+         getaddrinfo_complete(err, addresses, cb);
+
+```
 
 ### Issues
 
