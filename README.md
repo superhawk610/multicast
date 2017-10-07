@@ -132,7 +132,7 @@ Make sure they've already been setup and powered on and the display that they're
 If you can view them from other Cast-enabled apps but not from Multicast, its likely an issue with your firewall. Make sure you configured your firewall correctly (see [Firewall Settings](#firewall-settings)).
 
 **Using Node 8.6?**
-The most recent version of node_mdns has an incompatibility with v8.6 due to changed syntax for a method (see [this pull request](https://github.com/agnat/node_mdns/pull/200)). Until it is fixed in the main branch, you will need to patch it yourself. Edit `node_modules/node_mdns/lib/resolver_sequence_tasks.js` and make the following change (roughly line 115):
+The most recent version of node_mdns has an incompatibility with v8.6 due to changed syntax for a method (see [this pull request](https://github.com/agnat/node_mdns/pull/200)). Until it is fixed in the main branch, you will need to patch it yourself. Edit `node_modules/mdns/lib/resolver_sequence_tasks.js` and make the following change (roughly line 115):
 
 ```diff
 
