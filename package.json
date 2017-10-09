@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
-    "test": "echo \"No tests configured\""
+    "test": "echo \"No tests configured\"",
+    "config": "cp .config.template .config && echo -e \"Edit .config for your local installation, then run\n  npm run start\""
   },
   "repository": {
     "type": "git",
