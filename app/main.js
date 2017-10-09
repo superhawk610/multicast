@@ -15,34 +15,19 @@ const fs          = require('fs')
 const Chromecast  = require('./models/Chromecast')
 const Channel     = require('./models/Channel')
 
+const config = require('./lib/config');
+const dbConnect = require('./lib/dbConnect');
+
 const port = 3944
 var takeover = null
 
-/* Configuration */
-
-var config
-try {
-  config = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '.config')))
-} catch (e) {
-  console.log(`No config file found in ${path.resolve(__dirname, '..')}`)
-  console.log('Please run')
-  console.log('   npm run config')
-  console.log('before attempting to launch Multicast')
-  process.exit()
-}
-
-/* Establish connection with MongoDB */
-
-mongoose.connect(
-  `mongodb://${config.mongoUser}:${config.mongoPass}@${config.mongoHost}:${config.mongoPort}/multicast?authSource=${config.mongoAuthSource}`, {
-  useMongoClient: true
-})
+dbConnect(config);
 
 /* Establish connection with Chromecast devices on local network */
 
 var devices = [],
 findDevices = () => {
-  
+
   /* Look for mDNS Cast devices on local network */
   var browser = mdns.createBrowser(mdns.tcp('googlecast'))
 
@@ -93,7 +78,7 @@ launchHub = (host) => {
 
     d.connectionFailCount = 0
     if (d.status == 'offline' || d.status == 'waiting') {
-      
+
       const client = new Client()
       client.connect(host, () => {
 
@@ -151,7 +136,7 @@ launchHub = (host) => {
         if (d.connectionFailCount > 6) { // receiver hasn't responded after 60 seconds
           clearTimeout(d.connectionFail)
         } else d.connectionFail = setTimeout(() => launchHub(host), 10 * 1000)
-      })      
+      })
 
     }
 
@@ -181,7 +166,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 /* Home Page */
 
 app.get('/', (req, res) => {
-  res.render('index', { render: 'home', takeover: takeover })  
+  res.render('index', { render: 'home', takeover: takeover })
 })
 
 /* Nyan!! */
@@ -207,7 +192,7 @@ app.get('/landing', (req, res) => {
 /* Devices */
 
 app.get('/devices', (req, res) => {
-  res.render('index', { render: 'devices', devices: devices })  
+  res.render('index', { render: 'devices', devices: devices })
 })
 
 app.get('/device/new', (req, res) => {
@@ -299,7 +284,7 @@ app.post('/device/:device_id/edit', (req, res) => {
         res.send(req.params.device_id)
       })
     } else {
-      clients.find(c => stripIPv6(c.handshake.address) == devices[i].address).emit('change_channel', null)      
+      clients.find(c => stripIPv6(c.handshake.address) == devices[i].address).emit('change_channel', null)
       res.send(req.params.device_id)
     }
   })
@@ -457,6 +442,7 @@ server.listen(port, () => {
 
   /* load saved devices */
   Chromecast.find().populate('channel').exec((err, _devices) => {
+    if (err) return console.error(err);
     for (var i in _devices) {
       var d = _devices[i].toObject()
       d.status = 'offline'
