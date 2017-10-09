@@ -1,2 +1,5 @@
 node_modules
 .config
+public/css
+public/fonts
+public/js
