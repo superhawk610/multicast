@@ -1,0 +1,16 @@
+doctype html
+html(lang='en')
+  head
+    title MultiCast | #{render}
+    include include/head.pug
+  
+  body
+    include include/nav.pug
+    #wrapper
+      h1 Message Channel
+      .form-group
+        textarea.form-input#message-text(placeholder='Enter message here', value=message)
+      button.btn.btn-primary.btn-lg.btn-block(type='submit') Save and Update
+
+    include include/foot.pug
+    script(type='text/javascript', src='/js/message-edit.js')

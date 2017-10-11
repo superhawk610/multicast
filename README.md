@@ -97,6 +97,11 @@ Run the application
 
     node .
 
+Alternatively, you may install multicast as a binary and run from there
+
+    npm install -g
+    multicast
+
 Head over to `http://YOUR_LOCAL_IP:3944/` in your browser to get started, then simply follow the [Usage](#usage) guide to get off the ground.
 
 ### Firewall Settings
@@ -110,6 +115,10 @@ Make sure that the device running MultiCast has these ports open, as well as the
 
     80/TCP/UDP  (HTTP)
     443/TCP/UDP (HTTPS)
+
+### Flags
+
+`--serve-only` - Do not attempt to connect to any devices, just serve files via Express. Useful for debugging.
 
 ## Having Trouble?
 

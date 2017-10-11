@@ -25,3 +25,7 @@ body.right-panel iframe:nth-of-type(2) {
   width: calc(100% - 20px);
   left: 10px; bottom: 15px; right: 10px;
 }
+
+#toast.full-width .title {
+  font-size: 7.5vh;
+}

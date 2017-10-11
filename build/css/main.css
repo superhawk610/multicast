@@ -58,6 +58,12 @@
   color: #fff;
 }
 
+hr {
+  border: none;
+  border-top: 1px solid #d9d9d9;
+  margin: 30px 45%;
+}
+
 footer {
   background: #f8f9fa;
   width: 100%;

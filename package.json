@@ -1,12 +1,15 @@
 {
   "name": "multicast",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Service for persisting a session indefinitely across multiple Chromecast devices.",
   "main": "index.js",
   "scripts": {
     "start": "node .",
     "test": "echo \"No tests configured\"",
     "config": "cp .config.template .config && echo -e \"Edit .config for your local installation, then run\n  npm run start\""
+  },
+  "bin": {
+    "multicast": "index.js"
   },
   "repository": {
     "type": "git",

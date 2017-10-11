@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700');
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #32b643;
+  color: #fff;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 700;
+}
+
+#message {
+  color: #111;
+  font-size: 22vh;
+  position: fixed;
+  top: 50%; left: 50%;
+  width: 90vw;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+#clock {
+  position: fixed;
+  color: #fff;
+  font-size: 4vh;
+  top: 20px; right: 20px;
+}

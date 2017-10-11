@@ -15,13 +15,15 @@ const fs          = require('fs')
 const Chromecast  = require('./models/Chromecast')
 const Channel     = require('./models/Channel')
 
-const config = require('./lib/config');
-const dbConnect = require('./lib/dbConnect');
+const config = require('./lib/config')
+const dbConnect = require('./lib/dbConnect')
 
 const port = 3944
+const serveOnly = process.argv.find(arg => arg == '--serve-only')
+
 var takeover = null
 
-dbConnect(config);
+dbConnect(config)
 
 /* Establish connection with Chromecast devices on local network */
 
@@ -175,6 +177,34 @@ app.get('/nyan', (req, res) => {
   res.render('nyan', {})
 })
 
+/* Basic Message Channel */
+
+app.get('/message', (req, res) => {
+  fs.readFile(path.resolve(__dirname, '..', 'message.txt'), (err, data) => {
+    if (err || data == '') res.render('message', { message: 'No message configured.' })
+    else res.render('message', { message: data })
+  })
+})
+
+app.get('/message/edit', (req, res) => {
+  fs.readFile(path.resolve(__dirname, '..', 'message.txt'), (err, data) => {
+    if (err) res.render('message-edit', { message: '' })
+    else res.render('message-edit', { message: data })
+  })
+})
+
+app.post('/message/edit', (req, res) => {
+  fs.writeFile(path.resolve(__dirname, '..', 'message.txt'), req.body.message, err => console.log(err))
+  for (var i in devices) {
+    var d = devices[i]
+    if (d.channel && d.channel.URLs[0].match(new RegExp(`${port}/message`))) {
+      var c = clients.find(c => stripIPv6(c.handshake.address) == d.address)
+      if (c) c.emit('refresh')
+    }
+  }
+  res.sendStatus(200)
+})
+
 /* Landing Page */
 
 app.get('/landing', (req, res) => {
@@ -323,7 +353,7 @@ app.get('/channels', (req, res) => {
 })
 
 app.get('/channel/new', (req, res) => {
-  res.render('index', { render: 'channel' })
+  res.render('index', { render: 'channel', host: `${req.protocol}://${req.hostname}:${port}/` })
 })
 
 app.post('/channel/new', (req, res) => {
@@ -338,8 +368,16 @@ app.post('/channel/new', (req, res) => {
 app.get('/channel/:channel_id', (req, res) => {
   Channel.findOne({ _id: req.params.channel_id }).exec((err, channel) => {
     if (err) console.log(err)
-    if (channel) res.render(`layouts/${channel.layout}`, { channel: channel })
-    else res.render('layouts/empty', {})
+    if (channel) res.render(`layouts/${channel.layout}`, { channel: channel, casting: true })
+    else res.render('layouts/empty', { casting: true })
+  })
+})
+
+app.get('/channel/:channel_id/preview', (req, res) => {
+  Channel.findOne({ _id: req.params.channel_id }).exec((err, channel) => {
+    if (err) console.log(err)
+    if (channel) res.render(`layouts/${channel.layout}`, { channel: channel, casting: false })
+    else res.render('layouts/empty', { casting: false })
   })
 })
 
@@ -387,7 +425,7 @@ app.delete('/channel/:channel_id/edit', (req, res) => {
 app.get('/channel/:channel_id/edit', (req, res) => {
   Channel.findOne({ _id: req.params.channel_id }).exec((err, channel) => {
     if (err) console.log(err)
-    if (channel) res.render('index', { render: 'channel', channel: channel })
+    if (channel) res.render('index', { render: 'channel', channel: channel, host: `${req.protocol}://${req.hostname}:${port}/` })
     else res.render('index', {})
   })
 })
@@ -440,23 +478,26 @@ server.listen(port, () => {
   console.log('MultiCast is live!')
   console.log(`listening at port ${port}...`)
 
-  /* load saved devices */
-  Chromecast.find().populate('channel').exec((err, _devices) => {
-    if (err) return console.error(err);
-    for (var i in _devices) {
-      var d = _devices[i].toObject()
-      d.status = 'offline'
-      devices.push(d)
-    }
+  if (!serveOnly) {
 
-    /* poll for active devices */
-    findDevices()
+    /* load saved devices */
+    Chromecast.find().populate('channel').exec((err, _devices) => {
+      for (var i in _devices) {
+        var d = _devices[i].toObject()
+        d.status = 'offline'
+        devices.push(d)
+      }
 
-    /* start interval to continue polling for device status */
-    setInterval(() => {
+      /* poll for active devices */
       findDevices()
-    }, 30 * 1000)
-  })
+
+      /* start interval to continue polling for device status */
+      setInterval(() => {
+        findDevices()
+      }, 30 * 1000)
+    })
+
+  }
 })
 
 /* Utility */

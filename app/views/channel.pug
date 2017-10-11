@@ -5,6 +5,12 @@ if channel
       | &nbsp;&nbsp;Delete Channel
 else
   h1 New Channel
+  h5(style='margin-top: 25px') Preset Channels
+  ul
+    li Nyan!
+      span(style='color: #bbb') &nbsp;#{`${host}nyan`}
+    li Message
+      span(style='color: #bbb') &nbsp;#{`${host}message`}
 form#edit-channel
   .form-group
     label.form-label.label-lg(for='channel-name') Name
