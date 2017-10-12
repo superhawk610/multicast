@@ -257,18 +257,18 @@ app.get('/device/:device_id', (req, res) => {
   Chromecast.findOne({ deviceId: req.params.device_id }).populate('channel').exec((err, device) => {
     if (err) console.log(err)
     if (device && device.channel) {
-      if (takeover) res.render(`layouts/${takeover.layout}`, { deviceId: req.params.device_id, channel: takeover })
+      if (takeover) res.render(`layouts/${takeover.layout}`, { deviceId: req.params.device_id, channel: takeover, casting: true })
       else {
 
         /* device registered and channel set
           display device page */
-        res.render(`layouts/${device.channel.layout}`, { deviceId: req.params.device_id, channel: device.channel })
+        res.render(`layouts/${device.channel.layout}`, { deviceId: req.params.device_id, channel: device.channel, casting: true })
 
       }
     } else {
       var localDevice = devices.find(d => d.deviceId == req.params.device_id)
       if (device) {
-        if (takeover) res.render(`layouts/${takeover.layout}`, { deviceId: req.params.device_id, channel: takeover })
+        if (takeover) res.render(`layouts/${takeover.layout}`, { deviceId: req.params.device_id, channel: takeover, casting: true })
         else {
 
           /* device registered but no channel set
@@ -371,14 +371,6 @@ app.post('/channel/new', (req, res) => {
 })
 
 app.get('/channel/:channel_id', (req, res) => {
-  Channel.findOne({ _id: req.params.channel_id }).exec((err, channel) => {
-    if (err) console.log(err)
-    if (channel) res.render(`layouts/${channel.layout}`, { channel: channel, casting: true })
-    else res.render('layouts/empty', { casting: true })
-  })
-})
-
-app.get('/channel/:channel_id/preview', (req, res) => {
   Channel.findOne({ _id: req.params.channel_id }).exec((err, channel) => {
     if (err) console.log(err)
     if (channel) res.render(`layouts/${channel.layout}`, { channel: channel, casting: false })

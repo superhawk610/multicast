@@ -120,14 +120,14 @@ Head over to `http://YOUR_LOCAL_IP:3944/` in your browser to get started, then s
 
 In order for a Chromecast to establish and maintain a connection with a Cast sender, the sender must open two ports:
 
-```
+```html
 1900/UDP    (DIAL)
 5353/UDP    (mDNS)
 ```
 
 Make sure that the device running MultiCast has these ports open, as well as the standard HTTP ports
 
-```
+```html
 80/TCP/UDP  (HTTP)
 443/TCP/UDP (HTTPS)
 ```
@@ -140,7 +140,7 @@ Make sure that the device running MultiCast has these ports open, as well as the
 
 ### Common Errors
 
-```shell
+```html
 *** WARNING *** The program 'nodejs' uses the Apple Bonjour compatibility layer of Avahi.
 *** WARNING *** Please fix your application to use the native API of Avahi!
 *** WARNING *** For more information see http://0pointer.de/avahi-compat?s=libdns_sd&e=nodejs
@@ -150,6 +150,13 @@ Make sure that the device running MultiCast has these ports open, as well as the
 ```
 
 Don't worry about this. This warning shows up in all Node apps on Linux that depend on `libavahi-compat-libdnssd-dev`. You can safely ignore it.
+
+**Can't launch after installing via NPM?**
+Make sure your `NODE_PATH` environment variable correctly includes the global store for node dependencies. On Linux:
+
+```shell
+export NODE_PATH=/opt/lib/node_modules
+```
 
 **Multicast can't find your devices?**
 Make sure they've already been setup and powered on and the display that they're connected to is powered on and displaying their output.
