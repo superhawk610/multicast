@@ -1,3 +1,7 @@
+html, body {
+  background: #f8f9fa;
+}
+
 #toast {
   width: 400px;
   max-width: 100%;
@@ -19,6 +23,7 @@
 }
 
 #wrapper {
+  background: #fff;
   padding: 3em;
 }
 

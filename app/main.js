@@ -297,8 +297,11 @@ app.get('/device/:device_id', (req, res) => {
 
 app.get('/device/:device_id/connect', (req, res) => {
   var d = devices.find(d => d.deviceId == req.params.device_id)
-  if (d.status == 'offline' || d.status == 'waiting') launchHub(d.address)            // launch hub if not already open
-  else clients.find(c => stripIPv6(c.handshake.address) == d.address).emit('refresh') // hard reload page if already open
+  if (d.status == 'offline' || d.status == 'waiting') launchHub(d.address) // launch hub if not already open
+  else {                                                                   // hard reload page if already open
+    var c = clients.find(c => stripIPv6(c.handshake.address) == d.address)
+    if (c) c.emit('refresh')
+  }
   res.sendStatus(200)
 })
 
@@ -309,12 +312,14 @@ app.post('/device/:device_id/edit', (req, res) => {
     devices[i].location = req.body.location // update local info with location
     if (req.body.channel) {
       Channel.findOne({ _id: req.body.channel }).exec((err, channel) => {
-        clients.find(c => stripIPv6(c.handshake.address) == devices[i].address).emit('change_channel', channel)
+        var c = clients.find(c => stripIPv6(c.handshake.address) == devices[i].address)
+        if (c) c.emit('change_channel', channel)
         devices[i].channel = channel // update local info with new channel info for any applicable devices
         res.send(req.params.device_id)
       })
     } else {
-      clients.find(c => stripIPv6(c.handshake.address) == devices[i].address).emit('change_channel', null)
+      var c = clients.find(c => stripIPv6(c.handshake.address) == devices[i].address)
+      if (c) c.emit('change_channel', null)
       res.send(req.params.device_id)
     }
   })

@@ -1,4 +1,4 @@
-MultiCast <small style='color: #ccc'>v0.1</small>
+MultiCast v0.2
 =========
 
 :green_heart: A persistent solution to presenting content across multiple Chromecast devices, inspired by [Greenscreen](http://greenscreen.io/).
@@ -62,7 +62,9 @@ This project requires Node.js and NPM (bundled with Node), as well as a MongoDB 
 
 This project depends on [node_mdns](https://github.com/agnat/node_mdns), which in turn requires a mDNS stack. Follow the installation instructions [here](https://github.com/agnat/node_mdns#installation) for whichever platform you are on to install a mDNS stack. If you're on Linux, this is as simple as
 
-    sudo apt-get install build-essential libavahi-compat-libdnssd-dev
+```shell
+sudo apt-get install build-essential libavahi-compat-libdnssd-dev
+```
 
 ### Setup
 
@@ -78,29 +80,39 @@ You now need to register your Chromecast devices as developer devices. For each 
 
 Clone this repository to your local machine, then head into the cloned directory and create a `.config` file for your setup.
 
-    git clone https://github.com/superhawk610/multicast
-    cd multicast
-    cp .config.template .config
-    vim .config
+```shell
+git clone https://github.com/superhawk610/multicast
+cd multicast
+cp .config.template .config
+vim .config
+```
 
 **NOTE**: You should leave `mongoAuthSource` and `mongoPort` set to their default unless you know what you're doing.
 
 Install Node modules
 
-    npm install
+```shell
+npm install
+```
 
 Build files using Gulp
 
-    gulp
+```shell
+gulp
+```
 
 Run the application
 
-    node .
+```shell
+node .
+```
 
 Alternatively, you may install multicast as a binary and run from there
 
-    npm install -g
-    multicast
+```shell
+npm install -g
+multicast
+```
 
 Head over to `http://YOUR_LOCAL_IP:3944/` in your browser to get started, then simply follow the [Usage](#usage) guide to get off the ground.
 
@@ -108,13 +120,17 @@ Head over to `http://YOUR_LOCAL_IP:3944/` in your browser to get started, then s
 
 In order for a Chromecast to establish and maintain a connection with a Cast sender, the sender must open two ports:
 
-    1900/UDP    (DIAL)
-    5353/UDP    (mDNS)
+```
+1900/UDP    (DIAL)
+5353/UDP    (mDNS)
+```
 
 Make sure that the device running MultiCast has these ports open, as well as the standard HTTP ports
 
-    80/TCP/UDP  (HTTP)
-    443/TCP/UDP (HTTPS)
+```
+80/TCP/UDP  (HTTP)
+443/TCP/UDP (HTTPS)
+```
 
 ### Flags
 
@@ -124,7 +140,7 @@ Make sure that the device running MultiCast has these ports open, as well as the
 
 ### Common Errors
 
-```
+```shell
 *** WARNING *** The program 'nodejs' uses the Apple Bonjour compatibility layer of Avahi.
 *** WARNING *** Please fix your application to use the native API of Avahi!
 *** WARNING *** For more information see http://0pointer.de/avahi-compat?s=libdns_sd&e=nodejs
@@ -159,14 +175,6 @@ The most recent version of node_mdns has an incompatibility with v8.6 due to cha
 
 If you run into any problems while using this, please report them [here](https://github.com/superhawk610/multicast/issues).
 
-## Features
-
-- [x] Server-side casting (support any browser)
-- [ ] Rotating URLs for a channel
-- [ ] Additional channel layouts
-- [ ] Persistence for push alerts (view on device that joins after alert)
-- [ ] Support for multiple push alerts at once per channel
-
 ## Authors
 
 - <img src="https://avatars0.githubusercontent.com/u/18172185?v=4&s=64" width=32> Aaron Ross - *initial work* - [superhawk610](https://github.com/superhawk610)
@@ -200,9 +208,11 @@ In `app/views/channel.pug`, add a div under `#channel-layout` with the class `la
 
 Style this div in `build/css/channel-edit.css` to conform to the existing channel layouts:
 
-    width: 250px;
-    height: 150px;
-    border: 1px solid rgb(202, 206, 215);
+```css
+width: 250px;
+height: 150px;
+border: 1px solid rgb(202, 206, 215);
+```
 
 Once you finish, don't forget to `gulp` everything to apply your new layout.
 
