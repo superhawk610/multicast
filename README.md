@@ -1,5 +1,7 @@
-MultiCast v0.2
+MultiCast v1.0
 =========
+
+[![npm version](https://badge.fury.io/js/multicast.svg)](https://badge.fury.io/js/multicast)
 
 :green_heart: A persistent solution to presenting content across multiple Chromecast devices, inspired by [Greenscreen](http://greenscreen.io/).
 
@@ -78,7 +80,17 @@ Once you've done this, log in to the [Cast Developer SDK Console](https://cast.g
 
 You now need to register your Chromecast devices as developer devices. For each device, locate the Serial Number (located on the back of the device and on the box), click **Add New Device**, and enter the Serial Number and a brief Description. (**NOTE**: This may take up to 15 minutes to take effect. Go grab a cup of coffee and then head back.)
 
-Clone this repository to your local machine, then head into the cloned directory and create a `.config` file for your setup.
+Installation is a snap with NPM.
+
+```shell
+npm i multicast -g
+multicast config
+multicast start
+```
+
+Head over to `http://YOUR_LOCAL_IP:3944/` in your browser to get started, then simply follow the [Usage](#usage) guide to get off the ground.
+
+For development, you can install locally via Github - clone this repository to your local machine, then head into the cloned directory and create a `.config` file for your setup.
 
 ```shell
 git clone https://github.com/superhawk610/multicast
@@ -106,15 +118,6 @@ Run the application
 ```shell
 node .
 ```
-
-Alternatively, you may install multicast as a binary and run from there
-
-```shell
-npm install -g
-multicast
-```
-
-Head over to `http://YOUR_LOCAL_IP:3944/` in your browser to get started, then simply follow the [Usage](#usage) guide to get off the ground.
 
 ### Firewall Settings
 
