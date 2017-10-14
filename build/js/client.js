@@ -23,6 +23,34 @@ socket.on('push', function(opts) {
   })
 })
 
+socket.on('rotate', function(position) {
+  var bdy = $('body');
+  switch(position) {
+    case '0':
+      bdy.removeClass(removeBodyRotation);
+      break;
+    case '90':
+      bdy.removeClass(removeBodyRotation);
+      bdy.addClass('rot90');
+      break;
+    case '180':
+      bdy.removeClass(removeBodyRotation);
+      bdy.addClass('rot180');
+      break;
+    case '270':
+      bdy.removeClass(removeBodyRotation);
+      bdy.addClass('rot270');
+      break;
+    default:
+      console.log('Invalid parameter to Rotate event...ignoring');
+  }
+});
+
+// Function passed to $('body').removeClass()
+function removeBodyRotation(index, css) {
+  return (css.match (/(^|\s)rot\S+/g) || []).join(' ');
+}
+
 /* Google Cast */
 if (cast) {
   cast.receiver.logger.setLevelValue(0);
