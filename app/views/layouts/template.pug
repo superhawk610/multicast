@@ -5,7 +5,7 @@ html(lang='en')
     include ../include/head.pug
     link(rel='stylesheet', href='/css/channel.css')
 
-  body.layout-name
+  body(class='layout-name' + rotation)
     include ../include/toast.pug
     if channel.URLS != null && channel.URLs.length
       each u in channel.URLS

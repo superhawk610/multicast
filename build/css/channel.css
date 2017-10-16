@@ -27,7 +27,7 @@ body.right-panel iframe:nth-of-type(2) {
   width: 20vw; height: 100vh;
 }
 
-.rot0 {
+.rot0, .fullscreen {
   width: 100vh;
   height: 100vw;
 }
