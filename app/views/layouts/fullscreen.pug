@@ -4,7 +4,7 @@ html(lang='en')
     title Multicast | #{channel.name}
     include ../include/head.pug
     link(rel='stylesheet', href='/css/channel.css')
-    body(class='fullscreen ' + rotation)
+    body.fullscreen(class=rotation)
       include ../include/toast.pug
       if channel.URLs != null && channel.URLs.length
         iframe(src=channel.URLs[0], frameborder=0, framespacing=0)

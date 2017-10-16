@@ -544,10 +544,3 @@ server.listen(port, () => {
 /* Utility */
 
 var stripIPv6 = ip => ip.replace(/^.*:/, '')
-
-/* Neccessary Function to fetch rotation */
-function getRotationFromDeviceID(id) {
-  for (var i = 0; i <= devices.length; i++) {
-
-  }
-}
