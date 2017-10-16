@@ -72,7 +72,7 @@ sudo apt-get install build-essential libavahi-compat-libdnssd-dev
 
 If you don't already have access to a MongoDB server installation, follow the guide [here](https://docs.mongodb.com/manual/administration/install-community/).
 
-Grab the latest stable copy of Node/NPM from [here](https://nodejs.org/en/download/) or install it via [nvm](http://nvm.sh). (**NOTE**: Avoid Node 8.6 for now, it breaks compability with node_mdns. See [this](https://github.com/agnat/node_mdns/pull/200) for more details).
+Grab the latest stable copy of Node/NPM from [here](https://nodejs.org/en/download/) or install it via [nvm](http://nvm.sh). (**NOTE**: Avoid Node 8.6+ for now, it breaks compability with node_mdns. See [this](https://github.com/agnat/node_mdns/pull/200) for more details).
 
 In order to access the Chromecast API, you need to [register as a Cast developer](https://cast.google.com/publish/) (it costs $5).
 
@@ -166,7 +166,7 @@ Make sure they've already been setup and powered on and the display that they're
 
 If you can view them from other Cast-enabled apps but not from Multicast, its likely an issue with your firewall. Make sure you configured your firewall correctly (see [Firewall Settings](#firewall-settings)).
 
-**Using Node 8.6?**
+**Using Node 8.6+?**
 The most recent version of node_mdns has an incompatibility with v8.6 due to changed syntax for a method (see [this pull request](https://github.com/agnat/node_mdns/pull/200)). Until it is fixed in the main branch, you will need to patch it yourself. Edit `node_modules/mdns/lib/resolver_sequence_tasks.js` and make the following change (roughly line 115):
 
 ```diff
@@ -187,14 +187,26 @@ If you run into any problems while using this, please report them [here](https:/
 
 ## Authors
 
-- <img src="https://avatars0.githubusercontent.com/u/18172185?v=4&s=64" width=32> Aaron Ross - *initial work* - [superhawk610](https://github.com/superhawk610)
+![superhawk610](https://avatars0.githubusercontent.com/u/18172185?v=4&s=32) Aaron Ross - *initial work* - [superhawk610](https://github.com/superhawk610)
+
+![Brekmister](https://avatars0.githubusercontent.com/u/8389366?v=4&s=32) [Brekmister](https://github.com/Brekmister) - *contributor*
+
+![ocelotsloth](https://avatars0.githubusercontent.com/u/9255772?v=4&s=32) Mark Stenglein - *contributor* - [ocelotsloth](https://github.com/ocelotsloth)
 
 ## Contributing
 
-- Follow the existing code formatting (2 spaces, not tabs, no hanging brackets, etc)
+- Follow the existing code formatting (2 spaces, not tabs, no hanging brackets, no semicolons, etc)
 - Comment your code to explain anything more complex than a routine action
 - Provide rationale for any changes you request
 - Use thorough commit/pull request messages
+
+### Active Branches
+
+**main** (*stable*) all features in this branch are fully implemented and ready to go
+
+**rotation** (*unstable*) this branch adds the ability to display channels at 90/180/270 degress of rotation
+
+**authentication** (*unstable*) this branch adds a login page and POST/DELETE request verification
 
 ### Creating Layouts
 
