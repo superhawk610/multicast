@@ -38,6 +38,17 @@ form#edit-device
             option(value=c._id)= c.name
       else
         option(selected, disabled, value='') No channels available.
+  .form-group
+    label.form-label.label-lg(for='device-rotation') Rotation
+    select.form-select.input-lg#device-rotation(name='rotation')
+      if rotations.length
+        each rot in rotations
+          if device && device.rotation && (rot.value == device.rotation)
+            option(value=rot.value, selected)= rot.description
+          else
+            option(value=rot.value)= rot.description
+      else
+        option(value='0', selected) Something went wrong...
   .columns(style='margin-top: 15px')
     if device
       .column

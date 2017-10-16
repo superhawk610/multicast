@@ -23,6 +23,11 @@ socket.on('push', function(opts) {
   })
 })
 
+// Function passed to $('body').removeClass()
+function removeBodyRotation(index, css) {
+  return (css.match (/(^|\s)rot\S+/g) || []).join(' ');
+}
+
 /* Google Cast */
 if (cast) {
   cast.receiver.logger.setLevelValue(0);
