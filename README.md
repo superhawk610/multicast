@@ -208,6 +208,8 @@ If you run into any problems while using this, please report them [here](https:/
 
 **authentication** (*unstable*) this branch adds a login page and POST/DELETE request verification
 
+**logging** (*unstable*) this branch adds real-time logging & monitoring of all console/page-load errors from receiver devices back to Multicast's web interface
+
 ### Creating Layouts
 
 Creating a channel layout is simple, and consists of two things:
