@@ -64,8 +64,14 @@ This project requires Node.js and NPM (bundled with Node), as well as a MongoDB 
 
 This project depends on [node_mdns](https://github.com/agnat/node_mdns), which in turn requires a mDNS stack. Follow the installation instructions [here](https://github.com/agnat/node_mdns#installation) for whichever platform you are on to install a mDNS stack. If you're on Linux, this is as simple as
 
+#### Debian/Ubuntu
 ```shell
 sudo apt-get install build-essential libavahi-compat-libdnssd-dev
+```
+
+#### RedHat/Fedora/CentOS
+```shell
+sudo yum install gcc gcc-c++ avahi avahi-compat-libdns_sd avahi-compat-libdns_sd-devel
 ```
 
 ### Setup
@@ -180,6 +186,9 @@ The most recent version of node_mdns has an incompatibility with v8.6 due to cha
          getaddrinfo_complete(err, addresses, cb);
 
 ```
+
+**Using CentOS?**
+There appears to be a number of issues when running on CentOS, and we are actively attempting to address them. See #23 for status and updates.
 
 ### Issues
 
