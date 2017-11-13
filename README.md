@@ -78,7 +78,7 @@ sudo yum install gcc gcc-c++ avahi avahi-compat-libdns_sd avahi-compat-libdns_sd
 
 If you don't already have access to a MongoDB server installation, follow the guide [here](https://docs.mongodb.com/manual/administration/install-community/).
 
-Grab the latest stable copy of Node/NPM from [here](https://nodejs.org/en/download/) or install it via [nvm](http://nvm.sh). (**NOTE**: Avoid Node 8.6+ for now, it breaks compability with node_mdns. See [this](https://github.com/agnat/node_mdns/pull/200) for more details).
+Grab the latest stable copy of Node/NPM from [here](https://nodejs.org/en/download/) or install it via [nvm](http://nvm.sh).
 
 In order to access the Chromecast API, you need to [register as a Cast developer](https://cast.google.com/publish/) (it costs $5).
 
@@ -173,6 +173,9 @@ Make sure they've already been setup and powered on and the display that they're
 If you can view them from other Cast-enabled apps but not from Multicast, its likely an issue with your firewall. Make sure you configured your firewall correctly (see [Firewall Settings](#firewall-settings)).
 
 **Using Node 8.6+?**
+
+**EDIT:** This has been patched as of node_mdns 2.3.4. This fix is no longer required.
+
 The most recent version of node_mdns has an incompatibility with v8.6 due to changed syntax for a method (see [this pull request](https://github.com/agnat/node_mdns/pull/200)). Until it is fixed in the main branch, you will need to patch it yourself. Edit `node_modules/mdns/lib/resolver_sequence_tasks.js` and make the following change (roughly line 115):
 
 ```diff
