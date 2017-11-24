@@ -28,8 +28,8 @@ body.right-panel iframe:nth-of-type(2) {
 }
 
 .rot0, .fullscreen {
-  width: 100vh;
-  height: 100vw;
+  width: 100vw;
+  height: 100vh;
 }
 
 .rot90 {
