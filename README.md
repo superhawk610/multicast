@@ -207,6 +207,7 @@ If you run into any problems while using this, please report them [here](https:/
 
 ## Contributing
 
+- **NEW**: Use a code editor that supports [Prettier](https://prettier.io/) and the included `.prettierrc.yml`
 - Follow the existing code formatting (2 spaces, not tabs, no hanging brackets, no semicolons, etc)
 - Comment your code to explain anything more complex than a routine action
 - Provide rationale for any changes you request
