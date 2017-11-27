@@ -217,7 +217,9 @@ If you run into any problems while using this, please report them [here](https:/
 
 **main** (*stable*) all features in this branch are fully implemented and ready to go
 
-**rotation** (*unstable*) this branch adds the ability to display channels at 90/180/270 degress of rotation
+**api** (*unstable*) this branch implements receiver grouping and remote control by splitting all functions out into an independent REST API
+
+**rotation** (*stable*) this branch adds the ability to display channels at 90/180/270 degress of rotation
 
 **authentication** (*unstable*) this branch adds a login page and POST/DELETE request verification
 
