@@ -42,6 +42,7 @@
     "spectre.css": "^0.4.3"
   },
   "devDependencies": {
+    "prettier": "git+https://github.com/superhawk610/prettier.git",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.9.0",
     "gulp-uglify-es": "^0.1.3"
