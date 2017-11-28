@@ -4,5 +4,5 @@ useTabs:        false
 tabWidth:       2
 semi:           false
 singleQuote:    true
-trailingComma:  false
+trailingComma:  'none'
 bracketSpacing: true

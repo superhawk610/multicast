@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// prettier-ignore-block
 if (process.argv.length == 2) {                                             // run with no arguments, display help
   console.log('Multicast is a persistent solution to presenting content across multiple Chromecast devices.')
   console.log('')
@@ -14,3 +15,4 @@ if (process.argv.length == 2) {                                             // r
   if (process.argv.find(arg => arg == 'config')) require('./app/config.js') // run configuration
   else require('./app/main.js')                                             // start application
 }
+// prettier-ignore-block
