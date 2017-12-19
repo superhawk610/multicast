@@ -64,7 +64,8 @@ var startConfig = () => {
         console.log('')
         console.log('Configuration updated! To get started, just run\n' +
           '\n' +
-          '  multicast start')
+          '  multicast start'
+          '\n')
       })
       rl.close()
     } else {
