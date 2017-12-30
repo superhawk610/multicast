@@ -1,8 +1,7 @@
 {
   "name": "multicast",
   "version": "1.1.0",
-  "description":
-    "Service for persisting a session indefinitely across multiple Chromecast devices.",
+  "description": "Service for persisting a session indefinitely across multiple Chromecast devices.",
   "main": "index.js",
   "scripts": {
     "prepublishOnly": "gulp",
@@ -16,9 +15,14 @@
     "type": "git",
     "url": "git+https://github.com/superhawk610/multicast.git"
   },
-  "keywords": ["chrome", "chromecast", "multiple", "screens", "persist"],
-  "author":
-    "Aaron Ross <superhawk610@gmail.com> (https://github.com/superhawk610)",
+  "keywords": [
+    "chrome",
+    "chromecast",
+    "multiple",
+    "screens",
+    "persist"
+  ],
+  "author": "Aaron Ross <superhawk610@gmail.com> (https://github.com/superhawk610)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/superhawk610/multicast/issues"
@@ -28,6 +32,7 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.18.2",
     "castv2": "^0.1.9",
+    "cors": "^2.8.4",
     "express": "^4.16.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",

@@ -4,6 +4,7 @@
 const express     = require('express')
 const app         = express()
 const server      = require('http').createServer(app)
+const cors        = require('cors')
 const mongoose    = require('mongoose')
 mongoose.Promise  = require('bluebird')
 const bodyParser  = require('body-parser')
@@ -27,26 +28,6 @@ const port        = config.port
 const serveOnly   = process.argv.find(arg => arg == '--serve-only')
 // prettier-ignore-block
 
-/* List of device rotations */
-const rotations = [
-  {
-    value: 'rot0',
-    description: 'Landscape'
-  },
-  {
-    value: 'rot90',
-    description: 'Portrait'
-  },
-  {
-    value: 'rot180',
-    description: 'Landscape Reversed'
-  },
-  {
-    value: 'rot270',
-    description: 'Portrait Reversed'
-  }
-]
-
 /* Establish database connection */
 dbConnect(config)
 
@@ -57,6 +38,7 @@ channels.init()
 sockets.init(server)
 
 /* Express Setup */
+app.use(cors())
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'views'))
 app.use(bodyParser.urlencoded({ extended: false }))

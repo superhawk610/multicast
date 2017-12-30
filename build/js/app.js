@@ -36,6 +36,7 @@ function displayError(message) {
 }
 
 function checkFrame(frame) {
+  console.log('checking')
   var html,
     failed = false
   try {
@@ -51,5 +52,8 @@ function checkFrame(frame) {
 }
 
 $('iframe').each(function(i) {
-  checkFrame(this)
+  $(this).on('load error', function() {
+    console.log(this)
+    checkFrame(this)
+  })
 })

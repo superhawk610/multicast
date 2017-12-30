@@ -9,6 +9,10 @@ const func = {
   init: server => {
     io = require('socket.io')(server)
     io.on('connection', client => {
+      console.log(
+        'connected client with host:',
+        stripIPv6(client.handshake.address)
+      )
       clients.push(client)
       client.on('disconnect', () => {
         console.log(
