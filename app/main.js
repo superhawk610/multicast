@@ -27,6 +27,26 @@ const port        = config.port
 const serveOnly   = process.argv.find(arg => arg == '--serve-only')
 // prettier-ignore-block
 
+/* List of device rotations */
+const rotations = [
+  {
+    value: 'rot0',
+    description: 'Landscape'
+  },
+  {
+    value: 'rot90',
+    description: 'Portrait'
+  },
+  {
+    value: 'rot180',
+    description: 'Landscape Reversed'
+  },
+  {
+    value: 'rot270',
+    description: 'Portrait Reversed'
+  }
+]
+
 /* Establish database connection */
 dbConnect(config)
 
@@ -90,7 +110,7 @@ app.use('/takeover', require('./routes/takeover'))
 /* Server */
 server.listen(port, () => {
   console.log('MultiCast is live!')
-  console.log(`listening at port ${port}...`)
+  console.log(`Listening at port ${port}...`)
 
   if (!serveOnly) {
     /* poll for active devices */

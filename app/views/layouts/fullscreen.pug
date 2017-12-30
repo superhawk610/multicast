@@ -5,7 +5,7 @@ html(lang='en')
     include ../include/head.pug
     link(rel='stylesheet', href='/css/channel.css')
 
-  body.fullscreen
+  body.fullscreen(class=rotation)
     include ../include/error.pug
     include ../include/toast.pug
     if channel.URLs != null && channel.URLs.length
