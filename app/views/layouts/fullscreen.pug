@@ -6,6 +6,7 @@ html(lang='en')
     link(rel='stylesheet', href='/css/channel.css')
 
   body.fullscreen
+    include ../include/error.pug
     include ../include/toast.pug
     if channel.URLs != null && channel.URLs.length
       iframe(src=channel.URLs[0], frameborder=0, framespacing=0)

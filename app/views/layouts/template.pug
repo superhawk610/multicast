@@ -6,6 +6,7 @@ html(lang='en')
     link(rel='stylesheet', href='/css/channel.css')
 
   body.layout-name
+    include ../include/error.pug
     include ../include/toast.pug
     if channel.URLS != null && channel.URLs.length
       each u in channel.URLS
