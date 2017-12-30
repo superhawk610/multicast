@@ -2,6 +2,7 @@ MultiCast v1.0
 =========
 
 [![npm version](https://badge.fury.io/js/multicast.svg)](https://badge.fury.io/js/multicast)
+[![Build Status](https://travis-ci.org/superhawk610/multicast.svg?branch=wip)](https://travis-ci.org/superhawk610/multicast)
 
 :green_heart: A persistent solution to presenting content across multiple Chromecast devices, inspired by [Greenscreen](http://greenscreen.io/).
 

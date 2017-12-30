@@ -1,5 +1,5 @@
 h1 Chromecasts  
-  a.btn.btn-primary.float-right(href='/device/new')
+  a.btn.btn-primary.float-right(href='/devices/new')
     i.fa.fa-plus
     | &nbsp;&nbsp;Register Chromecast
 table.table
@@ -14,21 +14,21 @@ table.table
         tr
           td
             if d.unregistered
-              a.badge(href='/device/new', class=d.status)= d.name
+              a.badge(href='/devices/new', class=d.status)= d.name
               div Unregistered
             else
-              a.badge(href=`/device/${d.deviceId}/edit`, class=d.status)= d.name
+              a.badge(href=`/devices/${d.deviceId}/edit`, class=d.status)= d.name
               div= d.location
           td
             if d.unregistered
-              | unregistered
+              span(style='color: #ccc') unregistered
             else
               if d.channel
-                a(href=`/channel/${d.channel._id}/edit`)= d.channel.name
+                a(href=`/channels/${d.channel._id}/edit`)= d.channel.name
               else
                 .text-gray no channel
           td.text-right
-            a(href=`/device/${d.deviceId}`) Preview
+            a(href=`/devices/${d.deviceId}`) Preview
     else
       tr
         td.text-gray(colspan=42) No devices available.

@@ -1,7 +1,9 @@
 /* socket.io */
 var socket = io()
 
-socket.on('connect', function () { })
+console.log('establishing socket.io connection')
+
+socket.on('connect', function () { console.log('connection established!') })
 socket.on('disconnect', function() { })
 socket.on('refresh', function() { location.reload(true) })
 
