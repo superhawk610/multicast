@@ -20,6 +20,8 @@ const devices     = require('./lib/devices')
 const channels    = require('./lib/channels')
 const sockets     = require('./lib/sockets')
 const takeover    = require('./lib/takeover')
+const connection  = require('./lib/connection')
+const ux          = require('./lib/ux')
 
 const port        = config.port
 const serveOnly   = process.argv.find(arg => arg == '--serve-only')
@@ -39,6 +41,8 @@ app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'views'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.resolve(__dirname, '..', 'public')))
+app.locals.connection = connection
+app.locals.ux = ux
 
 /* Home Page */
 app.get('/', (req, res) => {
@@ -91,10 +95,5 @@ server.listen(port, () => {
   if (!serveOnly) {
     /* poll for active devices */
     devices.init()
-
-    /* start interval to continue polling for device status */
-    setInterval(() => {
-      devices.refresh()
-    }, 30 * 1000)
   }
 })
