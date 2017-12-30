@@ -2,6 +2,7 @@ MultiCast v1.0
 =========
 
 [![npm version](https://badge.fury.io/js/multicast.svg)](https://badge.fury.io/js/multicast)
+[![Build Status](https://travis-ci.org/superhawk610/multicast.svg?branch=wip)](https://travis-ci.org/superhawk610/multicast)
 
 :green_heart: A persistent solution to presenting content across multiple Chromecast devices, inspired by [Greenscreen](http://greenscreen.io/).
 
@@ -64,15 +65,21 @@ This project requires Node.js and NPM (bundled with Node), as well as a MongoDB 
 
 This project depends on [node_mdns](https://github.com/agnat/node_mdns), which in turn requires a mDNS stack. Follow the installation instructions [here](https://github.com/agnat/node_mdns#installation) for whichever platform you are on to install a mDNS stack. If you're on Linux, this is as simple as
 
+#### Debian/Ubuntu
 ```shell
 sudo apt-get install build-essential libavahi-compat-libdnssd-dev
+```
+
+#### RedHat/Fedora/CentOS
+```shell
+sudo yum install gcc gcc-c++ avahi avahi-compat-libdns_sd avahi-compat-libdns_sd-devel
 ```
 
 ### Setup
 
 If you don't already have access to a MongoDB server installation, follow the guide [here](https://docs.mongodb.com/manual/administration/install-community/).
 
-Grab the latest stable copy of Node/NPM from [here](https://nodejs.org/en/download/) or install it via [nvm](http://nvm.sh). (**NOTE**: Avoid Node 8.6 for now, it breaks compability with node_mdns. See [this](https://github.com/agnat/node_mdns/pull/200) for more details).
+Grab the latest stable copy of Node/NPM from [here](https://nodejs.org/en/download/) or install it via [nvm](http://nvm.sh).
 
 In order to access the Chromecast API, you need to [register as a Cast developer](https://cast.google.com/publish/) (it costs $5).
 
@@ -166,7 +173,10 @@ Make sure they've already been setup and powered on and the display that they're
 
 If you can view them from other Cast-enabled apps but not from Multicast, its likely an issue with your firewall. Make sure you configured your firewall correctly (see [Firewall Settings](#firewall-settings)).
 
-**Using Node 8.6?**
+**Using Node 8.6+?**
+
+**EDIT:** This has been patched as of node_mdns 2.3.4. This fix is no longer required.
+
 The most recent version of node_mdns has an incompatibility with v8.6 due to changed syntax for a method (see [this pull request](https://github.com/agnat/node_mdns/pull/200)). Until it is fixed in the main branch, you will need to patch it yourself. Edit `node_modules/mdns/lib/resolver_sequence_tasks.js` and make the following change (roughly line 115):
 
 ```diff
@@ -181,20 +191,40 @@ The most recent version of node_mdns has an incompatibility with v8.6 due to cha
 
 ```
 
+**Using CentOS?**
+There appears to be a number of issues when running on CentOS, and we are actively attempting to address them. See #23 for status and updates.
+
 ### Issues
 
 If you run into any problems while using this, please report them [here](https://github.com/superhawk610/multicast/issues).
 
 ## Authors
 
-- <img src="https://avatars0.githubusercontent.com/u/18172185?v=4&s=64" width=32> Aaron Ross - *initial work* - [superhawk610](https://github.com/superhawk610)
+![superhawk610](https://avatars0.githubusercontent.com/u/18172185?v=4&s=32) Aaron Ross - *initial work* - [superhawk610](https://github.com/superhawk610)
+
+![Brekmister](https://avatars0.githubusercontent.com/u/8389366?v=4&s=32) [Brekmister](https://github.com/Brekmister) - *contributor*
+
+![ocelotsloth](https://avatars0.githubusercontent.com/u/9255772?v=4&s=32) Mark Stenglein - *contributor* - [ocelotsloth](https://github.com/ocelotsloth)
 
 ## Contributing
 
-- Follow the existing code formatting (2 spaces, not tabs, no hanging brackets, etc)
+- **NEW**: Use a code editor that supports [Prettier](https://prettier.io/) and the included `.prettierrc.yml`
+- Follow the existing code formatting (2 spaces, not tabs, no hanging brackets, no semicolons, etc)
 - Comment your code to explain anything more complex than a routine action
 - Provide rationale for any changes you request
 - Use thorough commit/pull request messages
+
+### Active Branches
+
+**main** (*stable*) all features in this branch are fully implemented and ready to go
+
+**api** (*unstable*) this branch implements receiver grouping and remote control by splitting all functions out into an independent REST API
+
+**rotation** (*stable*) this branch adds the ability to display channels at 90/180/270 degress of rotation
+
+**authentication** (*unstable*) this branch adds a login page and POST/DELETE request verification
+
+**logging** (*unstable*) this branch adds real-time logging & monitoring of all console/page-load errors from receiver devices back to Multicast's web interface
 
 ### Creating Layouts
 

@@ -1,12 +1,13 @@
 {
   "name": "multicast",
-  "version": "1.0.0",
-  "description": "Service for persisting a session indefinitely across multiple Chromecast devices.",
+  "version": "1.1.0",
+  "description":
+    "Service for persisting a session indefinitely across multiple Chromecast devices.",
   "main": "index.js",
   "scripts": {
-    "postinstall": "gulp",
+    "prepublishOnly": "gulp",
     "start": "node .",
-    "test": "echo \"No tests configured\""
+    "test": "echo \"No tests configured\" && exit 0"
   },
   "bin": {
     "multicast": "index.js"
@@ -15,14 +16,9 @@
     "type": "git",
     "url": "git+https://github.com/superhawk610/multicast.git"
   },
-  "keywords": [
-    "chrome",
-    "chromecast",
-    "multiple",
-    "screens",
-    "persist"
-  ],
-  "author": "Aaron Ross <superhawk610@gmail.com> (https://github.com/superhawk610)",
+  "keywords": ["chrome", "chromecast", "multiple", "screens", "persist"],
+  "author":
+    "Aaron Ross <superhawk610@gmail.com> (https://github.com/superhawk610)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/superhawk610/multicast/issues"
@@ -42,6 +38,7 @@
     "spectre.css": "^0.4.3"
   },
   "devDependencies": {
+    "prettier": "git+https://github.com/superhawk610/prettier.git",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.9.0",
     "gulp-uglify-es": "^0.1.3"

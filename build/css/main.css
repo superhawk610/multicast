@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   background: #f8f9fa;
 }
 
@@ -6,7 +7,8 @@ html, body {
   width: 400px;
   max-width: 100%;
   position: fixed;
-  bottom: 20px; right: 20px;
+  bottom: 20px;
+  right: 20px;
 }
 
 .toast .title,
@@ -14,12 +16,18 @@ html, body {
   margin: 0;
 }
 
-.toast .title  + .text {
-  margin-top: .25em;
+.toast .title + .text {
+  margin-top: 0.25em;
 }
 
-.toast :empty {
+.toast:empty {
   display: none;
+}
+
+.connection-errors > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 #wrapper {
@@ -44,7 +52,7 @@ html, body {
 .btn-error:hover,
 .btn-error:focus,
 .btn-error:active {
-  border-color: #e85600;  
+  border-color: #e85600;
   background: #df5200;
   color: #fff;
 }
