@@ -10,9 +10,9 @@ html(lang='en')
     include ../include/toast.pug
     if channel.URLS != null && channel.URLs.length
       each u in channel.URLS
-        iframe(src=u, frameborder=0, framespacing=0)
+        iframe(src=u[0], frameborder=0, framespacing=0)
       
-
+    include ../include/rotation.pug
     script(type='text/javascript', src='/js/jquery.min.js')
     script(type='text/javascript', src='/socket.io/socket.io.js')
     if casting

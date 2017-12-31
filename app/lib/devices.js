@@ -15,7 +15,6 @@ const func = {
     Chromecast.find()
       .populate('channel')
       .exec((err, chromecasts) => {
-        console.log(chromecasts)
         devices = chromecasts
         devices.forEach(d => (d.status = 'offline'))
         findDevices()

@@ -72,7 +72,6 @@ router
   .route('/:device_id/edit')
   .get((req, res) => {
     let d = devices.withId(req.params.device_id)
-    console.log('rotation', d.rotation)
     if (d) {
       res.render('index', {
         render: 'device',

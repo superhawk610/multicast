@@ -24,7 +24,8 @@ body {
   display: none;
 }
 
-.connection-errors > ul {
+.connection-errors > ul,
+.status-messages > ul {
   list-style: none;
   margin: 0;
   padding: 0;
