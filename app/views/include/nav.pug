@@ -7,4 +7,24 @@ header.navbar.bg-success(style='padding: 0.3em')
     a.btn.btn-link(style='color: #fff', href='/devices') Devices
     a.btn.btn-link(style='color: #fff', href='/channels') Channels
 
+if connection.hasErrors()
+  .toast.toast-error.connection-errors
+    strong= ux.error()
+    ul
+      each e in connection.getErrors()
+        each m in e.messages
+          li
+            strong= e.name
+            | &nbsp;
+            i.fa.fa-angle-right
+            | &nbsp;
+            = m
+
+if connection.hasStatus()
+  .toast.status-messages
+    strong Active Status Conditions
+    ul
+      each s in connection.getStatus()
+        li= s
+  
 include toast.pug

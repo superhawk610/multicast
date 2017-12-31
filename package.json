@@ -1,12 +1,12 @@
 {
   "name": "multicast",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Service for persisting a session indefinitely across multiple Chromecast devices.",
   "main": "index.js",
   "scripts": {
     "prepublishOnly": "gulp",
     "start": "node .",
-    "test": "echo \"No tests configured\""
+    "test": "echo \"No tests configured\" && exit 0"
   },
   "bin": {
     "multicast": "index.js"
@@ -32,6 +32,7 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.18.2",
     "castv2": "^0.1.9",
+    "cors": "^2.8.4",
     "express": "^4.16.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",

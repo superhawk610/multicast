@@ -10,8 +10,14 @@ if (process.argv.length == 2) {                                             // r
   console.log('                 start   start Multicast as a foreground process')
   console.log('')
   console.log('Flags:')
+  console.log('         -v, --version   print application version')
   console.log('          --serve-only   do not run the mDNS server (won\'t interrupt existing receivers)')
 } else {
+  if (process.argv.find(arg => arg == '-v' || arg == '--version')) {
+    console.log(`Multicast v${require('./package.json').version}`)
+    console.log('Author: Aaron Ross (@superhawk610)')
+    process.exit(0)
+  }
   if (process.argv.find(arg => arg == 'config')) require('./app/config.js') // run configuration
   else require('./app/main.js')                                             // start application
 }
