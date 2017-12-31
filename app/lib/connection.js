@@ -99,16 +99,28 @@ let func = {
     hasErrors: () => Object.keys(errors).length > 0,
     getErrors: () => errors,
     addError: (device, message) => {
-      if (!errors[device.deviceId])
-        errors[device.deviceId] = {
-          name: device.location,
+      // you can pass a tag directly instead of a device
+      let tag = typeof device === 'object' ? device.deviceId : device
+      if (!errors[tag])
+        errors[tag] = {
+          name: typeof device === 'object' ? device.location : device,
           messages: []
         }
-      if (errors[device.deviceId].messages.indexOf(message) == -1)
-        errors[device.deviceId].messages.push(message)
+      if (errors[tag].messages.indexOf(message) == -1)
+        errors[tag].messages.push(message)
     },
-    clearErrors: device => delete errors[device.deviceId]
+    clearErrors: device =>
+      delete errors[typeof device === 'object' ? device.deviceId : device],
+    hasStatus: () => status.length > 0,
+    getStatus: () => status.map(s => s.message),
+    addStatus: (tag, message) =>
+      status.push({
+        tag: tag,
+        message: message
+      }),
+    clearStatus: tag => (status = status.filter(s => s.tag != tag))
   },
-  errors = {}
+  errors = {},
+  status = []
 
 module.exports = func

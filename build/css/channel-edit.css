@@ -5,7 +5,7 @@
 
 #channel-layout .layout:not(:last-child) {
   margin-right: 15px;
-}  
+}
 
 #channel-layout .layout label {
   margin-top: 8px;
@@ -46,20 +46,47 @@
 }
 
 #channel-layout .layout.right-panel .contents::after {
-  content: "2";
+  content: '2';
   position: absolute;
-  top: -1px; right: -50px;
-  height: 150px; width: 50px;
+  top: -1px;
+  right: -50px;
+  height: 150px;
+  width: 50px;
   display: block;
   line-height: 146px;
   border: 1px solid rgb(202, 206, 215);
   border-left: none;
 }
 
-#channel-layout ~ .display-section:not(.visible) {
+#channel-list .display-section:not(.visible) {
   display: none;
 }
 
-#channel-layout + .display-section {
+#channel-list .display-section {
   display: block;
+}
+
+#channel-list .form-group > label {
+  display: inline-block;
+  width: 65px;
+}
+
+#channel-list .form-group > input {
+  display: inline-block;
+  width: calc(100% - 65px);
+}
+
+#channel-list .form-group > input.pad-right {
+  display: inline-block;
+  width: calc(100% - 110px);
+}
+
+#channel-list .form-group > button {
+  display: inline-block;
+  vertical-align: top;
+  width: 26px;
+}
+
+#rotation-duration button:not(:last-of-type) {
+  margin-right: 10px;
 }

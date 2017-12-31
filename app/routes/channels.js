@@ -7,6 +7,8 @@ const Chromecast = require('../models/Chromecast')
 const Channel = require('../models/Channel')
 
 const port = require('../lib/config').port
+const squashKeyedArrays = require('../lib/squashKeyedArrays')
+const cleanObject = require('../lib/cleanObject')
 
 router.use((req, res, next) => {
   if (req.body.URLs) req.body.URLs = req.body.URLs.filter(u => u.trim() != '')
@@ -49,7 +51,13 @@ router
       })
     else res.render('index', {})
   })
-  .post((req, res) => channels.update(req.params.channel_id, req.body, id => res.send(id)))
-  .delete((req, res) => channels.remove(req.params.channel_id, () => res.sendStatus(200)))
+  .post((req, res) => {
+    channels.update(req.params.channel_id, squashKeyedArrays(req.body), id =>
+      res.send(id)
+    )
+  })
+  .delete((req, res) =>
+    channels.remove(req.params.channel_id, () => res.sendStatus(200))
+  )
 
 module.exports = router

@@ -50,6 +50,31 @@ function checkFrame(frame) {
     displayError('Frame loading blocked due to cross-origin prevention')
 }
 
+function checkCORS() {
+  $('#error')
+    .empty()
+    .hide()
+  if (window.rotationDuration) setTimeout(rotateChannels, rotationDuration)
+}
+
+function rotateChannels() {
+  if (window.rotationChannels) {
+    $('iframe').each(function(i) {
+      var rotationIndex = $(this).attr('data-rotation-index') || 0
+      if (rotationIndex < rotationChannels[i].length - 1) rotationIndex++
+      else rotationIndex = 0
+      $(this).attr('data-rotation-index', rotationIndex)
+      $(this).attr('src', rotationChannels[i][rotationIndex])
+    })
+    checkCORS()
+  }
+}
+
 $('iframe').each(function(i) {
-  checkFrame(this)
+  $(this)
+    .off()
+    .on('load error', function() {
+      checkFrame(this)
+    })
 })
+checkCORS()

@@ -129,7 +129,8 @@ const findDevices = () => {
           deviceId: id,
           name: service.txtRecord.fn,
           address: service.addresses[0],
-          port: service.port
+          port: service.port,
+          rotation: 'rot0'
         })
       }
     })

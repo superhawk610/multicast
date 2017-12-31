@@ -19,5 +19,12 @@ if connection.hasErrors()
             i.fa.fa-angle-right
             | &nbsp;
             = m
+
+if connection.hasStatus()
+  .toast.status-messages
+    strong Active Status Conditions
+    ul
+      each s in connection.getStatus()
+        li= s
   
 include toast.pug

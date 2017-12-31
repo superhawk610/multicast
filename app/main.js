@@ -4,6 +4,7 @@
 const express     = require('express')
 const app         = express()
 const server      = require('http').createServer(app)
+const cors        = require('cors')
 const mongoose    = require('mongoose')
 mongoose.Promise  = require('bluebird')
 const bodyParser  = require('body-parser')
@@ -37,6 +38,7 @@ channels.init()
 sockets.init(server)
 
 /* Express Setup */
+app.use(cors())
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'views'))
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -90,7 +92,7 @@ app.use('/takeover', require('./routes/takeover'))
 /* Server */
 server.listen(port, () => {
   console.log('MultiCast is live!')
-  console.log(`listening at port ${port}...`)
+  console.log(`Listening at port ${port}...`)
 
   if (!serveOnly) {
     /* poll for active devices */
