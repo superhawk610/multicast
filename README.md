@@ -72,7 +72,7 @@ sudo apt-get install build-essential libavahi-compat-libdnssd-dev
 
 #### RedHat/Fedora/CentOS
 ```shell
-sudo yum install gcc gcc-c++ avahi avahi-compat-libdns_sd avahi-compat-libdns_sd-devel
+sudo yum install gcc gcc-c++ avahi avahi-compat-libdns_sd avahi-compat-libdns_sd-devel nss_mdns
 ```
 
 ### Setup
@@ -191,8 +191,14 @@ The most recent version of node_mdns has an incompatibility with v8.6 due to cha
 
 ```
 
-**Using CentOS?**
-There appears to be a number of issues when running on CentOS, and we are actively attempting to address them. See #23 for status and updates.
+**Running CentOS and Seeing This Error?**
+```shell
+Error: getaddrinfo -3008
+```
+Make sure you have `nss_mdns` installed:
+```shell
+sudo yum install nss_mdns
+```
 
 ### Issues
 
@@ -200,11 +206,13 @@ If you run into any problems while using this, please report them [here](https:/
 
 ## Authors
 
-![superhawk610](https://avatars0.githubusercontent.com/u/18172185?v=4&s=32) Aaron Ross - *initial work* - [superhawk610](https://github.com/superhawk610)
+![superhawk610](https://avatars0.githubusercontent.com/u/18172185?v=4&s=32) Aaron Ross - *author* - [superhawk610](https://github.com/superhawk610)
 
 ![Brekmister](https://avatars0.githubusercontent.com/u/8389366?v=4&s=32) [Brekmister](https://github.com/Brekmister) - *contributor*
 
 ![ocelotsloth](https://avatars0.githubusercontent.com/u/9255772?v=4&s=32) Mark Stenglein - *contributor* - [ocelotsloth](https://github.com/ocelotsloth)
+
+![andrewpryor](https://avatars3.githubusercontent.com/u/1560890?s=460&v=4) Andrew Pryor - *contributor* - [andrewpryor](https://github.com/andrewpryor)
 
 ## Contributing
 
