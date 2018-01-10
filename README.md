@@ -212,7 +212,7 @@ If you run into any problems while using this, please report them [here](https:/
 
 ![ocelotsloth](https://avatars0.githubusercontent.com/u/9255772?v=4&s=32) Mark Stenglein - *contributor* - [ocelotsloth](https://github.com/ocelotsloth)
 
-![andrewpryor](https://avatars3.githubusercontent.com/u/1560890?s=460&v=4) Andrew Pryor - *contributor* - [andrewpryor](https://github.com/andrewpryor)
+![andrewpryor](https://avatars3.githubusercontent.com/u/1560890?v=4&s=32) Andrew Pryor - *contributor* - [andrewpryor](https://github.com/andrewpryor)
 
 ## Contributing
 
