@@ -1,32 +1,27 @@
 'use strict'
 
-// prettier-ignore-block
-const express     = require('express')
-const app         = express()
-const server      = require('http').createServer(app)
-const cors        = require('cors')
-const mongoose    = require('mongoose')
-mongoose.Promise  = require('bluebird')
-const bodyParser  = require('body-parser')
-const path        = require('path')
-const fs          = require('fs')
+const express = require('express')
+const app = express()
+const server = require('http').createServer(app)
+const cors = require('cors')
+const mongoose = require('mongoose')
+mongoose.Promise = require('bluebird')
+const bodyParser = require('body-parser')
+const path = require('path')
 
-const Chromecast  = require('./models/Chromecast')
+const config = require('./lib/config')
+const dbConnect = require('./lib/dbConnect')
+const stripIPv6 = require('./lib/stripIPv6')
 
-const config      = require('./lib/config')
-const dbConnect   = require('./lib/dbConnect')
-const stripIPv6   = require('./lib/stripIPv6')
+const devices = require('./lib/devices')
+const channels = require('./lib/channels')
+const sockets = require('./lib/sockets')
+const takeover = require('./lib/takeover')
+const connection = require('./lib/connection')
+const ux = require('./lib/ux')
 
-const devices     = require('./lib/devices')
-const channels    = require('./lib/channels')
-const sockets     = require('./lib/sockets')
-const takeover    = require('./lib/takeover')
-const connection  = require('./lib/connection')
-const ux          = require('./lib/ux')
-
-const port        = config.port
-const serveOnly   = process.argv.find(arg => arg == '--serve-only')
-// prettier-ignore-block
+const port = config.port
+const serveOnly = process.argv.find(arg => arg == '--serve-only')
 
 /* Establish database connection */
 dbConnect(config)
@@ -63,8 +58,8 @@ app.use('/message', require('./routes/message'))
 app.get('/landing', (req, res) => {
   var ip = stripIPv6(req.connection.remoteAddress), // Get IPv4 address of device
     d = devices.withHost(ip) // Find local info for device
-  if (d)
-    res.redirect(`/devices/${d.deviceId}`) // Redirect to device display // Display device info
+  if (d) res.redirect(`/devices/${d.deviceId}`)
+  // Redirect to device display // Display device info
   else
     res.render('setup-chromecast', {
       device: {
