@@ -1,6 +1,6 @@
 {
   "name": "multicast",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Service for persisting a session indefinitely across multiple Chromecast devices.",
   "main": "index.js",
   "scripts": {
