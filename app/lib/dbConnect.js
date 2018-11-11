@@ -11,9 +11,7 @@ module.exports = config => {
       `mongodb://${userPassword}${config.mongoHost}:${
         config.mongoPort
       }/multicast?authSource=${config.mongoAuthSource}`,
-      {
-        useMongoClient: true
-      }
+      { useNewUrlParser: true }
     )
-    .on('error', () => console.log('Could not connect to Mongo.'))
+    .catch(() => console.log('Could not connect to Mongo.'))
 }

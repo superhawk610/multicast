@@ -39,7 +39,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "mdns": "^2.4.0",
-    "mongoose": "^4.12.0",
+    "mongoose": "^5.3.11",
     "pug": "^2.0.0-rc.4",
     "socket.io": "^2.0.3",
     "spectre.css": "^0.4.3"
