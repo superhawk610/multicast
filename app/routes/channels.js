@@ -8,7 +8,6 @@ const Channel = require('../models/Channel')
 
 const port = require('../lib/config').port
 const squashKeyedArrays = require('../lib/squashKeyedArrays')
-const cleanObject = require('../lib/cleanObject')
 
 router.use((req, res, next) => {
   if (req.body.URLs) req.body.URLs = req.body.URLs.filter(u => u.trim() != '')
