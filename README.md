@@ -16,6 +16,7 @@
 <br />
 <p align="center">
   <img alt="pre-release v3.0" src="https://img.shields.io/static/v1.svg?label=pre-release&message=v3.0&color=brightgreen" />
+  <img alt="travis-build" src="https://img.shields.io/travis/superhawk610/multicast/master.svg" />
 </p>
 <br />
 

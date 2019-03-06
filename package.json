@@ -1,0 +1,16 @@
+{
+  "name": "multicast",
+  "version": "3.0.0-beta.1",
+  "main": "index.js",
+  "repository": "git@github.com:superhawk610/multicast.git",
+  "author": "Aaron Ross <superhawk610@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "deps:server": "cd server && yarn",
+    "deps:client": "cd client && yarn",
+    "deps": "yarn deps:server && yarn deps:client",
+    "ci:server": "cd server && yarn test",
+    "ci:client": "cd client && yarn test",
+    "ci": "yarn ci:server && yarn ci:client"
+  }
+}

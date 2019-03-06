@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - '8'
+  - '11'
+
+# cache deps for both packages
+cache:
+  directories:
+    - client/node_modules
+    - server/node_modules
+
+# only build & test master
+branches:
+  only:
+    - master
+
+# install deps for both packages
+install:
+  - yarn deps
+
+# run tests for client and server in series
+script:
+  - yarn ci
