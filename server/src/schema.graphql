@@ -1,0 +1,107 @@
+type Query {
+  device(id: ID!): Device
+  devices: [Device!]!
+  channel(id: ID!): Channel
+  channels: [Channel!]!
+  alert(id: ID!): Alert
+  alerts: [Alert!]!
+  takeover: TakeoverStatus!
+}
+
+type Mutation {
+  createDevice(model: DeviceCreateInput!): Device!
+  updateDevice(id: ID!, changes: DeviceUpdateInput!): Device!
+  deleteDevice(id: ID!): DeleteDeviceResult!
+  createChannel(model: ChannelCreateInput!): Channel!
+  updateChannel(id: ID!, changes: ChannelUpdateInput!): Channel!
+  deleteChannel(id: ID!): DeleteChannelResult!
+  createAlert(model: AlertCreateInput!): Alert!
+  updateAlert(id: ID!, changes: AlertUpdateInput!): Alert!
+  deleteAlert(id: ID!): DeleteAlertResult!
+  startTakeover(channel: ID!): TakeoverStatus!
+  endTakeover: TakeoverStatus!
+}
+
+input DeviceCreateInput {
+  identifier: String!
+  nickname: String!
+  rotation: Int!
+  status: String!
+  channel: ID
+}
+
+input DeviceUpdateInput {
+  identifier: String
+  nickname: String
+  rotation: Int
+  status: String
+  channel: ID
+}
+
+input ChannelCreateInput {
+  name: String!
+  layout: String!
+  duration: Int!
+  urls: [String!]!
+}
+
+input ChannelUpdateInput {
+  name: String
+  layout: String
+  duration: Int
+  urls: [String!]
+}
+
+input AlertCreateInput {
+  title: String
+  body: String
+}
+
+input AlertUpdateInput {
+  title: String
+  body: String
+}
+
+type TakeoverStatus {
+  active: Boolean!
+  channel: Channel
+}
+
+type DeleteDeviceResult {
+  ok: Boolean!
+  model: Device
+}
+
+type DeleteChannelResult {
+  ok: Boolean!
+  model: Channel
+}
+
+type DeleteAlertResult {
+  ok: Boolean!
+  model: Alert
+}
+
+type Device {
+  id: ID!
+  identifier: String!
+  nickname: String!
+  rotation: Int!
+  status: String!
+  channel: Channel
+}
+
+type Channel {
+  id: ID!
+  name: String
+  layout: String
+  duration: Int
+  urls: [String!]!
+  devices: [Device!]!
+}
+
+type Alert {
+  id: ID!
+  title: String
+  body: String
+}

@@ -3,7 +3,10 @@
     "module": "commonjs",
     "types": ["node"],
     "strict": true,
-    "target": "es2017"
+    "target": "es2017",
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "exclude": ["node_modules", "**/*.test.ts"]
 }

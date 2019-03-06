@@ -7,7 +7,7 @@
     "test": "ava",
     "test:watch": "ava --watch",
     "start": "ts-node src/index.ts",
-    "watch": "ts-node-dev src/index.ts"
+    "watch": "ts-node-dev --respawn src/index.ts"
   },
   "ava": {
     "compileEnhancements": false,
@@ -28,5 +28,13 @@
     "ts-node": "^8.0.2",
     "ts-node-dev": "^1.0.0-pre.32",
     "typescript": "^3.3.3333"
+  },
+  "dependencies": {
+    "graphql-import": "^0.7.1",
+    "graphql-yoga": "^1.17.4",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^4.43.0",
+    "sequelize-typescript": "^0.6.7",
+    "sqlite3": "^4.0.6"
   }
 }
