@@ -1,4 +1,5 @@
 <br />
+<br />
 <p align="center">
   <img src="images/multicast.svg" width=250 />
 </p>
@@ -10,7 +11,7 @@
 </p>
 
 <p align="center">
-  Developed with <a href="https://github.com/nodejs/node">Node</a>, <a href="https://github.com/nestjs/nest">Nest</a>, and <a href="https://github.com/facebook/graphql">GraphQL</a>.
+  Developed with <a href="https://github.com/nodejs/node">Node</a>, <a href="https://github.com/facebook/react">React</a>, and <a href="https://github.com/apollographql">Apollo</a>.
 </p>
 
 <br />

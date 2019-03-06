@@ -3,16 +3,19 @@ node_js:
   - '8'
   - '11'
 
-# cache deps for both packages
-cache:
-  directories:
-    - client/node_modules
-    - server/node_modules
+# persist Yarn cache across installs
+cache: yarn
 
 # only build & test master
 branches:
   only:
     - master
+
+# manually update Yarn to latest version to avoid
+# deprecations in base version (1.3.2)
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
 
 # install deps for both packages
 install:
