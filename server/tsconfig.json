@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "types": ["node"],
+    "strict": true,
+    "target": "es2017"
+  },
+  "exclude": ["node_modules", "**/*.test.ts"]
+}
