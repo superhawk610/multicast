@@ -1,8 +1,0 @@
-{
-  "appId": "1234ABCD",
-  "mongoUser": "username",
-  "mongoPass": "password",
-  "mongoAuthSource": "admin",
-  "mongoHost": "127.0.0.1",
-  "mongoPort": 27017
-}
