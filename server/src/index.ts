@@ -6,8 +6,9 @@ import { importSchema } from 'graphql-import';
 import { Query } from './resolvers/Query';
 import { Mutation } from './resolvers/Mutation';
 
-import { initializeDatabase } from './services/initialize-database.service';
 import { PORT, MULTICAST_HOME } from './services/config.service';
+import { initializeDatabase } from './services/initialize-database.service';
+import { startScanning } from './services/scan-devices.service';
 
 import { authMiddleware } from './middleware/auth.middleware';
 import { fallbackMiddleware } from './middleware/fallback.middleware';
@@ -21,6 +22,7 @@ const resolvers = {
 
 async function startServer(fallback = false) {
   const db = fallback ? null : await initializeDatabase();
+  if (db) startScanning();
   const server = new GraphQLServer({
     typeDefs,
     resolvers,

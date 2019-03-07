@@ -3,3 +3,5 @@
 export const MULTICAST_HOME = '.multicast';
 
 export const PORT = 4000;
+
+export const SCANNING_FREQUENCY = 30 * 1000;

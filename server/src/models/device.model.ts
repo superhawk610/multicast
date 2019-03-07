@@ -30,7 +30,7 @@ class Device extends Model<Device> {
   public rotation!: number;
 
   @Column
-  public status!: string;
+  public online!: boolean;
 
   @AllowNull
   @ForeignKey(() => Channel)

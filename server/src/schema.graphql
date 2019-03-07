@@ -26,7 +26,7 @@ input DeviceCreateInput {
   identifier: String!
   nickname: String!
   rotation: Int!
-  status: String!
+  online: Boolean!
   channel: ID
 }
 
@@ -34,7 +34,7 @@ input DeviceUpdateInput {
   identifier: String
   nickname: String
   rotation: Int
-  status: String
+  online: Boolean
   channel: ID
 }
 
@@ -87,7 +87,7 @@ type Device {
   identifier: String!
   nickname: String!
   rotation: Int!
-  status: String!
+  online: Boolean!
   channel: Channel
 }
 

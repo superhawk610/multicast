@@ -33,6 +33,7 @@
     "graphql-import": "^0.7.1",
     "graphql-yoga": "^1.17.4",
     "home-dir": "^1.0.0",
+    "mdns": "^2.4.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^4.43.0",
     "sequelize-typescript": "^0.6.7",
