@@ -8,5 +8,3 @@ dist
 # environment files
 .env
 
-# database
-*.sqlite3
