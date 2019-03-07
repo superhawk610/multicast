@@ -5,7 +5,7 @@ import Device from '../models/device.model';
 
 import { SCANNING_FREQUENCY } from './config.service';
 
-import { ChromecastService } from '../types';
+import { ChromecastService, DEVICE_MODELS } from '../types';
 
 let scanInterval: NodeJS.Timeout | null = null;
 
@@ -29,13 +29,12 @@ export function scanDevices(): Promise<void> {
 
     // 'serviceUp' will be emitted for each device found
     browser.on('serviceUp', async (service: ChromecastService) => {
-      const identifier = service.name.split('-').pop();
+      const identifier = service.txtRecord.id;
+      const model = service.txtRecord.md;
 
-      // ignore false positives
-      if (!identifier) return;
-
-      // ignore Chromecast groups (they'll have a name like `Google-Cast-Group-${id}-1`)
-      if (identifier.length < 3) return;
+      // ignore devices with no video output
+      // TODO: add support for Google Home Hub?
+      if (model !== DEVICE_MODELS.Chromecast) return;
 
       const device = await Device.findById(identifier);
 

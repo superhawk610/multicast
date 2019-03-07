@@ -3,8 +3,8 @@ import Channel from '../models/channel.model';
 import Alert from '../models/alert.model';
 
 export const Query = {
-  device() {
-    return { id: 'abcdefg' };
+  device(_, { id }: { id: string }) {
+    return Device.findById(id);
   },
   devices() {
     return Device.findAll();
