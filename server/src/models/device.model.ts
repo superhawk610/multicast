@@ -8,6 +8,7 @@ import {
   BelongsTo,
   AutoIncrement,
   AllowNull,
+  Unique,
 } from 'sequelize-typescript';
 
 import Channel from './channel.model';
@@ -19,6 +20,7 @@ class Device extends Model<Device> {
   @Column
   public id!: number;
 
+  @Unique
   @Column
   public identifier!: string;
 
