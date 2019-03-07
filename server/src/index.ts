@@ -10,7 +10,7 @@ import { initializeDatabase } from './services/initialize-database.service';
 import { PORT, MULTICAST_HOME } from './services/config.service';
 
 import { authMiddleware } from './middleware/auth.middleware';
-import { Sequelize } from 'sequelize-typescript';
+import { fallbackMiddleware } from './middleware/fallback.middleware';
 
 const typeDefs = importSchema(join(__dirname, 'schema.graphql'));
 
@@ -24,7 +24,9 @@ async function startServer(fallback = false) {
   const server = new GraphQLServer({
     typeDefs,
     resolvers,
-    middlewares: [authMiddleware],
+    middlewares: fallback
+      ? [authMiddleware, fallbackMiddleware]
+      : [authMiddleware],
     context: ({ request }) => {
       const token = request.headers.authorization || '';
 
