@@ -36,7 +36,7 @@ export function scanDevices(): Promise<void> {
       // TODO: add support for Google Home Hub?
       if (model !== DEVICE_MODELS.Chromecast) return;
 
-      const device = await Device.findById(identifier);
+      const device = await Device.findOne({ where: { identifier } });
 
       // if we haven't seen this device before, insert it
       if (!device) {

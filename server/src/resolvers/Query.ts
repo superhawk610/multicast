@@ -4,7 +4,7 @@ import Alert from '../models/alert.model';
 
 export const Query = {
   device(_, { id }: { id: string }) {
-    return Device.findById(id);
+    return Device.findByPk(id);
   },
   devices() {
     return Device.findAll();
