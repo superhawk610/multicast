@@ -30,7 +30,8 @@ async function startServer(fallback = false) {
       ? [authMiddleware, fallbackMiddleware]
       : [authMiddleware],
     context: ({ request }) => {
-      const token = request.headers.authorization || '';
+      const authorization = request.headers.authorization || '';
+      const [, token = null] = /^Bearer (.+)$/.exec(authorization) || [];
 
       return {
         db,
