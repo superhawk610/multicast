@@ -1,48 +1,6 @@
-import { join } from 'path';
+import { startServer } from './services/apollo.service';
 
-import { GraphQLServer } from 'graphql-yoga';
-import { importSchema } from 'graphql-import';
-
-import { Query } from './resolvers/Query';
-import { Mutation } from './resolvers/Mutation';
-
-import { PORT, MULTICAST_HOME } from './services/config.service';
-import { initializeDatabase } from './services/initialize-database.service';
-import { startScanning } from './services/scan-devices.service';
-
-import { authMiddleware } from './middleware/auth.middleware';
-import { fallbackMiddleware } from './middleware/fallback.middleware';
-
-const typeDefs = importSchema(join(__dirname, 'schema.graphql'));
-
-const resolvers = {
-  Query,
-  Mutation,
-};
-
-async function startServer(fallback = false) {
-  const db = fallback ? null : await initializeDatabase();
-  if (db) startScanning();
-  const server = new GraphQLServer({
-    typeDefs,
-    resolvers,
-    middlewares: fallback
-      ? [authMiddleware, fallbackMiddleware]
-      : [authMiddleware],
-    context: ({ request }) => {
-      const authorization = request.headers.authorization || '';
-      const [, token = null] = /^Bearer (.+)$/.exec(authorization) || [];
-
-      return {
-        db,
-        user: { token },
-      };
-    },
-  });
-  server.start({ port: PORT }, () =>
-    console.log(`Server is running on localhost:${PORT}`),
-  );
-}
+import { MULTICAST_HOME } from './services/config.service';
 
 try {
   startServer();
