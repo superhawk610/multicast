@@ -6,7 +6,7 @@ import { importSchema } from 'graphql-import';
 import { Query } from '../resolvers/Query';
 import { Mutation } from '../resolvers/Mutation';
 
-import { PORT } from './config.service';
+import { PORT, DISABLE_PLAYGROUND, PLAYGROUND_URL } from './config.service';
 import { initializeDatabase } from './initialize-database.service';
 import { startScanning } from './scan-devices.service';
 
@@ -39,7 +39,18 @@ export async function startServer(fallback = false) {
       };
     },
   });
-  server.start({ port: PORT }, () =>
-    console.log(`Server is running on localhost:${PORT}`),
+  server.start(
+    { port: PORT, playground: DISABLE_PLAYGROUND ? false : PLAYGROUND_URL },
+    () => {
+      const playgroundMessage = DISABLE_PLAYGROUND
+        ? 'disabled'
+        : `http://localhost:${PORT}${PLAYGROUND_URL}`;
+      console.log();
+      console.log('  ---');
+      console.log(`  Server is running on http://localhost:${PORT}`);
+      console.log(`  GraphQL playground: ${playgroundMessage}`);
+      console.log('  ---');
+      console.log();
+    },
   );
 }

@@ -8,3 +8,12 @@ export const PORT = 4000;
 
 // time (ms) to wait between mdns scans
 export const SCANNING_FREQUENCY = 30 * 1000;
+
+// key to prevent random access to GraphQL endpoint
+export const API_KEY = '46f2c224704811909ffdf0735741b0b8';
+
+// disable GraphQL playground (generally a good idea in production environments)
+export const DISABLE_PLAYGROUND = false;
+
+// URL for GraphQL playground (default: '/')
+export const PLAYGROUND_URL = '/';
