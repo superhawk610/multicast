@@ -1,35 +1,63 @@
+import { start, stop } from '../services/takeover.service';
+
+import Device from '../models/device.model';
+import Channel from '../models/channel.model';
+import Alert from '../models/alert.model';
+
 export const Mutation = {
   createDevice(_, { model }) {
-    return { id: 'abc' };
+    return Device.create(model);
   },
   updateDevice(_, { id, changes }) {
-    return { id: 'abc' };
+    return Device.update(changes, { where: { id } });
   },
-  deleteDevice(_, { id }) {
-    return { ok: false, model: null };
+  async deleteDevice(_, { id }) {
+    try {
+      const model = await Device.findByPk(id);
+      await Device.destroy({ where: { id } });
+      return { ok: true, model };
+    } catch (e) {
+      return { ok: false, model: null };
+    }
   },
   createChannel(_, { model }) {
-    return { id: 'abc' };
+    return Channel.create(model);
   },
   updateChannel(_, { id, changes }) {
-    return { id: 'abc' };
+    return Channel.update(changes, { where: { id } });
   },
-  deleteChannel(_, { id }) {
-    return { ok: false, model: null };
+  async deleteChannel(_, { id }) {
+    try {
+      const model = await Channel.findByPk(id);
+      await Channel.destroy({ where: { id } });
+      return { ok: true, model };
+    } catch (e) {
+      return { ok: false, model: null };
+    }
   },
   createAlert(_, { model }) {
-    return { id: 'abc' };
+    return Alert.create(model);
   },
   updateAlert(_, { id, changes }) {
-    return { id: 'abc' };
+    return Alert.update(changes, { where: { id } });
   },
-  deleteAlert(_, { id }) {
-    return { ok: false, model: null };
+  async deleteAlert(_, { id }) {
+    try {
+      const model = await Alert.findByPk(id);
+      await Alert.destroy({ where: { id } });
+      return { ok: true, model };
+    } catch (e) {
+      return { ok: false, model: null };
+    }
   },
-  startTakeover() {
-    return { active: false, channel: null };
+  async startTakeover(_, { channel }) {
+    const model = await Channel.findByPk(channel);
+    return model
+      ? { active: true, channel: start(model) }
+      : { active: false, channel: null };
   },
   endTakeover() {
+    stop();
     return { active: false, channel: null };
   },
 };
