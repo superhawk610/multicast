@@ -6,6 +6,7 @@ type Query {
   alert(id: ID!): Alert
   alerts: [Alert!]!
   takeover: TakeoverStatus!
+  status: ServerStatus!
 }
 
 type Mutation {
@@ -65,6 +66,10 @@ input AlertUpdateInput {
 type TakeoverStatus {
   active: Boolean!
   channel: Channel
+}
+
+type ServerStatus {
+  sandbox: Boolean!
 }
 
 type DeleteDeviceResult {

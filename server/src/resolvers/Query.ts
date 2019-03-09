@@ -1,4 +1,5 @@
 import { getActiveChannel } from '../services/takeover.service';
+import { SANDBOX } from '../services/config.service';
 
 import Device from '../models/device.model';
 import Channel from '../models/channel.model';
@@ -26,5 +27,8 @@ export const Query = {
   takeover() {
     const channel = getActiveChannel();
     return { active: Boolean(channel), channel };
+  },
+  status() {
+    return { sandbox: SANDBOX };
   },
 };

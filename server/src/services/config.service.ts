@@ -17,3 +17,7 @@ export const DISABLE_PLAYGROUND = false;
 
 // URL for GraphQL playground (default: '/')
 export const PLAYGROUND_URL = '/';
+
+// when enabled, use a separate DB file for storage with fake seed data
+// writes will not be persisted between server restarts
+export const SANDBOX = false;
