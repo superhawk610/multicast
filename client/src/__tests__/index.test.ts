@@ -1,5 +1,5 @@
-import test from 'ava';
-
-test('sanity', t => {
-  t.truthy("I'm not insane either!");
+describe('TS test', () => {
+  it('runs TS tests', () => {
+    expect(true).toBeTruthy();
+  });
 });
