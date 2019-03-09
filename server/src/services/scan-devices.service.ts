@@ -31,8 +31,10 @@ export async function recordDevice(
     const newDevice = new Device({
       identifier,
       nickname: service.txtRecord.fn,
+      address: service.addresses[0],
+      model,
       rotation: 0,
-      online: true,
+      status: 'online',
     });
     return newDevice.save();
   }
@@ -40,7 +42,9 @@ export async function recordDevice(
   // if we've seen this device before, update it
   return device.update({
     nickname: service.txtRecord.fn,
-    online: true,
+    address: service.addresses[0],
+    model,
+    status: 'online',
   });
 }
 
@@ -78,7 +82,7 @@ export function scanDevices(): Promise<void> {
       // ...and mark them as offline
       await Promise.all(
         missingDevices.map((device: Device) =>
-          device.update({ online: false }),
+          device.update({ status: 'offline' }),
         ),
       );
       resolve();

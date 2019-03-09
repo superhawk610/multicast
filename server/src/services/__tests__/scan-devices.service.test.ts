@@ -40,8 +40,10 @@ describe('scanDevices', () => {
       const device = {
         identifier: 'identifier',
         nickname: 'nickname',
+        address: '10.0.0.10',
+        model: supportedDeviceModel,
         rotation: 0,
-        online: true,
+        status: 'online',
       };
       const service = {
         txtRecord: {
@@ -49,6 +51,7 @@ describe('scanDevices', () => {
           id: 'identifier',
           fn: 'nickname',
         },
+        addresses: ['10.0.0.10'],
       } as ChromecastService;
 
       Device.default.findOne.mockImplementation(
@@ -66,6 +69,7 @@ describe('scanDevices', () => {
       const nickname = 'foo';
       const service = {
         txtRecord: { md: supportedDeviceModel, fn: nickname },
+        addresses: ['10.0.0.10'],
       } as ChromecastService;
 
       Device.default.findOne.mockImplementation(
@@ -75,7 +79,12 @@ describe('scanDevices', () => {
       await recordDevice(service);
 
       expect(Device.mockedInstance.save).not.toBeCalled();
-      expect(update).toBeCalledWith({ nickname, online: true });
+      expect(update).toBeCalledWith({
+        nickname,
+        address: '10.0.0.10',
+        model: supportedDeviceModel,
+        status: 'online',
+      });
     });
   });
 });

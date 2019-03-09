@@ -27,12 +27,18 @@ class Device extends Model<Device> {
   @Column
   public nickname!: string;
 
+  @Column
+  public address!: string;
+
+  @Column
+  public model!: string;
+
   @Is(/0|90|180|270/)
   @Column
   public rotation!: number;
 
   @Column
-  public online!: boolean;
+  public status!: string;
 
   @AllowNull
   @ForeignKey(() => Channel)

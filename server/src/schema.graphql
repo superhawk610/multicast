@@ -26,16 +26,20 @@ type Mutation {
 input DeviceCreateInput {
   identifier: String!
   nickname: String!
+  address: String!
+  model: String!
   rotation: Int!
-  online: Boolean!
+  status: String!
   channel: ID
 }
 
 input DeviceUpdateInput {
   identifier: String
   nickname: String
+  address: String!
+  model: String!
   rotation: Int
-  online: Boolean
+  status: String
   channel: ID
 }
 
@@ -91,8 +95,10 @@ type Device {
   id: ID!
   identifier: String!
   nickname: String!
+  address: String!
+  model: String!
   rotation: Int!
-  online: Boolean!
+  online: String!
   channel: Channel
 }
 
