@@ -6,7 +6,12 @@ import { importSchema } from 'graphql-import';
 import { Query } from '../resolvers/Query';
 import { Mutation } from '../resolvers/Mutation';
 
-import { PORT, DISABLE_PLAYGROUND, PLAYGROUND_URL } from './config.service';
+import {
+  PORT,
+  DISABLE_PLAYGROUND,
+  PLAYGROUND_URL,
+  SANDBOX,
+} from './config.service';
 import { initializeDatabase } from './initialize-database.service';
 import { startScanning } from './scan-devices.service';
 
@@ -26,7 +31,9 @@ export async function startServer(fallback = false) {
   const server = new GraphQLServer({
     typeDefs,
     resolvers,
-    middlewares: fallback
+    middlewares: SANDBOX
+      ? []
+      : fallback
       ? [authMiddleware, fallbackMiddleware]
       : [authMiddleware],
     context: ({ request }) => {

@@ -20,4 +20,4 @@ export const PLAYGROUND_URL = '/';
 
 // when enabled, use a separate DB file for storage with fake seed data
 // writes will not be persisted between server restarts
-export const SANDBOX = false;
+export const SANDBOX = Boolean(process.env.SANDBOX);

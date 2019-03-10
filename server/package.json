@@ -7,7 +7,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "start": "ts-node src/index.ts",
-    "watch": "ts-node-dev --respawn src/index.ts"
+    "start:sandbox": "cross-env SANDBOX=1 ts-node src/index.ts",
+    "watch": "ts-node-dev --respawn src/index.ts",
+    "watch:sandbox": "cross-env SANDBOX=1 ts-node-dev --respawn src/index.ts"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
@@ -20,6 +22,7 @@
     "typescript": "^3.3.3333"
   },
   "dependencies": {
+    "cross-env": "^5.2.0",
     "graphql-import": "^0.7.1",
     "graphql-yoga": "^1.17.4",
     "home-dir": "^1.0.0",
