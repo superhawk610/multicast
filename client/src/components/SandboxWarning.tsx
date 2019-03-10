@@ -11,7 +11,11 @@ import { COLORS } from '../constants';
 import { STATUS } from '../graphql/queries';
 
 export const SandboxWarning = () => {
-  const { data: status, error, loading } = useQuery(STATUS);
+  const {
+    data: { status } = { status: { sandbox: false } },
+    error,
+    loading,
+  } = useQuery(STATUS);
 
   if (error || loading || !status.sandbox) return null;
 
@@ -21,7 +25,7 @@ export const SandboxWarning = () => {
         <Icon icon={alertTriangle} size={24} style={{ marginRight: '5px' }} />
       </PixelShifter>
       <strong>SANDBOX ENVIRONMENT</strong>
-      <div>Changes will not be persisted through server reboot.</div>
+      <div>Changes will not be persisted through server restart.</div>
     </Container>
   );
 };

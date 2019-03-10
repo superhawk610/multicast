@@ -13,7 +13,11 @@ export const ManageChannel = ({
   match,
 }: RouteComponentProps<{ id: string }>) => {
   const { id } = match.params;
-  const { data: channel, error, loading } = useQuery(CHANNEL, {
+  const {
+    data: { channel },
+    error,
+    loading,
+  } = useQuery(CHANNEL, {
     variables: { id },
   });
 

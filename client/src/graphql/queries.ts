@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
 export const DEVICES = gql`
   {
@@ -6,8 +6,10 @@ export const DEVICES = gql`
       id
       identifier
       nickname
+      address
+      model
       rotation
-      online
+      status
       channel {
         id
         name

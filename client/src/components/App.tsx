@@ -29,7 +29,7 @@ export const App = () => (
           );
         })}
         <Route exact path="/">
-          <Redirect to="/hosts" />
+          <Redirect to="/devices" />
         </Route>
         <Route path="/404" component={NotFound} />
         <Redirect to="/404" />

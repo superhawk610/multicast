@@ -37,7 +37,6 @@ export function colorForStatus(status: DeviceStatus): string {
       return COLORS.green;
     case 'offline':
       return COLORS.red;
-    // TODO: add server support for 'searching' status
     case 'searching':
       return COLORS.yellow;
     default:

@@ -50,7 +50,11 @@ export const AlertForm = ({ id }: Props) => {
   const [style, onChangeStyle] = useInput<MessageStyle>('bold');
   const [duration, onChangeDuration] = useInput(60 * 1000);
 
-  const { data: devices, error, loading } = useQuery(DEVICES);
+  const {
+    data: { devices = [] },
+    error,
+    loading,
+  } = useQuery(DEVICES);
 
   return (
     <>
