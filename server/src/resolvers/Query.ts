@@ -1,7 +1,13 @@
 import { annotateDevice } from '../utils';
 
 import { getActiveChannel } from '../services/takeover.service';
-import { SANDBOX } from '../services/config.service';
+import {
+  SANDBOX,
+  MULTICAST_HOME,
+  PORT,
+  SCANNING_FREQUENCY,
+  DISABLE_PLAYGROUND,
+} from '../services/config.service';
 
 import Device from '../models/device.model';
 import Channel from '../models/channel.model';
@@ -34,5 +40,13 @@ export const Query = {
   },
   status() {
     return { sandbox: SANDBOX };
+  },
+  configuration() {
+    return {
+      home: MULTICAST_HOME,
+      port: PORT,
+      scanningFrequency: SCANNING_FREQUENCY,
+      playgroundEnabled: !DISABLE_PLAYGROUND,
+    };
   },
 };

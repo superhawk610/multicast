@@ -7,6 +7,7 @@ type Query {
   alerts: [Alert!]!
   takeover: TakeoverStatus!
   status: ServerStatus!
+  configuration: ConfigurationStatus!
 }
 
 type Subscription {
@@ -25,6 +26,7 @@ type Mutation {
   deleteAlert(id: ID!): DeleteAlertResult!
   startTakeover(channel: ID!): TakeoverStatus!
   endTakeover: TakeoverStatus!
+  updateConfiguration(changes: ConfigurationUpdateInput!): ConfigurationStatus!
 }
 
 input DeviceCreateInput {
@@ -71,6 +73,13 @@ input AlertUpdateInput {
   body: String
 }
 
+input ConfigurationUpdateInput {
+  home: String
+  port: Int
+  scanningFrequency: Int
+  playgroundEnabled: Boolean
+}
+
 type TakeoverStatus {
   active: Boolean!
   channel: Channel
@@ -78,6 +87,13 @@ type TakeoverStatus {
 
 type ServerStatus {
   sandbox: Boolean!
+}
+
+type ConfigurationStatus {
+  home: String!
+  port: Int!
+  scanningFrequency: Int!
+  playgroundEnabled: Boolean!
 }
 
 type DeleteDeviceResult {

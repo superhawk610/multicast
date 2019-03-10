@@ -1,4 +1,10 @@
 import { start, stop } from '../services/takeover.service';
+import {
+  MULTICAST_HOME,
+  PORT,
+  SCANNING_FREQUENCY,
+  DISABLE_PLAYGROUND,
+} from '../services/config.service';
 
 import Device from '../models/device.model';
 import Channel from '../models/channel.model';
@@ -77,5 +83,14 @@ export const Mutation = {
   endTakeover() {
     stop();
     return { active: false, channel: null };
+  },
+  updateConfiguration(_, { changes }) {
+    // TODO: persist configuration changes to disk
+    return {
+      home: MULTICAST_HOME,
+      port: PORT,
+      scanningFrequency: SCANNING_FREQUENCY,
+      playgroundEnabled: !DISABLE_PLAYGROUND,
+    };
   },
 };
