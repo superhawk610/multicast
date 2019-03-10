@@ -14,7 +14,7 @@ interface Props {
   error: Error;
 }
 
-export const ErrorDisplay = ({ error }: Props) => (
+const ErrorDisplay = ({ error }: Props) => (
   <Container>
     <ErrorHeading>
       <PixelShifter up={2}>
@@ -34,3 +34,5 @@ const Container = styled.div`
 const ErrorHeading = styled(Heading2)`
   color: ${COLORS.red};
 `;
+
+export { ErrorDisplay };

@@ -13,7 +13,7 @@ import { COLORS } from '../constants';
 
 import routes from '../routes';
 
-export const Sidebar = withRouter(({ location }: RouteComponentProps) => (
+const Sidebar = withRouter(({ location }: RouteComponentProps) => (
   <Container>
     <Header>
       <HeadingImage src={logo} />
@@ -88,3 +88,5 @@ const Link = styled(LinkComponent)<{ active: number }>`
     }
   `};
 `;
+
+export { Sidebar };

@@ -28,7 +28,7 @@ const durationButtons: BGButton<number>[] = [
   { text: '1h', value: 60 * 60 * 1000 },
 ];
 
-export const ChannelForm = ({ id }: Props) => {
+const ChannelForm = ({ id }: Props) => {
   const [name, onChangeName] = useInput('');
   const [layout, onChangeLayout] = useInput<ChannelLayout>('single');
   const [duration, onChangeDuration] = useInput(0);
@@ -94,3 +94,5 @@ export const ChannelForm = ({ id }: Props) => {
     </Form>
   );
 };
+
+export { ChannelForm };

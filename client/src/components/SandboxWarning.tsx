@@ -10,7 +10,7 @@ import { alertTriangle } from 'react-icons-kit/feather/alertTriangle';
 import { COLORS } from '../constants';
 import { STATUS } from '../graphql/queries';
 
-export const SandboxWarning = () => {
+const SandboxWarning = () => {
   const {
     data: { status } = { status: { sandbox: false } },
     error,
@@ -41,3 +41,5 @@ const Container = styled.div`
     color: ${COLORS.orange};
   }
 `;
+
+export { SandboxWarning };

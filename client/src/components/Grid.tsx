@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-export const Row = ({ ...delegated }) => (
-  <div className="columns" {...delegated} />
-);
+const Row = (props: any) => <div className="columns" {...props} />;
 
 interface Props {
   width?: number;
   [x: string]: any;
 }
-export const Column = ({ width, ...delegated }: Props) => (
+const Column = ({ width, ...delegated }: Props) => (
   <div className={`column ${width ? `is-${width}` : ''}`} {...delegated} />
 );
+
+export { Row, Column };

@@ -10,7 +10,7 @@ interface Props {
   rotate?: boolean;
 }
 
-export const IconButton = ({
+const IconButton = ({
   icon,
   size = 24,
   onClick,
@@ -32,3 +32,5 @@ const Button = styled.button<{ rotate: number }>`
     transform: ${props => (props.rotate ? 'rotate(20deg)' : 'translateY(1px)')};
   }
 `;
+
+export { IconButton };

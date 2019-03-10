@@ -11,7 +11,7 @@ import { ChannelForm } from '../forms/ChannelForm';
 import { Channel } from '../types';
 import { CHANNELS } from '../graphql/queries';
 
-export const Channels = withRouter(({ history }: RouteComponentProps) => {
+const Channels = withRouter(({ history }: RouteComponentProps) => {
   const { data: channels, error, loading } = useQuery(CHANNELS);
 
   const actionForRow = (row: Channel) => ({
@@ -35,3 +35,5 @@ export const Channels = withRouter(({ history }: RouteComponentProps) => {
     </Page>
   );
 });
+
+export { Channels };

@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 import { COLORS } from '../constants';
 
-export const Heading = styled.h1`
+const Heading = styled.h1`
   font-size: 1.8em;
   font-weight: 700;
 `;
 
-export const Heading2 = styled.h2<{ color?: string }>`
+const Heading2 = styled.h2<{ color?: string }>`
   font-size: 1.2em;
   font-weight: 700;
   color: ${props => props.color || COLORS.green};
@@ -25,3 +25,5 @@ export const Heading2 = styled.h2<{ color?: string }>`
     background: ${COLORS.white3};
   }
 `;
+
+export { Heading, Heading2 };

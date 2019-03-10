@@ -22,7 +22,7 @@ interface Props {
   status: DeviceStatus;
 }
 
-export const Device = ({ id, address, nickname, model, status }: Props) => {
+const Device = ({ id, address, nickname, model, status }: Props) => {
   const [active, toggleDetails] = useBooleanState();
 
   return (
@@ -81,3 +81,5 @@ const DetailWell = styled(Well)`
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 `;
+
+export { Device };

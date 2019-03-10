@@ -23,7 +23,7 @@ interface Props {
   theme?: TextAreaTheme | '';
 }
 
-export const TextArea = ({
+const TextArea = ({
   label,
   placeholder,
   name,
@@ -58,3 +58,5 @@ export const TextArea = ({
     </div>
   );
 };
+
+export { TextArea };

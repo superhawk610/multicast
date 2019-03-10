@@ -9,9 +9,7 @@ import { ChannelForm } from '../forms/ChannelForm';
 import routes from '../routes';
 import { CHANNEL } from '../graphql/queries';
 
-export const ManageChannel = ({
-  match,
-}: RouteComponentProps<{ id: string }>) => {
+const ManageChannel = ({ match }: RouteComponentProps<{ id: string }>) => {
   const { id } = match.params;
   const {
     data: { channel },
@@ -34,3 +32,5 @@ export const ManageChannel = ({
     </Page>
   );
 };
+
+export { ManageChannel };

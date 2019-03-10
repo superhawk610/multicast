@@ -8,7 +8,7 @@ import { Button } from './Button';
 
 import { THEMES } from '../constants';
 
-export const ConfirmDialog = () => {
+const ConfirmDialog = () => {
   const { dialog, hideDialog } = React.useContext(AppContext);
 
   const onCancel = React.useCallback(() => hideDialog(false), []);
@@ -42,3 +42,5 @@ const DialogHeading = styled.div`
 const DialogMessage = styled.p`
   padding: 5px 0 20px;
 `;
+
+export { ConfirmDialog };

@@ -30,7 +30,7 @@ interface Dialog {
   active: boolean;
 }
 
-export const AppContext = createContext({} as ApplicationContext);
+const AppContext = createContext({} as ApplicationContext);
 
 function noop() {}
 
@@ -105,3 +105,5 @@ export function createAppContext(): ApplicationContext {
     hideDialog,
   };
 }
+
+export { AppContext };

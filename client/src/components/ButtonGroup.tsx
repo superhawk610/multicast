@@ -16,7 +16,7 @@ interface Props<T> {
   onChange: (value: T) => void;
 }
 
-export const ButtonGroup = <T extends any = string | number>({
+const ButtonGroup = <T extends any = string | number>({
   buttons,
   value,
   onChange,
@@ -40,3 +40,5 @@ export const ButtonGroup = <T extends any = string | number>({
     })}
   </div>
 );
+
+export { ButtonGroup };

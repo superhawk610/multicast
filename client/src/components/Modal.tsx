@@ -15,7 +15,7 @@ export interface Props {
   children: React.ReactNode;
 }
 
-export const Modal = ({
+const Modal = ({
   heading,
   accent,
   active,
@@ -45,3 +45,5 @@ export const Modal = ({
     </div>
   </div>
 );
+
+export { Modal };

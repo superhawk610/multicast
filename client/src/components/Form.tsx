@@ -5,7 +5,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export const Form = ({ onSubmit, ...delegated }: Props) => {
+const Form = ({ onSubmit, ...delegated }: Props) => {
   const submitHandler = React.useCallback(
     (event: React.SyntheticEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -17,4 +17,4 @@ export const Form = ({ onSubmit, ...delegated }: Props) => {
   return <form onSubmit={submitHandler} {...delegated} />;
 };
 
-export default Form;
+export { Form };

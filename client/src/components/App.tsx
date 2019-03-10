@@ -10,7 +10,7 @@ import { NotFound } from '../pages/NotFound';
 
 import routes from '../routes';
 
-export const App = () => (
+const App = () => (
   <>
     <Sidebar />
     <SandboxWarning />
@@ -41,3 +41,5 @@ export const App = () => (
 const Constraint = styled.div`
   max-width: 1250px;
 `;
+
+export { App };

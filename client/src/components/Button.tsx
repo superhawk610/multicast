@@ -32,7 +32,7 @@ interface Props {
   style?: {};
 }
 
-export const Button = ({
+const Button = ({
   block,
   adjacent,
   submit,
@@ -68,3 +68,5 @@ export const Button = ({
     </button>
   );
 };
+
+export { Button };

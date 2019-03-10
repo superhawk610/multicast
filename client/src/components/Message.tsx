@@ -22,7 +22,7 @@ interface Props {
   text: React.ReactNode;
 }
 
-export const Message = ({
+const Message = ({
   theme = THEMES.none,
   style = 'bold',
   heading,
@@ -58,3 +58,5 @@ const Body = styled.div`
     }
   }
 `;
+
+export { Message };

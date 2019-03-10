@@ -17,7 +17,7 @@ const rotationButtons: Button<number>[] = [
   { text: '270°', value: 270, theme: THEMES.dark },
 ];
 
-export const DeviceForm = ({ id }: Props) => {
+const DeviceForm = ({ id }: Props) => {
   const [identifier, setIdentifier] = React.useState('');
   const [nickname, onChangeNickname] = useInput('');
   const [rotation, onChangeRotation] = useInput(0);
@@ -42,3 +42,5 @@ export const DeviceForm = ({ id }: Props) => {
     </>
   );
 };
+
+export { DeviceForm };

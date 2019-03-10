@@ -9,7 +9,7 @@ interface Props {
   text?: string;
 }
 
-export const StatusLight = ({ status, text = status }: Props) => (
+const StatusLight = ({ status, text = status }: Props) => (
   <div>
     <Light color={colorForStatus(status)} />
     <span>{text}</span>
@@ -25,3 +25,5 @@ const Light = styled.div<{ color: string }>`
   box-shadow: 0 0 3px ${props => props.color};
   margin: 0 10px -1px 0;
 `;
+
+export { StatusLight };

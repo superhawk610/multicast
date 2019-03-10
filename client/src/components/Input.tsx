@@ -30,7 +30,7 @@ interface Props {
   theme?: InputTheme | '';
 }
 
-export const Input = ({
+const Input = ({
   label,
   placeholder,
   error,
@@ -90,4 +90,4 @@ export const Input = ({
   );
 };
 
-export default Input;
+export { Input };

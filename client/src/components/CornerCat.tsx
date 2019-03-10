@@ -7,7 +7,7 @@ interface Props {
   in: boolean;
 }
 
-export const CornerCat = (props: Props) => {
+const CornerCat = (props: Props) => {
   const [mounted, setMounted] = React.useState(false);
   const ref = React.useRef<HTMLImageElement>();
 
@@ -38,4 +38,4 @@ const Image = styled.img`
   pointer-events: none;
 `;
 
-export default CornerCat;
+export { CornerCat };

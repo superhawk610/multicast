@@ -8,12 +8,7 @@ interface Props {
   [x: string]: any;
 }
 
-export const Box = ({
-  color,
-  className = '',
-  onClick,
-  ...delegated
-}: Props) => (
+const Box = ({ color, className = '', onClick, ...delegated }: Props) => (
   <AccentedBox
     color={color}
     className={`box ${className}`}
@@ -43,3 +38,5 @@ const AccentedBox = styled.div<{ color?: string; onClick?: () => void }>`
     }
   `};
 `;
+
+export { Box };

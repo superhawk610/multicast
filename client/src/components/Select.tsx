@@ -38,7 +38,7 @@ interface Props {
   theme?: SelectTheme | '';
 }
 
-export const Select = ({
+const Select = ({
   block,
   label,
   placeholder,
@@ -102,3 +102,5 @@ export const Select = ({
     </div>
   );
 };
+
+export { Select };

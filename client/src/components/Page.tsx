@@ -17,7 +17,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const Page = ({
+const Page = ({
   heading,
   subheading,
   parent,
@@ -46,3 +46,5 @@ const Container = styled.div`
   padding: 25px;
   padding-left: 275px;
 `;
+
+export { Page };

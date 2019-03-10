@@ -37,7 +37,7 @@ interface Props<T> {
   noRecordsFoundText?: string;
 }
 
-export const Table = <T extends any>({
+const Table = <T extends any>({
   data,
   loading,
   error,
@@ -134,3 +134,5 @@ const ButtonCell = styled.td`
     padding-bottom: 1px;
   }
 `;
+
+export { Table };

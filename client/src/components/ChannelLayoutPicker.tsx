@@ -262,7 +262,7 @@ const channelLayouts: ChannelLayoutMapping = {
 
 const rows = chunk(Object.values(channelLayouts), 3);
 
-export const ChannelLayoutPicker = ({ layout, onChange, children }: Props) => {
+const ChannelLayoutPicker = ({ layout, onChange, children }: Props) => {
   const [active, togglePicker] = useBooleanState();
 
   const ActiveLayoutComponent = channelLayouts[layout].Component;
@@ -364,3 +364,5 @@ const LayoutPreview = styled.div<{
       `};
   }
 `;
+
+export { ChannelLayoutPicker };

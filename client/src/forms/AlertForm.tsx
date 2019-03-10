@@ -42,7 +42,7 @@ const durationButtons: Button<number>[] = [
   { text: '24h', value: 24 * 60 * 60 * 1000 },
 ];
 
-export const AlertForm = ({ id }: Props) => {
+const AlertForm = ({ id }: Props) => {
   const [deviceId, onChangeDeviceId] = useInput('all');
   const [heading, onChangeHeading] = useInput('');
   const [message, onChangeMessage] = useInput('');
@@ -119,3 +119,5 @@ export const AlertForm = ({ id }: Props) => {
     </>
   );
 };
+
+export { AlertForm };

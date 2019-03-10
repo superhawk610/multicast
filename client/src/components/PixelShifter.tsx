@@ -8,7 +8,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const PixelShifter = ({
+const PixelShifter = ({
   up = 0,
   right = 0,
   down = 0,
@@ -24,3 +24,5 @@ export const PixelShifter = ({
     {children}
   </div>
 );
+
+export { PixelShifter };

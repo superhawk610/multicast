@@ -11,7 +11,7 @@ import { Device as DeviceType } from '../types';
 import { DEVICES } from '../graphql/queries';
 import { SUB_DEVICES } from '../graphql/subscriptions';
 
-export const Devices = () => {
+const Devices = () => {
   const {
     data: { devices: initialDevices = [] },
     error: initialError,
@@ -54,3 +54,5 @@ export const Devices = () => {
     </Page>
   );
 };
+
+export { Devices };
