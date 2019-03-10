@@ -32,11 +32,7 @@ const ChannelForm = ({ id }: Props) => {
   const [name, onChangeName] = useInput('');
   const [layout, onChangeLayout] = useInput<ChannelLayout>('single');
   const [duration, onChangeDuration] = useInput(0);
-  const [urls, onChangeUrlAtIndex, { setInputCount }] = useInputArray(
-    '',
-    '',
-    '',
-  );
+  const [urls, onChangeUrlAtIndex, { setInputCount }] = useInputArray('');
 
   const layoutChangeHandler = (
     newValue: ChannelLayout,
@@ -75,17 +71,14 @@ const ChannelForm = ({ id }: Props) => {
         </Column>
       </Row>
       <ChannelLayoutPicker layout={layout} onChange={layoutChangeHandler}>
-        <label className="label">URL(s)</label>
+        <label className="label">URL{urls.length > 1 ? 's' : ''}</label>
         {urls.map((url, index) => (
           <Input
             key={index}
             name={`url-${index}`}
             placeholder={`URL ${index + 1}`}
             value={url}
-            onChange={React.useCallback(
-              (newValue: string) => onChangeUrlAtIndex(index, newValue),
-              [],
-            )}
+            onChange={(newValue: string) => onChangeUrlAtIndex(index, newValue)}
           />
         ))}
       </ChannelLayoutPicker>
