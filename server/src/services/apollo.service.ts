@@ -1,10 +1,11 @@
 import { join } from 'path';
 
-import { GraphQLServer } from 'graphql-yoga';
+import { GraphQLServer, PubSub } from 'graphql-yoga';
 import { importSchema } from 'graphql-import';
 
 import { Query } from '../resolvers/Query';
 import { Mutation } from '../resolvers/Mutation';
+import { Subscription } from '../resolvers/Subscription';
 
 import {
   PORT,
@@ -23,6 +24,7 @@ const typeDefs = importSchema(join(__dirname, '..', 'schema.graphql'));
 const resolvers = {
   Query,
   Mutation,
+  Subscription,
 };
 
 export async function startServer(fallback = false) {
@@ -36,8 +38,12 @@ export async function startServer(fallback = false) {
       : fallback
       ? [authMiddleware, fallbackMiddleware]
       : [authMiddleware],
-    context: ({ request }) => {
-      const authorization = request.headers.authorization || '';
+    context: ({ request, connection }) => {
+      const authorization = request
+        ? request.headers.authorization
+        : connection
+        ? (connection as any).context.Authorization
+        : '';
       const [, token = null] = /^Bearer (.+)$/.exec(authorization) || [];
 
       return {

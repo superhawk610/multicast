@@ -9,6 +9,10 @@ type Query {
   status: ServerStatus!
 }
 
+type Subscription {
+  devices: [Device!]!
+}
+
 type Mutation {
   createDevice(model: DeviceCreateInput!): Device!
   updateDevice(id: ID!, changes: DeviceUpdateInput!): Device!

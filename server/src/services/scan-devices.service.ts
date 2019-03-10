@@ -4,6 +4,7 @@ import { Op } from 'sequelize';
 import Device from '../models/device.model';
 
 import { SCANNING_FREQUENCY } from './config.service';
+import { publish, TOPICS } from './subscriptions.service';
 
 import { ChromecastService, DEVICE_MODELS } from '../types';
 
@@ -85,6 +86,11 @@ export function scanDevices(): Promise<void> {
           device.update({ status: 'offline' }),
         ),
       );
+
+      // publish devices to any active subscribers
+      publish(TOPICS.Devices, {
+        devices: [...updatedDevices, ...missingDevices],
+      });
       resolve();
     }, 15 * 1000);
   });

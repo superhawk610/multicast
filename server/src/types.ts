@@ -1,3 +1,5 @@
+import { PubSub } from 'graphql-yoga';
+
 export interface ChromecastService {
   name: string; // `${model}-${identifier}(-${iterator})?`
   fullname: string; // `${model}-${identifier}(-${iterator})?._googlecast._tcp.local.`
