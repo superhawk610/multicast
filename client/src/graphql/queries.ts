@@ -59,3 +59,17 @@ export const STATUS = gql`
     }
   }
 `;
+
+export const CONFIGURATION = gql`
+  {
+    configuration {
+      home
+      port
+      scanningFrequency
+      playgroundEnabled
+    }
+    status {
+      sandbox
+    }
+  }
+`;

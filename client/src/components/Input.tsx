@@ -17,6 +17,7 @@ type InputTheme =
 
 interface Props {
   label?: string;
+  type?: string;
   placeholder?: string;
   error?: string | null;
   name?: string;
@@ -32,6 +33,7 @@ interface Props {
 
 const Input = ({
   label,
+  type = 'text',
   placeholder,
   error,
   name,
@@ -66,6 +68,7 @@ const Input = ({
         className={`control ${loadingClass} ${leftIconClass} ${rightIconClass}`}
       >
         <input
+          type={type}
           className={`input ${error ? THEMES.danger : theme}`}
           placeholder={placeholder}
           disabled={disabled}
