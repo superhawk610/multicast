@@ -7,28 +7,28 @@ import { AlertForm } from './AlertForm';
 import { Input } from '../components/Input';
 import { Modal } from '../components/Modal';
 import { Button } from '../components/Button';
+import { InlineHeading } from '../components/Heading';
 import { ButtonGroup, Button as BGButton } from '../components/ButtonGroup';
 
-import { THEMES } from '../constants';
+import { THEMES, COLORS } from '../constants';
+import { Device, DeviceRotation } from '../types';
 
 interface Props {
-  id?: number;
+  device: Device;
 }
 
-const rotationButtons: BGButton<number>[] = [
+const rotationButtons: BGButton<DeviceRotation>[] = [
   { text: 'None', value: 0, theme: THEMES.dark },
   { text: '90°', value: 90, theme: THEMES.dark },
   { text: '180°', value: 180, theme: THEMES.dark },
   { text: '270°', value: 270, theme: THEMES.dark },
 ];
 
-const DeviceForm = ({ id }: Props) => {
-  const [identifier, setIdentifier] = React.useState('');
-  const [nickname, onChangeNickname] = useInput('');
-  const [rotation, onChangeRotation] = useInput(0);
+const DeviceForm = ({ device }: Props) => {
+  const [identifier] = React.useState(device.identifier);
+  const [nickname, onChangeNickname] = useInput(device.nickname);
+  const [rotation, onChangeRotation] = useInput(device.rotation);
   const [alertModalActive, toggleAlertModal] = useBooleanState();
-
-  // TODO: query device info
 
   return (
     <>
@@ -45,9 +45,22 @@ const DeviceForm = ({ id }: Props) => {
         value={rotation}
         onChange={onChangeRotation}
       />
+      <InlineHeading color={COLORS.greyLight}>Actions:</InlineHeading>
+      <Button
+        adjacent
+        text="Update Device"
+        theme={THEMES.success}
+        onClick={() => {}}
+      />
+      <Button
+        adjacent
+        text="Reconnect Device"
+        theme={THEMES.warning}
+        onClick={() => {}}
+      />
       <Button
         text="Create Alert"
-        theme={THEMES.success}
+        theme={THEMES.info}
         onClick={toggleAlertModal}
       />
       <Modal
@@ -56,7 +69,7 @@ const DeviceForm = ({ id }: Props) => {
         onClose={toggleAlertModal}
         onSubmit={() => {}}
       >
-        <AlertForm id={id} />
+        <AlertForm id={device.id} />
       </Modal>
     </>
   );

@@ -52,7 +52,7 @@ const Devices = () => {
       <Button
         adjacent
         text="Create Alert"
-        theme={THEMES.success}
+        theme={THEMES.info}
         onClick={toggleAlertModal}
       />
       <Button

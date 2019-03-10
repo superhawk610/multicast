@@ -15,7 +15,8 @@ import { COLORS } from '../constants';
 import { useBooleanState } from '../hooks/useBooleanState';
 import { Device as Props } from '../types';
 
-const Device = ({ id, address, nickname, model, supported, status }: Props) => {
+const Device = (device: Props) => {
+  const { id, address, nickname, model, supported, status } = device;
   const [active, toggleDetails] = useBooleanState();
 
   return (
@@ -57,7 +58,7 @@ const Device = ({ id, address, nickname, model, supported, status }: Props) => {
       </Box>
       {active && (
         <DetailWell>
-          <DeviceForm />
+          <DeviceForm device={device} />
         </DetailWell>
       )}
     </>
