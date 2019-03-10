@@ -1,3 +1,5 @@
+import { annotateDevice } from '../utils';
+
 import { getActiveChannel } from '../services/takeover.service';
 import { SANDBOX } from '../services/config.service';
 
@@ -6,11 +8,13 @@ import Channel from '../models/channel.model';
 import Alert from '../models/alert.model';
 
 export const Query = {
-  device(_, { id }) {
-    return Device.findByPk(id);
+  async device(_, { id }) {
+    const device = await Device.findByPk(id);
+    return device ? annotateDevice(device) : null;
   },
-  devices() {
-    return Device.findAll();
+  async devices() {
+    const devices = await Device.findAll();
+    return devices.map(annotateDevice);
   },
   channel(_, { id }) {
     return Channel.findByPk(id);
