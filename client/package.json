@@ -12,15 +12,29 @@
     "@types/jest": "^24.0.11",
     "@types/react": "^16.8.6",
     "@types/react-dom": "^16.8.2",
+    "@types/react-router": "^4.4.5",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/styled-components": "^4.1.12",
     "jest": "^24.3.1",
-    "parcel": "^1.11.0",
+    "parcel": "./.pkgs/parcel-bundler-1.12.0.tgz",
+    "sass": "^1.17.2",
     "ts-jest": "^24.0.0",
     "ts-lint": "^4.5.1",
     "ts-node": "^8.0.2",
     "typescript": "^3.3.3333"
   },
   "dependencies": {
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "apollo-boost": "^0.3.1",
+    "bulma": "^0.7.4",
+    "graphql": "^14.1.1",
+    "react": "^16.4.0-0",
+    "react-apollo-hooks": "^0.4.3",
+    "react-dom": "^16.8.4",
+    "react-icons-kit": "^1.2.1",
+    "react-redux": "^6.0.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^2.0.0 || ^3.0.0 || ^4.0.0-0",
+    "styled-components": "^4.1.3"
   }
 }

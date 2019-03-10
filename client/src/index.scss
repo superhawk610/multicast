@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+$family-serif: 'Nunito', serif;
+$family-primary: $family-serif;
+
+$green: #66b66a;
+$red: #e53935;
+
+@import '~bulma';
+
+.with-loading-spinner {
+  position: relative;
+  pointer-events: none;
+  padding: 1.15em 0 0 3.25em;
+  opacity: 0.5;
+  min-height: 3.75em;
+
+  &::after {
+    @include loader;
+    position: absolute;
+    top: 1.25em;
+    left: 1em;
+    width: 1.25em;
+    height: 1.25em;
+    border-width: 0.15em;
+  }
+}
