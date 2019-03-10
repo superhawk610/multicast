@@ -98,7 +98,7 @@ type Device {
   address: String!
   model: String!
   rotation: Int!
-  online: String!
+  status: String!
   channel: Channel
 }
 
