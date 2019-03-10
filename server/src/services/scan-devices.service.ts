@@ -1,12 +1,13 @@
 import { createBrowser, Browser, tcp, dns_sd, rst } from 'mdns';
 import { Op } from 'sequelize';
+import { annotateDevice } from '../utils';
 
 import Device from '../models/device.model';
 
 import { SCANNING_FREQUENCY } from './config.service';
 import { publish, TOPICS } from './subscriptions.service';
 
-import { ChromecastService, DEVICE_MODELS } from '../types';
+import { ChromecastService } from '../types';
 
 let scanInterval: NodeJS.Timeout | null = null;
 
@@ -20,10 +21,6 @@ export async function recordDevice(
 ): Promise<Device | null> {
   const identifier = service.txtRecord.id;
   const model = service.txtRecord.md;
-
-  // ignore devices with no video output
-  // TODO: add support for Google Home Hub?
-  if (model !== DEVICE_MODELS.Chromecast) return null;
 
   const device = await Device.findOne({ where: { identifier } });
 
@@ -106,8 +103,9 @@ export function scanDevices(): Promise<void> {
       );
 
       // publish devices to any active subscribers
+      const devices = await Device.findAll();
       publish(TOPICS.Devices, {
-        devices: await Device.findAll(),
+        devices: devices.map(annotateDevice),
       });
       resolve();
     }, 15 * 1000);

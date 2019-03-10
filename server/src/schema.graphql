@@ -101,6 +101,7 @@ type Device {
   nickname: String!
   address: String!
   model: String!
+  supported: Boolean!
   rotation: Int!
   status: String!
   channel: Channel

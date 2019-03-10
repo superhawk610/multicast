@@ -17,9 +17,6 @@ jest.mock('../../models/device.model', () => {
   };
 });
 
-const unsupportedDeviceModel = DEVICE_MODELS.Home;
-const supportedDeviceModel = DEVICE_MODELS.Chromecast;
-
 describe('scanDevices', () => {
   describe('scanDevices // recordDevice', () => {
     afterEach(() => {
@@ -28,26 +25,18 @@ describe('scanDevices', () => {
       Device.mockedInstance.save.mockClear();
     });
 
-    it('ignores unsupported device models', () => {
-      const service = {
-        txtRecord: { md: unsupportedDeviceModel },
-      } as ChromecastService;
-
-      return expect(recordDevice(service)).resolves.toBe(null);
-    });
-
     it('inserts new devices into the database', async () => {
       const device = {
         identifier: 'identifier',
         nickname: 'nickname',
         address: '10.0.0.10',
-        model: supportedDeviceModel,
+        model: DEVICE_MODELS.Chromecast,
         rotation: 0,
         status: 'online',
       };
       const service = {
         txtRecord: {
-          md: supportedDeviceModel,
+          md: DEVICE_MODELS.Chromecast,
           id: 'identifier',
           fn: 'nickname',
         },
@@ -68,7 +57,7 @@ describe('scanDevices', () => {
       const update = jest.fn();
       const nickname = 'foo';
       const service = {
-        txtRecord: { md: supportedDeviceModel, fn: nickname },
+        txtRecord: { md: DEVICE_MODELS.Chromecast, fn: nickname },
         addresses: ['10.0.0.10'],
       } as ChromecastService;
 
@@ -82,7 +71,7 @@ describe('scanDevices', () => {
       expect(update).toBeCalledWith({
         nickname,
         address: '10.0.0.10',
-        model: supportedDeviceModel,
+        model: DEVICE_MODELS.Chromecast,
         status: 'online',
       });
     });

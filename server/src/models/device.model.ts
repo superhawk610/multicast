@@ -12,6 +12,7 @@ import {
 } from 'sequelize-typescript';
 
 import Channel from './channel.model';
+import { GoogleDeviceModel } from '../types';
 
 @Table
 class Device extends Model<Device> {
@@ -31,7 +32,7 @@ class Device extends Model<Device> {
   public address!: string;
 
   @Column
-  public model!: string;
+  public model!: GoogleDeviceModel;
 
   @Is(/0|90|180|270/)
   @Column
