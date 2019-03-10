@@ -75,21 +75,39 @@ export function scanDevices(): Promise<void> {
         Boolean,
       ) as Device[];
 
-      // find all devices that aren't accounted for...
-      const missingDevices = await Device.findAll({
-        where: { id: { [Op.notIn]: updatedDevices.map(d => d.id) } },
+      // find all previously 'searching' devices that aren't accounted for...
+      const absentDevices = await Device.findAll({
+        where: {
+          id: { [Op.notIn]: updatedDevices.map(d => d.id) },
+          status: 'searching',
+        },
       });
 
-      // ...and mark them as offline
+      // ...and mark them as 'offline'
       await Promise.all(
-        missingDevices.map((device: Device) =>
+        absentDevices.map((device: Device) =>
           device.update({ status: 'offline' }),
+        ),
+      );
+
+      // find all previously 'online' devices that aren't accounted for...
+      const hidingDevices = await Device.findAll({
+        where: {
+          id: { [Op.notIn]: updatedDevices.map(d => d.id) },
+          status: 'online',
+        },
+      });
+
+      // ...and mark them as 'searching'
+      await Promise.all(
+        hidingDevices.map((device: Device) =>
+          device.update({ status: 'searching' }),
         ),
       );
 
       // publish devices to any active subscribers
       publish(TOPICS.Devices, {
-        devices: [...updatedDevices, ...missingDevices],
+        devices: await Device.findAll(),
       });
       resolve();
     }, 15 * 1000);

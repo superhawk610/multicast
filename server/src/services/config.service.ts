@@ -7,7 +7,7 @@ export const MULTICAST_HOME = '.multicast';
 export const PORT = 4000;
 
 // time (ms) to wait between mdns scans
-export const SCANNING_FREQUENCY = 30 * 1000;
+export const SCANNING_FREQUENCY = 15 * 1000;
 
 // key to prevent random access to GraphQL endpoint
 export const API_KEY = '46f2c224704811909ffdf0735741b0b8';
