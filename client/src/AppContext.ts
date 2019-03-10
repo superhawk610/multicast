@@ -4,7 +4,7 @@ export interface ApplicationContext {
   subscribeToMessages: (observer: MessagesObserver) => Unsubscribe;
   showMessage: (options: Message) => void;
   dialog: Dialog;
-  showDialog: (options: Dialog) => void;
+  showDialog: (options?: Partial<Dialog>) => void;
   hideDialog: (confirmed: boolean) => void;
 }
 
@@ -39,6 +39,7 @@ export function createAppContext(): ApplicationContext {
   const messages = {} as MessageMap;
   let observers: MessagesObserver[] = [];
 
+  // FIXME: this should probably be a state variable in App
   const dialog: Dialog = {
     title: '',
     body: '',
@@ -83,7 +84,7 @@ export function createAppContext(): ApplicationContext {
     body = 'This action CANNOT be undone',
     onCancel = noop,
     onConfirm = noop,
-  }: Dialog) {
+  }: Partial<Dialog> = {}) {
     dialog.title = title;
     dialog.body = body;
     dialog.onCancel = onCancel;

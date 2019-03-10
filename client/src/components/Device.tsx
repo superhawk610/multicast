@@ -7,6 +7,7 @@ import { Well } from './Well';
 import { Level, LevelLeft, LevelRight, LevelItem } from './Level';
 import { IconButton } from './IconButton';
 import { StatusLight } from './StatusLight';
+import { DeviceForm } from '../forms/DeviceForm';
 
 import { chevronDown } from 'react-icons-kit/feather/chevronDown';
 
@@ -56,7 +57,11 @@ const Device = ({ id, address, nickname, model, status }: Props) => {
           </LevelRight>
         </Level>
       </Box>
-      {active && <DetailWell>edit device form</DetailWell>}
+      {active && (
+        <DetailWell>
+          <DeviceForm />
+        </DetailWell>
+      )}
     </>
   );
 };

@@ -14,7 +14,7 @@ import { DEVICES } from '../graphql/queries';
 import { Device } from '../types';
 
 interface Props {
-  id: number;
+  id?: number;
 }
 
 const themeButtons: Button<MessageTheme>[] = [

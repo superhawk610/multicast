@@ -1,17 +1,29 @@
 import * as React from 'react';
 import { useSubscription, useQuery } from 'react-apollo-hooks';
+import { useBooleanState } from '../hooks/useBooleanState';
+
+import { AppContext } from '../AppContext';
 
 import { Page } from '../components/Page';
 import { Heading2 } from '../components/Heading';
 import { Device } from '../components/Device';
+import { Button } from '../components/Button';
+import { Modal } from '../components/Modal';
 import { CornerCat } from '../components/CornerCat';
+import { Spacer } from '../components/Spacer';
+import { AlertForm } from '../forms/AlertForm';
 
-import { COLORS } from '../constants';
+import { COLORS, THEMES } from '../constants';
 import { Device as DeviceType } from '../types';
 import { DEVICES } from '../graphql/queries';
 import { SUB_DEVICES } from '../graphql/subscriptions';
 
 const Devices = () => {
+  const [alertModalActive, toggleAlertModal] = useBooleanState();
+
+  const { showDialog } = React.useContext(AppContext);
+  const onStartTakeover = () => showDialog();
+
   const {
     data: { devices: initialDevices = [] },
     error: initialError,
@@ -32,6 +44,18 @@ const Devices = () => {
 
   return (
     <Page heading="Devices" subheading="Available Devices">
+      <Button
+        adjacent
+        text="Create Alert"
+        theme={THEMES.success}
+        onClick={toggleAlertModal}
+      />
+      <Button
+        text="Start Takeover"
+        theme={THEMES.danger}
+        onClick={onStartTakeover}
+      />
+      <Spacer />
       {error && (
         <div style={{ padding: '25px' }}>
           <Heading2 color={COLORS.red}>Oops! We encountered an error.</Heading2>
@@ -50,6 +74,14 @@ const Devices = () => {
           show up here.
         </div>
       )}
+      <Modal
+        active={alertModalActive}
+        heading="Create Alert"
+        onClose={toggleAlertModal}
+        onSubmit={() => {}}
+      >
+        <AlertForm />
+      </Modal>
       <CornerCat in={!initialLoading && !liveLoading && devices.length === 0} />
     </Page>
   );
