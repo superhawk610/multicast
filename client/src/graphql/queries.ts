@@ -8,6 +8,7 @@ export const DEVICES = gql`
       nickname
       address
       model
+      supported
       rotation
       status
       channel {

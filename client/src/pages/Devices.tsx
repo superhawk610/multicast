@@ -35,15 +35,20 @@ const Devices = () => {
     loading: liveLoading,
   } = useSubscription(SUB_DEVICES);
 
-  const devices = liveDevices || initialDevices;
+  const devices: DeviceType[] = liveDevices || initialDevices;
   const error = initialError || liveError;
+  const supportedDevices = [];
+  const unsupportedDevices = [];
 
-  if (initialLoading) {
-    return <div className="with-loading-spinner">Loading...</div>;
+  for (const device of devices) {
+    if (device.supported) supportedDevices.push(device);
+    else unsupportedDevices.push(device);
   }
 
-  return (
-    <Page heading="Devices" subheading="Available Devices">
+  const pageContent = initialLoading ? (
+    <div className="with-loading-spinner">Loading...</div>
+  ) : (
+    <>
       <Button
         adjacent
         text="Create Alert"
@@ -62,17 +67,23 @@ const Devices = () => {
           {error.message}
         </div>
       )}
-      <div>
-        {devices.map((device: DeviceType, index: number) => (
-          <Device key={index} {...device} />
-        ))}
-      </div>
-      {devices.length === 0 && (
+      {supportedDevices.map((device: DeviceType, index: number) => (
+        <Device key={index} {...device} />
+      ))}
+      {supportedDevices.length === 0 && (
         <div style={{ padding: '25px' }}>
           <Heading2>There's nothing here!</Heading2>
           Make sure to follow the setup guide to get your developer devices to
           show up here.
         </div>
+      )}
+      {unsupportedDevices.length > 0 && (
+        <>
+          <Heading2 color={COLORS.grey}>Unsupported Devices</Heading2>
+          {unsupportedDevices.map((device: DeviceType, index: number) => (
+            <Device key={index} {...device} />
+          ))}
+        </>
       )}
       <Modal
         active={alertModalActive}
@@ -83,6 +94,12 @@ const Devices = () => {
         <AlertForm />
       </Modal>
       <CornerCat in={!initialLoading && !liveLoading && devices.length === 0} />
+    </>
+  );
+
+  return (
+    <Page heading="Devices" subheading="Available Devices">
+      {pageContent}
     </Page>
   );
 };

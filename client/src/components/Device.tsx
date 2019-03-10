@@ -13,22 +13,18 @@ import { chevronDown } from 'react-icons-kit/feather/chevronDown';
 
 import { COLORS } from '../constants';
 import { useBooleanState } from '../hooks/useBooleanState';
-import { DeviceStatus } from '../types';
+import { Device as Props } from '../types';
 
-interface Props {
-  id: number;
-  address: string;
-  nickname: string;
-  model: string;
-  status: DeviceStatus;
-}
-
-const Device = ({ id, address, nickname, model, status }: Props) => {
+const Device = ({ id, address, nickname, model, supported, status }: Props) => {
   const [active, toggleDetails] = useBooleanState();
 
   return (
     <>
-      <Box color={colorForStatus(status)} onClick={toggleDetails}>
+      <Box
+        color={supported ? colorForStatus(status) : COLORS.greyLight}
+        onClick={supported ? toggleDetails : undefined}
+        style={supported ? {} : { opacity: 0.5 }}
+      >
         <Level>
           <LevelLeft>
             <LevelItem>
@@ -46,14 +42,16 @@ const Device = ({ id, address, nickname, model, status }: Props) => {
           </LevelLeft>
           <LevelRight>
             <LevelItem>
-              <StatusLight status={status} />
-            </LevelItem>
-            <LevelItem>
               <DimText>{model}</DimText>
             </LevelItem>
             <LevelItem>
-              <IconButton icon={chevronDown} />
+              <StatusLight status={status} />
             </LevelItem>
+            {supported && (
+              <LevelItem>
+                <IconButton icon={chevronDown} />
+              </LevelItem>
+            )}
           </LevelRight>
         </Level>
       </Box>

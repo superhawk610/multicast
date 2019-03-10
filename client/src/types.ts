@@ -29,6 +29,7 @@ export interface Device {
   nickname: string;
   address: string;
   model: string;
+  supported: boolean;
   rotation: DeviceRotation;
   status: DeviceStatus;
   channel: Channel | null;
