@@ -9,7 +9,7 @@ interface Props {
 
 const CornerCat = (props: Props) => {
   const [mounted, setMounted] = React.useState(false);
-  const ref = React.useRef<HTMLImageElement>();
+  const ref = React.useRef() as React.MutableRefObject<HTMLImageElement>;
 
   React.useEffect(() => {
     ref.current && ref.current.scrollTop; // tslint:disable-line:no-unused-expression
@@ -24,8 +24,7 @@ const CornerCat = (props: Props) => {
     }`,
   };
 
-  // FIXME: tracking at https://github.com/DefinitelyTyped/DefinitelyTyped/issues/28884
-  return <Image ref={ref as any} style={style} src={cat} />;
+  return <Image ref={ref} style={style} src={cat} />;
 };
 
 const Image = styled.img`
