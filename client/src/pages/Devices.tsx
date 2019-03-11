@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSubscription, useQuery } from 'react-apollo-hooks';
 import { useBooleanState } from '../hooks/useBooleanState';
 
-import { AppContext } from '../AppContext';
+import { AppContext } from '../AppProvider';
 
 import { Page } from '../components/Page';
 import { Heading2 } from '../components/Heading';

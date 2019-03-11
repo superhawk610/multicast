@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import * as React from 'react';
 
 export interface ApplicationContext {
   subscribeToMessages: (observer: MessagesObserver) => Unsubscribe;
@@ -30,23 +30,54 @@ interface Dialog {
   active: boolean;
 }
 
-const AppContext = createContext({} as ApplicationContext);
+interface Props {
+  children: React.ReactNode;
+}
 
-function noop() {}
+const AppContext = React.createContext({} as ApplicationContext);
 
-export function createAppContext(): ApplicationContext {
-  let id = 0;
-  const messages = {} as MessageMap;
-  let observers: MessagesObserver[] = [];
+const context = createAppContext();
 
-  // FIXME: this should probably be a state variable in App
-  const dialog: Dialog = {
+const AppProvider = ({ children }: Props) => {
+  const [dialog, setDialog] = React.useState<Dialog>({
     title: '',
     body: '',
     onCancel: noop,
     onConfirm: noop,
     active: false,
+  });
+
+  const showDialog = ({
+    title = 'Are you sure?',
+    body = 'This action CANNOT be undone',
+    onCancel = noop,
+    onConfirm = noop,
+  }: Partial<Dialog> = {}) =>
+    setDialog({
+      title,
+      body,
+      onCancel,
+      onConfirm,
+      active: true,
+    });
+
+  const hideDialog = (confirmed: boolean) => {
+    setDialog({ ...dialog, active: false });
+    if (confirmed) dialog.onConfirm();
+    else dialog.onCancel();
   };
+
+  return (
+    <AppContext.Provider value={{ ...context, dialog, showDialog, hideDialog }}>
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+function createAppContext() {
+  let id = 0;
+  const messages = {} as MessageMap;
+  let observers: MessagesObserver[] = [];
 
   function subscribeToMessages(observer: MessagesObserver) {
     observers.push(observer);
@@ -79,32 +110,12 @@ export function createAppContext(): ApplicationContext {
     }
   }
 
-  function showDialog({
-    title = 'Are you sure?',
-    body = 'This action CANNOT be undone',
-    onCancel = noop,
-    onConfirm = noop,
-  }: Partial<Dialog> = {}) {
-    dialog.title = title;
-    dialog.body = body;
-    dialog.onCancel = onCancel;
-    dialog.onConfirm = onConfirm;
-    dialog.active = true;
-  }
-
-  function hideDialog(confirmed: boolean) {
-    dialog.active = false;
-    if (confirmed) dialog.onConfirm();
-    else dialog.onCancel();
-  }
-
   return {
     subscribeToMessages,
     showMessage,
-    dialog,
-    showDialog,
-    hideDialog,
   };
 }
 
-export { AppContext };
+function noop() {}
+
+export { AppContext, AppProvider };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { AppContext } from '../AppContext';
+import { AppContext } from '../AppProvider';
 
 import { Box } from './Box';
 import { Button } from './Button';

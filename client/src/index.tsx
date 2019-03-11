@@ -8,18 +8,16 @@ import './index.scss';
 
 import { App } from './components/App';
 
-import { AppContext, createAppContext } from './AppContext';
+import { AppProvider } from './AppProvider';
 
 const client = configureApolloClient();
-
-const appContext = createAppContext();
 
 render(
   <BrowserRouter>
     <ApolloProvider client={client}>
-      <AppContext.Provider value={appContext}>
+      <AppProvider>
         <App />
-      </AppContext.Provider>
+      </AppProvider>
     </ApolloProvider>
   </BrowserRouter>,
   document.getElementById('root'),
