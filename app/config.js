@@ -42,11 +42,11 @@ var startConfig = () => {
   }).then(() => ask('Mongo port? (27017)')).then(res => {
     opts.mongoPort = res || 27017
   }).then(() => ask('Mongo username? (none)')).then(res => {
-    opts.mongoUsername = res || ''
+    opts.mongoUser = res || ''
   }).then(() => ask('Mongo password? (none)')).then(res => {
-    opts.mongoPassword = res || ''
+    opts.mongoPass = res || ''
   }).then(() => ask('Mongo auth DB? (admin)')).then(res => {
-    opts.mongoAuthDB = res || 'admin'
+    opts.mongoAuthSource = res || 'admin'
   }).then(() => {
     console.log('')
     console.log('Now we\'ll configure Chromecast integration.')
