@@ -85,7 +85,7 @@ export const Mutation = {
     return { active: false, channel: null };
   },
   updateConfiguration(_, { changes }) {
-    // TODO: persist configuration changes to disk
+    // FIXME: persist configuration changes to disk
     return {
       home: MULTICAST_HOME,
       port: PORT,

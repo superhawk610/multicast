@@ -28,6 +28,8 @@
     "home-dir": "^1.0.0",
     "multicast-dns": "^7.2.0",
     "reflect-metadata": "^0.1.13",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
     "sequelize": "^4.43.0",
     "sequelize-typescript": "^0.6.7",
     "sqlite3": "^4.0.6"

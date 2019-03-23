@@ -1,6 +1,7 @@
 import { join } from 'path';
+import * as request from 'request-promise-native';
 
-import { GraphQLServer, PubSub } from 'graphql-yoga';
+import { GraphQLServer } from 'graphql-yoga';
 import { importSchema } from 'graphql-import';
 
 import { Query } from '../resolvers/Query';
@@ -52,6 +53,19 @@ export async function startServer(fallback = false) {
       };
     },
   });
+
+  // setup __proxy route for stripping problematic iframe headers
+  server.express.get('/__proxy', (req, res) => {
+    const { url } = req.query;
+    request(url)
+      .on('response', res => {
+        delete res.headers['x-frame-options'];
+        delete res.headers['content-security-policy'];
+      })
+      .pipe(res);
+  });
+
+  // listen on the provided PORT
   server.start(
     { port: PORT, playground: DISABLE_PLAYGROUND ? false : PLAYGROUND_URL },
     () => {
