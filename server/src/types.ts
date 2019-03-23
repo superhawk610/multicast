@@ -1,17 +1,11 @@
-import { PubSub } from 'graphql-yoga';
+export type Nullable<T> = { [P in keyof T]: T[P] | null };
 
 export interface ChromecastService {
-  name: string; // `${model}-${identifier}(-${iterator})?`
-  fullname: string; // `${model}-${identifier}(-${iterator})?._googlecast._tcp.local.`
-  txtRecord: ServiceTxtRecord;
-  addresses: string[];
+  id: string;
+  name: string;
+  model: GoogleDeviceModel;
+  address: string;
   port: number;
-}
-
-export interface ServiceTxtRecord {
-  id: string; // device identifier
-  fn: string; // device name
-  md: GoogleDeviceModel; // device model
 }
 
 export const DEVICE_MODELS = {

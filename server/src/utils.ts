@@ -17,3 +17,36 @@ export function annotateDevice(device: Device): AnnotatedDevice {
     supported: isSupportedModel(device.model),
   };
 }
+
+// TODO: unit test
+// converts an array of key-value pairs to an object with the corresponding
+// key-value pairs
+//
+// ['a=b', 'foo=bar']
+//
+// {
+//   a: 'b',
+//   foo: 'bar',
+// }
+export function objectFromKeyValuePairs(
+  keyValuePairs: string[],
+): { [key: string]: string } {
+  const obj = {};
+
+  for (const kvp of keyValuePairs) {
+    const idx = kvp.indexOf('=');
+    const key = kvp.substring(0, idx);
+    const value = kvp.substring(idx + 1);
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+// TODO: unit test
+export function dedupe<T>(arr: T[], identify: (el: T) => any = x => x): T[] {
+  return arr.filter((el: T, pos: number) => {
+    const identity = identify(el);
+    return arr.findIndex(x => identify(x) === identity) === pos;
+  });
+}

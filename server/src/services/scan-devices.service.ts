@@ -1,6 +1,6 @@
-import { createBrowser, Browser, tcp, dns_sd, rst } from 'mdns';
+import * as createMdnsInterface from 'multicast-dns';
 import { Op } from 'sequelize';
-import { annotateDevice } from '../utils';
+import { annotateDevice, dedupe } from '../utils';
 
 import Device from '../models/device.model';
 
@@ -8,19 +8,29 @@ import { SCANNING_FREQUENCY } from './config.service';
 import { publish, TOPICS } from './subscriptions.service';
 
 import { ChromecastService } from '../types';
+import { parseResponse } from './parse-mdns-query.service';
+
+interface MDNSHandler {
+  onResponse: (res: any) => void;
+}
 
 let scanInterval: NodeJS.Timeout | null = null;
 
+const mdns = createMdnsInterface();
+const handler: MDNSHandler = { onResponse: () => {} };
+mdns.on('response', res => handler.onResponse(res));
+
 export function startScanning(): void {
   if (scanInterval) clearInterval(scanInterval);
+  scanDevices();
   scanInterval = setInterval(scanDevices, SCANNING_FREQUENCY);
 }
 
 export async function recordDevice(
   service: ChromecastService,
 ): Promise<Device | null> {
-  const identifier = service.txtRecord.id;
-  const model = service.txtRecord.md;
+  const identifier = service.id;
+  const model = service.model;
 
   const device = await Device.findOne({ where: { identifier } });
 
@@ -28,8 +38,8 @@ export async function recordDevice(
   if (!device) {
     const newDevice = new Device({
       identifier,
-      nickname: service.txtRecord.fn,
-      address: service.addresses[0],
+      nickname: service.name,
+      address: service.address,
       model,
       rotation: 0,
       status: 'online',
@@ -39,8 +49,8 @@ export async function recordDevice(
 
   // if we've seen this device before, update it
   return device.update({
-    nickname: service.txtRecord.fn,
-    address: service.addresses[0],
+    nickname: service.name,
+    address: service.address,
     model,
     status: 'online',
   });
@@ -48,29 +58,22 @@ export async function recordDevice(
 
 export function scanDevices(): Promise<void> {
   return new Promise(resolve => {
-    // look for mDNS Cast devices on LAN network
-    const browser = createBrowser(tcp('googlecast'));
-
-    // Only scan IPv4 addresses (ignore IPv6)
-    Browser.defaultResolverSequence[1] =
-      'DNSServiceGetAddrInfo' in dns_sd
-        ? rst.DNSServiceGetAddrInfo()
-        : rst.getaddrinfo({ families: [4] });
-
     const deviceUpdates: Promise<Device | null>[] = [];
 
-    // 'serviceUp' will be emitted for each device found
-    browser.on('serviceUp', (service: ChromecastService) =>
-      deviceUpdates.push(recordDevice(service)),
-    );
+    // update mDNS handler with this iteration's instance of deviceUpdates
+    handler.onResponse = res => {
+      const device = parseResponse(res);
+      if (device) deviceUpdates.push(recordDevice(device));
+    };
+
+    mdns.query('._googlecast._tcp.local', 'ANY');
 
     // poll for 15 seconds
-    browser.start();
     setTimeout(async () => {
-      browser.stop();
-      const updatedDevices = (await Promise.all(deviceUpdates)).filter(
-        Boolean,
-      ) as Device[];
+      const updatedDevices = dedupe(
+        (await Promise.all(deviceUpdates)).filter(Boolean) as Device[],
+        d => d.id,
+      );
 
       // find all previously 'searching' devices that aren't accounted for...
       const absentDevices = await Device.findAll({

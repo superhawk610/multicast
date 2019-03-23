@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "lib": ["es2015", "es2015.iterable"],
     "types": ["node", "jest"],
     "typeRoots": ["./@types", "./node_modules/@types"],
     "strict": true,

@@ -6,6 +6,10 @@ export const MULTICAST_HOME = '.multicast';
 // port that GraphQL will listen on
 export const PORT = 4000;
 
+// when enabled, all SQL operations will be logged to the console
+// (useful for debugging)
+export const SQL_LOGGING = false;
+
 // time (ms) to wait between mdns scans
 export const SCANNING_FREQUENCY = 15 * 1000;
 

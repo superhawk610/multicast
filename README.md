@@ -39,20 +39,6 @@ TODO: Usage instructions.
 
 This project requires Node.js and NPM (bundled with Node), as well as a MongoDB server. Since Node is cross-platform, it should work on Windows, MacOS, and Linux.
 
-This project depends on [node_mdns](https://github.com/agnat/node_mdns), which in turn requires a mDNS stack. Follow the installation instructions [here](https://github.com/agnat/node_mdns#installation) for whichever platform you are on to install a mDNS stack. If you're on Linux, this is as simple as
-
-#### Debian/Ubuntu
-
-```shell
-sudo apt-get install build-essential libavahi-compat-libdnssd-dev
-```
-
-#### RedHat/Fedora/CentOS
-
-```shell
-sudo yum install gcc gcc-c++ avahi avahi-compat-libdns_sd avahi-compat-libdns_sd-devel nss_mdns
-```
-
 ### Setup
 
 Grab the latest stable copy of Node/NPM from [here](https://nodejs.org/en/download/) or install it via [nvm](http://nvm.sh).
@@ -84,17 +70,6 @@ Make sure that the device running MultiCast has these ports open, as well as the
 ## Having Trouble?
 
 ### Common Errors
-
-```html
-*** WARNING *** The program 'nodejs' uses the Apple Bonjour compatibility layer of Avahi.
-*** WARNING *** Please fix your application to use the native API of Avahi!
-*** WARNING *** For more information see http://0pointer.de/avahi-compat?s=libdns_sd&e=nodejs
-*** WARNING *** The program 'nodejs' called 'DNSServiceRegister()' which is not supported (or only supported partially) in the Apple Bonjour compatibility layer of Avahi.
-*** WARNING *** Please fix your application to use the native API of Avahi!
-*** WARNING *** For more information see http://0pointer.de/avahi-compat?s=libdns_sd&e=nodejs&f=DNSServiceRegister
-```
-
-Don't worry about this. This warning shows up in all Node apps on Linux that depend on `libavahi-compat-libdnssd-dev`. You can safely ignore it.
 
 **Multicast can't find your devices?**
 Make sure they've already been setup and powered on and the display that they're connected to is powered on and displaying their output.

@@ -35,12 +35,10 @@ describe('scanDevices', () => {
         status: 'online',
       };
       const service = {
-        txtRecord: {
-          md: DEVICE_MODELS.Chromecast,
-          id: 'identifier',
-          fn: 'nickname',
-        },
-        addresses: ['10.0.0.10'],
+        id: 'identifier',
+        model: DEVICE_MODELS.Chromecast,
+        name: 'nickname',
+        address: '10.0.0.10',
       } as ChromecastService;
 
       Device.default.findOne.mockImplementation(
@@ -57,8 +55,9 @@ describe('scanDevices', () => {
       const update = jest.fn();
       const nickname = 'foo';
       const service = {
-        txtRecord: { md: DEVICE_MODELS.Chromecast, fn: nickname },
-        addresses: ['10.0.0.10'],
+        model: DEVICE_MODELS.Chromecast,
+        name: nickname,
+        address: '10.0.0.10',
       } as ChromecastService;
 
       Device.default.findOne.mockImplementation(

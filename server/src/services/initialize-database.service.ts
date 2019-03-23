@@ -1,10 +1,14 @@
 import { join } from 'path';
 import { Sequelize } from 'sequelize-typescript';
+
 import { getDataDirectory } from './get-data-directory.service';
+
+import { SQL_LOGGING } from './config.service';
 
 export async function initializeDatabase() {
   const dataDirectory = getDataDirectory();
   const db = new Sequelize({
+    logging: SQL_LOGGING,
     database: 'multicast',
     dialect: 'sqlite',
     username: 'root',
