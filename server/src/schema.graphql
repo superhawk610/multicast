@@ -12,6 +12,7 @@ type Query {
 type Subscription {
   devices: [Device!]!
   alerts: [Alert!]!
+  updates(device: ID!): UpdateSummary!
 }
 
 type Mutation {
@@ -42,8 +43,8 @@ input DeviceCreateInput {
 input DeviceUpdateInput {
   identifier: String
   nickname: String
-  address: String!
-  model: String!
+  address: String
+  model: String
   rotation: Int
   status: String
   channel: ID
@@ -103,6 +104,12 @@ type DeleteDeviceResult {
 type DeleteChannelResult {
   ok: Boolean!
   model: Channel
+}
+
+type UpdateSummary {
+  urls: [String!]
+  channel: Channel
+  takeover: TakeoverStatus
 }
 
 type Device {

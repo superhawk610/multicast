@@ -9,7 +9,10 @@ import {
   AutoIncrement,
   AllowNull,
   Unique,
+  AfterUpdate,
 } from 'sequelize-typescript';
+
+import { publish, TOPICS } from '../services/subscriptions.service';
 
 import Channel from './channel.model';
 import { GoogleDeviceModel } from '../types';
@@ -52,6 +55,16 @@ class Device extends Model<Device> {
     },
   })
   public channel!: Channel;
+
+  @AfterUpdate
+  static afterUpdateDevice(instance: Device, options: any): void {
+    publish(TOPICS.Updates, {
+      device: String(instance.id),
+      updates: {
+        channel: instance.channel,
+      },
+    });
+  }
 }
 
 export default Device;

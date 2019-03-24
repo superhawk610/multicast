@@ -1,3 +1,5 @@
+import { withFilter } from 'graphql-yoga';
+
 import { getResolver, TOPICS } from '../services/subscriptions.service';
 
 export const Subscription = {
@@ -10,5 +12,11 @@ export const Subscription = {
     subscribe() {
       return getResolver(TOPICS.Alerts);
     },
+  },
+  updates: {
+    subscribe: withFilter(
+      () => getResolver(TOPICS.Updates),
+      (payload, { device }) => !payload.device || payload.device === device,
+    ),
   },
 };

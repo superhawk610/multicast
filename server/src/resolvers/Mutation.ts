@@ -19,11 +19,11 @@ export const Mutation = {
     return annotateDevice(device);
   },
   async updateDevice(_, { id, changes }) {
-    const [, devices] = await Device.update(changes, { where: { id } });
-    if (devices.length === 0) {
+    const device = await Device.findByPk(id);
+    if (!device) {
       throw new Error(`No device found for id ${id}`);
     }
-    const device = devices[0];
+    await device.update(changes);
     return annotateDevice(device);
   },
   async deleteDevice(_, { id }) {
@@ -40,11 +40,12 @@ export const Mutation = {
     return Channel.create(model);
   },
   async updateChannel(_, { id, changes }) {
-    const [, channels] = await Channel.update(changes, { where: { id } });
-    if (channels.length === 0) {
+    const channel = await Channel.findByPk(id);
+    if (!channel) {
       throw new Error(`No channel found for id ${id}`);
     }
-    return channels[0];
+    await channel.update(changes);
+    return channel;
   },
   async deleteChannel(_, { id }) {
     try {

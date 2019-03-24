@@ -4,6 +4,10 @@ import { recordDevice } from '../scan-devices.service';
 
 const Device = typedDevice as any;
 
+jest.mock('multicast-dns', () => () => ({
+  on: jest.fn(),
+}));
+
 jest.mock('../../models/device.model', () => {
   const mockDevice = jest.fn() as any;
   const mockDeviceInstance = jest.fn() as any;
