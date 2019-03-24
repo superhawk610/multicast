@@ -1,4 +1,4 @@
-import { startServer } from './services/apollo.service';
+import { startServer } from './server';
 
 import { MULTICAST_HOME } from './services/config.service';
 

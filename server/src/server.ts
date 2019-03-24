@@ -1,26 +1,29 @@
 import { join } from 'path';
-import * as request from 'request-promise-native';
+import * as requestIp from 'request-ip';
 
 import { GraphQLServer } from 'graphql-yoga';
 import { importSchema } from 'graphql-import';
 
-import { Query } from '../resolvers/Query';
-import { Mutation } from '../resolvers/Mutation';
-import { Subscription } from '../resolvers/Subscription';
+import { Query } from './resolvers/Query';
+import { Mutation } from './resolvers/Mutation';
+import { Subscription } from './resolvers/Subscription';
+
+import proxy from './routers/proxy.router';
+import client from './routers/client.router';
 
 import {
   PORT,
   DISABLE_PLAYGROUND,
   PLAYGROUND_URL,
   SANDBOX,
-} from './config.service';
-import { initializeDatabase } from './initialize-database.service';
-import { startScanning } from './scan-devices.service';
+} from './services/config.service';
+import { initializeDatabase } from './services/initialize-database.service';
+import { startScanning } from './services/scan-devices.service';
 
-import { authMiddleware } from '../middleware/auth.middleware';
-import { fallbackMiddleware } from '../middleware/fallback.middleware';
+import { authMiddleware } from './middleware/auth.middleware';
+import { fallbackMiddleware } from './middleware/fallback.middleware';
 
-const typeDefs = importSchema(join(__dirname, '..', 'schema.graphql'));
+const typeDefs = importSchema(join(__dirname, 'schema.graphql'));
 
 const resolvers = {
   Query,
@@ -54,16 +57,14 @@ export async function startServer(fallback = false) {
     },
   });
 
+  // attach client IP info to request object in handlers
+  server.express.use(requestIp.mw());
+
   // setup __proxy route for stripping problematic iframe headers
-  server.express.get('/__proxy', (req, res) => {
-    const { url } = req.query;
-    request(url)
-      .on('response', res => {
-        delete res.headers['x-frame-options'];
-        delete res.headers['content-security-policy'];
-      })
-      .pipe(res);
-  });
+  server.express.use('/__proxy', proxy);
+
+  // serve client application with server info injected
+  server.express.use('/web', client);
 
   // listen on the provided PORT
   server.start(
@@ -73,10 +74,12 @@ export async function startServer(fallback = false) {
         ? 'disabled'
         : `http://localhost:${PORT}${PLAYGROUND_URL}`;
       console.log();
-      console.log('  ---');
-      console.log(`  Server is running on http://localhost:${PORT}`);
-      console.log(`  GraphQL playground: ${playgroundMessage}`);
-      console.log('  ---');
+      console.log('              ┌────────────────────┐');
+      console.log(`              │ MultiCast is live! │`);
+      console.log('              └────────────────────┘');
+      console.log();
+      console.log(`              Web UI: http://localhost:${PORT}/web`);
+      console.log(`  GraphQL Playground: ${playgroundMessage}`);
       console.log();
     },
   );
