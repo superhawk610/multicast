@@ -4,9 +4,10 @@ const pubsub = new PubSub();
 
 export const TOPICS: { [topic: string]: PubSubTopic } = {
   Devices: 'devices',
+  Alerts: 'alerts',
 };
 
-export type PubSubTopic = 'devices';
+export type PubSubTopic = 'devices' | 'alerts';
 
 export function getResolver(topic: PubSubTopic) {
   return pubsub.asyncIterator(topic);

@@ -1,6 +1,7 @@
 import { annotateDevice } from '../utils';
 
 import { getActiveChannel } from '../services/takeover.service';
+import { getAllAlerts } from '../services/alert.service';
 import {
   SANDBOX,
   MULTICAST_HOME,
@@ -11,7 +12,6 @@ import {
 
 import Device from '../models/device.model';
 import Channel from '../models/channel.model';
-import Alert from '../models/alert.model';
 
 export const Query = {
   async device(_, { id }) {
@@ -28,11 +28,8 @@ export const Query = {
   channels() {
     return Channel.findAll();
   },
-  alert(_, { id }) {
-    return Alert.findByPk(id);
-  },
   alerts() {
-    return Alert.findAll();
+    return getAllAlerts();
   },
   takeover() {
     const channel = getActiveChannel();

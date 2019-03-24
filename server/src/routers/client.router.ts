@@ -20,6 +20,7 @@ router.get('*', (req, res) => {
       res.send(
         html
           .replace('"#INJECT_ACTIVE"', 'true')
+          .replace('"#INJECT_DEVICE"', device ? `"${device.id}"` : 'null')
           .replace('#INJECT_HOST', req.clientIp)
           .replace(
             '#INJECT_NAME',

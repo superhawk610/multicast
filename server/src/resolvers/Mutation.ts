@@ -11,8 +11,7 @@ import {
 
 import Device from '../models/device.model';
 import Channel from '../models/channel.model';
-import Alert from '../models/alert.model';
-import { connect } from 'http2';
+import { createAlert } from '../services/alert.service';
 
 export const Mutation = {
   async createDevice(_, { model }) {
@@ -57,25 +56,8 @@ export const Mutation = {
       return { ok: false, model: null };
     }
   },
-  createAlert(_, { model }) {
-    return Alert.create(model);
-  },
-  async updateAlert(_, { id, changes }) {
-    const [, alerts] = await Alert.update(changes, { where: { id } });
-    if (alerts.length === 0) {
-      throw new Error(`No alert found for id ${id}`);
-    }
-    return alerts[0];
-  },
-  async deleteAlert(_, { id }) {
-    try {
-      const model = await Alert.findByPk(id);
-      if (!model) return { ok: false, model };
-      await Alert.destroy({ where: { id } });
-      return { ok: true, model };
-    } catch (e) {
-      return { ok: false, model: null };
-    }
+  createAlert(_, { options }) {
+    return createAlert(options);
   },
   async connectAll() {
     (await Device.findAll())

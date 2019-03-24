@@ -8,9 +8,11 @@ export function getActiveChannel(): Channel | null {
 
 export function start(channel: Channel): Channel {
   active = channel;
+  // TODO: update subscribers
   return channel;
 }
 
 export function stop(): void {
   active = null;
+  // TODO: update subscribers
 }

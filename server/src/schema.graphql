@@ -3,7 +3,6 @@ type Query {
   devices: [Device!]!
   channel(id: ID!): Channel
   channels: [Channel!]!
-  alert(id: ID!): Alert
   alerts: [Alert!]!
   takeover: TakeoverStatus!
   status: ServerStatus!
@@ -12,6 +11,7 @@ type Query {
 
 type Subscription {
   devices: [Device!]!
+  alerts: [Alert!]!
 }
 
 type Mutation {
@@ -21,9 +21,7 @@ type Mutation {
   createChannel(model: ChannelCreateInput!): Channel!
   updateChannel(id: ID!, changes: ChannelUpdateInput!): Channel!
   deleteChannel(id: ID!): DeleteChannelResult!
-  createAlert(model: AlertCreateInput!): Alert!
-  updateAlert(id: ID!, changes: AlertUpdateInput!): Alert!
-  deleteAlert(id: ID!): DeleteAlertResult!
+  createAlert(options: AlertCreateInput!): Alert!
   connectAll: Boolean!
   connect(id: ID!): Boolean!
   startTakeover(channel: ID!): TakeoverStatus!
@@ -68,11 +66,10 @@ input ChannelUpdateInput {
 input AlertCreateInput {
   title: String
   body: String
-}
-
-input AlertUpdateInput {
-  title: String
-  body: String
+  theme: String
+  style: String
+  duration: Int
+  device: ID
 }
 
 input ConfigurationUpdateInput {
@@ -108,11 +105,6 @@ type DeleteChannelResult {
   model: Channel
 }
 
-type DeleteAlertResult {
-  ok: Boolean!
-  model: Alert
-}
-
 type Device {
   id: ID!
   identifier: String!
@@ -136,6 +128,8 @@ type Channel {
 
 type Alert {
   id: ID!
-  title: String
-  body: String
+  title: String!
+  body: String!
+  theme: String!
+  devices: [ID!]
 }

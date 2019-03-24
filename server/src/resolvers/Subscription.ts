@@ -6,4 +6,9 @@ export const Subscription = {
       return getResolver(TOPICS.Devices);
     },
   },
+  alerts: {
+    subscribe() {
+      return getResolver(TOPICS.Alerts);
+    },
+  },
 };

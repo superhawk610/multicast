@@ -23,3 +23,11 @@ export type GoogleDeviceModel =
   | 'Google Home Mini'
   | 'MagniFi Mini'
   | 'Chromecast';
+
+export interface Alert {
+  id: number;
+  title: string;
+  body: string;
+  theme: string;
+  devices: string[] | null;
+}
