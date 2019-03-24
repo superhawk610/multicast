@@ -3,13 +3,11 @@ import { Configuration } from './pages/Configuration';
 import { Channels } from './pages/Channels';
 import { ManageChannel } from './pages/ManageChannel';
 
-import { ComponentClass, FunctionComponent } from 'react';
-
 export interface RouteConfiguration {
   name: string;
   path: string;
   exact?: boolean;
-  component: ComponentClass | FunctionComponent;
+  component: any;
   displayInSidebar?: boolean;
 }
 

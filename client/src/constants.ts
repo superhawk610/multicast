@@ -1,3 +1,7 @@
+import { isInjected } from './getInjected';
+
+export const APPLICATION_BASE = isInjected() ? '/web' : '';
+
 export const COLORS = {
   black: 'hsl(0,0%,4%)',
   black2: 'hsl(0,0%,7%)',
@@ -16,6 +20,7 @@ export const COLORS = {
   // green: 'hsl(141,71%,48%)',
   green: '#66b66a',
   greenTint: 'rgba(40,71,42,0.1)',
+  greenTintDark: 'rgba(40,71,42,0.5)',
   turquoise: 'hsl(171,100%,41%)',
   cyan: 'hsl(204,86%,53%)',
   blue: 'hsl(217,71%,53%)',

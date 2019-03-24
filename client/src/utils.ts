@@ -1,4 +1,4 @@
-import { COLORS } from './constants';
+import { APPLICATION_BASE, COLORS } from './constants';
 import { DeviceStatus } from './types';
 
 export function chunk<T>(arr: T[], size: number): Array<T[]> {
@@ -42,4 +42,8 @@ export function colorForStatus(status: DeviceStatus): string {
     default:
       return COLORS.greyLight;
   }
+}
+
+export function basePath(href: string): string {
+  return APPLICATION_BASE ? `${APPLICATION_BASE}/${href}` : href;
 }

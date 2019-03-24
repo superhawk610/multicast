@@ -5,6 +5,7 @@ import {
   withRouter,
   RouteComponentProps,
 } from 'react-router-dom';
+import { basePath } from '../utils';
 import styled from 'styled-components';
 
 import logo from '../images/multicast.png';
@@ -16,7 +17,7 @@ import routes from '../routes';
 const Sidebar = withRouter(({ location }: RouteComponentProps) => (
   <Container>
     <Header>
-      <HeadingImage src={logo} />
+      <HeadingImage src={basePath(logo)} />
       <Heading>Multicast Web</Heading>
     </Header>
     {Object.keys(routes)

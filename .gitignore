@@ -8,3 +8,5 @@ dist
 # environment files
 .env
 
+# server
+public

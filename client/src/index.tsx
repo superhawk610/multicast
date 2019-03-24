@@ -10,10 +10,12 @@ import { App } from './components/App';
 
 import { AppProvider } from './AppProvider';
 
+import { APPLICATION_BASE } from './constants';
+
 const client = configureApolloClient();
 
 render(
-  <BrowserRouter>
+  <BrowserRouter basename={APPLICATION_BASE}>
     <ApolloProvider client={client}>
       <AppProvider>
         <App />

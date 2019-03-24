@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "start": "parcel serve src/index.html"
+    "start": "parcel serve src/index.html",
+    "build": "parcel build src/index.html --public-url /web --out-dir ../server/public"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",

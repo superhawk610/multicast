@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { basePath } from '../utils';
 import styled from 'styled-components';
 
 import cat from '../images/cat.png';
@@ -24,7 +25,7 @@ const CornerCat = (props: Props) => {
     }`,
   };
 
-  return <Image ref={ref} style={style} src={cat} />;
+  return <Image ref={ref} style={style} src={basePath(cat)} />;
 };
 
 const Image = styled.img`
