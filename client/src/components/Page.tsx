@@ -9,6 +9,7 @@ import { chevronLeft } from 'react-icons-kit/feather/chevronLeft';
 
 import { RouteConfiguration } from '../routes';
 import { PixelShifter } from './PixelShifter';
+import { COLORS } from '../constants';
 
 interface Props {
   heading?: string;
@@ -45,6 +46,7 @@ const Page = ({
 const Container = styled.div`
   padding: 25px;
   padding-left: 275px;
+  background: ${COLORS.white};
 `;
 
 export { Page };

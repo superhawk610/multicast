@@ -13,30 +13,27 @@ export type MessageTheme =
   | Themes.warning
   | Themes.danger;
 
-export type MessageStyle = 'bold' | 'minimal';
-
 interface Props {
   theme?: MessageTheme;
-  style?: MessageStyle;
   heading?: string;
   text: React.ReactNode;
 }
 
-const Message = ({
-  theme = THEMES.none,
-  style = 'bold',
-  heading,
-  text,
-}: Props) => (
-  <article className={`message ${theme}`}>
-    {style === 'bold' && (
+const Message = ({ theme = THEMES.none, heading, text }: Props) => (
+  <Container className={`message ${theme}`}>
+    {heading && (
       <div className="message-header">
         <p>{heading}</p>
       </div>
     )}
     <Body className="message-body">{text}</Body>
-  </article>
+  </Container>
 );
+
+const Container = styled.article`
+  width: calc(100% - 3rem);
+  max-width: 600px;
+`;
 
 const Body = styled.div`
   a {

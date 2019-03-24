@@ -1,3 +1,5 @@
+import { MessageTheme } from './components/Message';
+
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export type ChannelLayout =
@@ -48,4 +50,6 @@ export interface Alert {
   id: number;
   title: string;
   body: string;
+  theme: MessageTheme;
+  devices: string[] | null;
 }

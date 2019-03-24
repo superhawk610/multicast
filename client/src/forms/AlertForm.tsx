@@ -28,11 +28,6 @@ const themeButtons: Button<MessageTheme>[] = [
   { text: 'Danger', value: THEMES.danger, theme: THEMES.danger },
 ];
 
-const styleButtons: Button<MessageStyle>[] = [
-  { text: 'Bold', value: 'bold' },
-  { text: 'Minimal', value: 'minimal' },
-];
-
 const durationButtons: Button<number>[] = [
   { text: '1m', value: 60 * 1000 },
   { text: '5m', value: 5 * 60 * 1000 },
@@ -47,7 +42,6 @@ const AlertForm = ({ id }: Props) => {
   const [heading, onChangeHeading] = useInput('');
   const [message, onChangeMessage] = useInput('');
   const [theme, onChangeTheme] = useInput<MessageTheme>(THEMES.primary);
-  const [style, onChangeStyle] = useInput<MessageStyle>('bold');
   const [duration, onChangeDuration] = useInput(60 * 1000);
 
   const {
@@ -76,12 +70,7 @@ const AlertForm = ({ id }: Props) => {
         }
       />
       <Spacer />
-      <Message
-        theme={theme}
-        style={style}
-        heading={heading || 'Alert Heading'}
-        text={message || 'Alert Body'}
-      />
+      <Message theme={theme} heading={heading} text={message || 'Alert Body'} />
       <Spacer />
       <Input
         placeholder="Alert Heading"
@@ -103,12 +92,6 @@ const AlertForm = ({ id }: Props) => {
         buttons={themeButtons}
         value={theme}
         onChange={onChangeTheme}
-      />
-      <label className="label">Style</label>
-      <ButtonGroup
-        buttons={styleButtons}
-        value={style}
-        onChange={onChangeStyle}
       />
       <label className="label">Duration</label>
       <ButtonGroup

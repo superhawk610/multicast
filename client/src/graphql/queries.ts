@@ -22,6 +22,17 @@ export const DEVICES = gql`
   }
 `;
 
+export const ALERTS = gql`
+  {
+    alerts {
+      title
+      body
+      theme
+      devices
+    }
+  }
+`;
+
 export const CHANNELS = gql`
   {
     channels {

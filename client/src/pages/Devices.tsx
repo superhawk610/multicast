@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useSubscription, useQuery } from 'react-apollo-hooks';
 import { useBooleanState } from '../hooks/useBooleanState';
+import { useQueryThenSubscription } from '../hooks/useQueryThenSubscription';
 
 import { AppContext } from '../AppProvider';
 
@@ -25,18 +26,12 @@ const Devices = () => {
   const onStartTakeover = () => showDialog();
 
   const {
-    data: { devices: initialDevices = [] },
-    error: initialError,
-    loading: initialLoading,
-  } = useQuery(DEVICES);
-  const {
-    data: { devices: liveDevices } = {},
-    error: liveError,
-    loading: liveLoading,
-  } = useSubscription(SUB_DEVICES);
+    data: devices,
+    loading,
+    queryLoading,
+    error,
+  } = useQueryThenSubscription(DEVICES, SUB_DEVICES, 'devices');
 
-  const devices: DeviceType[] = liveDevices || initialDevices;
-  const error = initialError || liveError;
   const supportedDevices = [];
   const unsupportedDevices = [];
 
@@ -45,7 +40,7 @@ const Devices = () => {
     else unsupportedDevices.push(device);
   }
 
-  const pageContent = initialLoading ? (
+  const pageContent = queryLoading ? (
     <div className="with-loading-spinner">Loading...</div>
   ) : (
     <>
@@ -93,7 +88,7 @@ const Devices = () => {
       >
         <AlertForm />
       </Modal>
-      <CornerCat in={!initialLoading && !liveLoading && devices.length === 0} />
+      <CornerCat in={!loading && devices.length === 0} />
     </>
   );
 

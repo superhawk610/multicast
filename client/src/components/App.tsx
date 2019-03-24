@@ -17,12 +17,14 @@ import { NotFound } from '../pages/NotFound';
 
 import routes from '../routes';
 
+import { COLORS } from '../constants';
+
 const App = withRouter(({ location }: RouteComponentProps) => {
   const { pathname } = location;
   const hideUI = pathname.match(/^\/landing/);
 
   return (
-    <>
+    <Background>
       {!hideUI && (
         <>
           <Sidebar />
@@ -51,9 +53,13 @@ const App = withRouter(({ location }: RouteComponentProps) => {
           <Redirect to="/404" />
         </Switch>
       </Constraint>
-    </>
+    </Background>
   );
 });
+
+const Background = styled.div`
+  background: ${COLORS.white};
+`;
 
 const Constraint = styled.div`
   max-width: 1250px;

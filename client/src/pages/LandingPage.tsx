@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { getInjected } from '../getInjected';
+import { basePath } from '../utils';
 import styled from 'styled-components';
 
 import logo from '../images/watermark.png';
 
 import { Spacer } from '../components/Spacer';
+import { Alerts } from '../components/Alerts';
 
 import { COLORS } from '../constants';
-import { basePath } from '../utils';
 
-const host = getInjected('host');
-const name = getInjected('name');
-const upstream = getInjected('upstream');
+const host = getInjected('host', 'HOST');
+const name = getInjected('name', 'NAME');
+const upstream = getInjected('upstream', 'UPSTREAM');
 
 const LandingPage = () => (
   <Page>
@@ -27,6 +28,7 @@ const LandingPage = () => (
         To get started, head over to <Link>http://{upstream}/web</Link>
       </p>
     </Container>
+    <Alerts />
     <Logo src={basePath(logo)} />
   </Page>
 );
@@ -43,8 +45,8 @@ const Page = styled.div`
 const Container = styled.div`
   font-size: 24px;
   color: ${COLORS.black};
-  max-width: 600px;
-  width: 100%;
+  max-width: calc(100% - 3rem);
+  width: 600px;
 `;
 
 const Header = styled.h1`
