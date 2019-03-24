@@ -24,6 +24,8 @@ type Mutation {
   createAlert(model: AlertCreateInput!): Alert!
   updateAlert(id: ID!, changes: AlertUpdateInput!): Alert!
   deleteAlert(id: ID!): DeleteAlertResult!
+  connectAll: Boolean!
+  connect(id: ID!): Boolean!
   startTakeover(channel: ID!): TakeoverStatus!
   endTakeover: TakeoverStatus!
   updateConfiguration(changes: ConfigurationUpdateInput!): ConfigurationStatus!

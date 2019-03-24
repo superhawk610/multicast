@@ -1,4 +1,7 @@
+import { annotateDevice } from '../utils';
+
 import { start, stop } from '../services/takeover.service';
+import { launchApp } from '../services/launch-app.service';
 import {
   MULTICAST_HOME,
   PORT,
@@ -9,7 +12,7 @@ import {
 import Device from '../models/device.model';
 import Channel from '../models/channel.model';
 import Alert from '../models/alert.model';
-import { annotateDevice } from '../utils';
+import { connect } from 'http2';
 
 export const Mutation = {
   async createDevice(_, { model }) {
@@ -73,6 +76,19 @@ export const Mutation = {
     } catch (e) {
       return { ok: false, model: null };
     }
+  },
+  async connectAll() {
+    (await Device.findAll())
+      .map(annotateDevice)
+      .filter(d => d.supported)
+      .forEach(d => launchApp(d.address));
+    return true;
+  },
+  async connect(_, { id }) {
+    const device = await Device.findByPk(id);
+    if (!device) return false;
+    launchApp(device.address);
+    return true;
   },
   async startTakeover(_, { channel }) {
     const model = await Channel.findByPk(channel);
