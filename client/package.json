@@ -17,7 +17,7 @@
     "@types/react-router": "^4.4.5",
     "@types/react-router-dom": "^4.3.1",
     "@types/styled-components": "^4.1.12",
-    "jest": "^24.3.1",
+    "jest": "^24.8.0",
     "parcel": "./.pkgs/parcel-bundler-1.12.0.tgz",
     "sass": "^1.17.2",
     "ts-jest": "^24.0.0",
