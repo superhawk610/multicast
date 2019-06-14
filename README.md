@@ -72,18 +72,6 @@ Make sure they've already been setup and powered on and the display that they're
 
 If you can view them from other Cast-enabled apps but not from Multicast, its likely an issue with your firewall. Make sure you configured your firewall correctly (see [Firewall Settings](#firewall-settings)).
 
-**Running CentOS and Seeing This Error?**
-
-```shell
-Error: getaddrinfo -3008
-```
-
-Make sure you have `nss_mdns` installed:
-
-```shell
-sudo yum install nss_mdns
-```
-
 ### Issues
 
 If you run into any problems while using this, please report them [here](https://github.com/superhawk610/multicast/issues).
