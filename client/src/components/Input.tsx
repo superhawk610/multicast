@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import InputError from './InputError';
+import { InputError } from './InputError';
 
 import Icon from 'react-icons-kit';
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery, useMutation } from 'react-apollo-hooks';
 import { useInput } from '../hooks/useInput';
 import { useBooleanState } from '../hooks/useBooleanState';
 
@@ -9,50 +9,82 @@ import { Button } from '../components/Button';
 
 import { THEMES } from '../constants';
 import { CONFIGURATION } from '../graphql/queries';
+import { UPDATE_CONFIGURATION } from '../graphql/mutations';
+import { useStatus } from '../hooks/useStatus';
 
 const ConfigurationForm = () => {
-  const [home, onChangeHome] = useInput('');
-  const [port, onChangePort] = useInput('0');
-  const [scanningFrequency, onChangeScanningFrequency] = useInput('0');
+  const [home, onChangeHome, setHome] = useInput('');
+  const [port, onChangePort, setPort] = useInput('0');
+  const [
+    scanningFrequency,
+    onChangeScanningFrequency,
+    setScanningFrequency,
+  ] = useInput('0');
   const [apiKey, onChangeApiKey] = useInput('');
-  const [playgroundEnabled, togglePlayground] = useBooleanState();
-  const [sandbox, setSandbox] = React.useState(false);
+  const [
+    playgroundEnabled,
+    togglePlayground,
+    setPlaygroundEnabled,
+  ] = useBooleanState();
 
-  const { data, error, loading } = useQuery(CONFIGURATION);
+  const { data, loading } = useQuery(CONFIGURATION);
+  const { status } = useStatus();
 
-  React.useEffect(() => {}, [data]);
+  const updateConfiguration = useMutation(UPDATE_CONFIGURATION, {
+    variables: {
+      changes: {
+        home,
+        port: parseInt(port),
+        scanningFrequency: parseInt(scanningFrequency),
+        playgroundEnabled,
+      },
+    },
+  });
 
-  return (
+  React.useEffect(() => {
+    if (data.configuration) {
+      console.table(data);
+      setHome(data.configuration.home);
+      setPort(data.configuration.port);
+      setScanningFrequency(data.configuration.scanningFrequency);
+      setPlaygroundEnabled(data.configuration.playgroundEnabled);
+    }
+  }, [data]);
+
+  return loading ? (
+    'Loading...'
+  ) : (
     <>
       <Input
         disabled
         label="Sandbox"
-        defaultValue={sandbox ? 'Enabled' : 'Disabled'}
+        value={status.sandbox ? 'Enabled' : 'Disabled'}
       />
       <Input
         name="home"
         label="Data Directory"
-        value={home}
+        value={home || ''}
         onChange={onChangeHome}
       />
       <Input
         type="number"
         name="port"
         label="Port"
-        value={port}
+        value={port || ''}
         onChange={onChangePort}
       />
       <Input
         type="number"
         name="scanningFrequency"
         label="Scanning Frequency"
-        value={scanningFrequency}
+        value={scanningFrequency || ''}
         onChange={onChangeScanningFrequency}
       />
       <Input
         name="apiKey"
         label="API Management Key"
-        value={apiKey}
+        placeholder="<hidden> (set to overwrite)"
+        value={apiKey || ''}
         onChange={onChangeApiKey}
       />
       <Select
@@ -65,7 +97,11 @@ const ConfigurationForm = () => {
         ]}
         onChange={togglePlayground}
       />
-      <Button text="Save Changes" theme={THEMES.success} onClick={() => {}} />
+      <Button
+        text="Save Changes"
+        theme={THEMES.success}
+        onClick={updateConfiguration}
+      />
     </>
   );
 };

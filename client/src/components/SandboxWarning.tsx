@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useQuery } from 'react-apollo-hooks';
 import styled from 'styled-components';
 
 import { PixelShifter } from './PixelShifter';
@@ -8,14 +7,10 @@ import Icon from 'react-icons-kit';
 import { alertTriangle } from 'react-icons-kit/feather/alertTriangle';
 
 import { COLORS } from '../constants';
-import { STATUS } from '../graphql/queries';
+import { useStatus } from '../hooks/useStatus';
 
 const SandboxWarning = () => {
-  const {
-    data: { status } = { status: { sandbox: false } },
-    error,
-    loading,
-  } = useQuery(STATUS);
+  const { error, loading, status } = useStatus();
 
   if (error || loading || !status.sandbox) return null;
 

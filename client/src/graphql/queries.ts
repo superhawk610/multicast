@@ -79,8 +79,5 @@ export const CONFIGURATION = gql`
       scanningFrequency
       playgroundEnabled
     }
-    status {
-      sandbox
-    }
   }
 `;
