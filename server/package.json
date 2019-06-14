@@ -24,7 +24,6 @@
   "dependencies": {
     "@superhawk610/castv2": "^0.2.0",
     "cross-env": "^5.2.0",
-    "dotenv": "^7.0.0",
     "graphql-import": "^0.7.1",
     "graphql-yoga": "^1.17.4",
     "home-dir": "^1.0.0",

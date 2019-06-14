@@ -3,9 +3,11 @@ import { join } from 'path';
 
 import { directory as homeDirectory } from 'home-dir';
 
-import { MULTICAST_HOME } from './config.service';
+import { getConfig } from './config.service';
 
-export function getDataDirectory(): string {
+export function getDataDirectory(config = getConfig()): string {
+  const { MULTICAST_HOME } = config;
+
   const dataDirectory =
     MULTICAST_HOME[0] === '/'
       ? MULTICAST_HOME
@@ -13,5 +15,6 @@ export function getDataDirectory(): string {
   if (!existsSync(dataDirectory)) {
     mkdirSync(dataDirectory);
   }
+
   return dataDirectory;
 }

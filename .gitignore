@@ -5,8 +5,8 @@ node_modules
 dist
 .cache
 
-# environment files
-.env
+# config files
+config.json
 
 # server
 public

@@ -3,9 +3,10 @@ import { Sequelize } from 'sequelize-typescript';
 
 import { getDataDirectory } from './get-data-directory.service';
 
-import { SQL_LOGGING } from './config.service';
+import { getConfig } from './config.service';
 
 export async function initializeDatabase() {
+  const { SQL_LOGGING } = getConfig();
   const dataDirectory = getDataDirectory();
   const db = new Sequelize({
     logging: SQL_LOGGING,

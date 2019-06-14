@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import * as request from 'request-promise-native';
-import { rst } from '../../@types/mdns';
 
 const router = Router();
 

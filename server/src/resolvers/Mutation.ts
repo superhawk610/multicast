@@ -2,12 +2,7 @@ import { annotateDevice } from '../utils';
 
 import { start, stop } from '../services/takeover.service';
 import { launchApp } from '../services/launch-app.service';
-import {
-  MULTICAST_HOME,
-  PORT,
-  SCANNING_FREQUENCY,
-  DISABLE_PLAYGROUND,
-} from '../services/config.service';
+import { updateConfig } from '../services/config.service';
 
 import Device from '../models/device.model';
 import Channel from '../models/channel.model';
@@ -83,8 +78,19 @@ export const Mutation = {
     stop();
     return { active: false, channel: null };
   },
-  updateConfiguration(_, { changes }) {
-    // FIXME: persist configuration changes to disk
+  async updateConfiguration(_, { changes }) {
+    const {
+      MULTICAST_HOME,
+      PORT,
+      SCANNING_FREQUENCY,
+      DISABLE_PLAYGROUND,
+    } = await updateConfig({
+      MULTICAST_HOME: changes.home,
+      PORT: changes.port,
+      SCANNING_FREQUENCY: changes.scanningFrequency,
+      DISABLE_PLAYGROUND: !changes.playgroundEnabled,
+      API_KEY: changes.apiKey,
+    });
     return {
       home: MULTICAST_HOME,
       port: PORT,

@@ -2,13 +2,7 @@ import { annotateDevice } from '../utils';
 
 import { getActiveChannel } from '../services/takeover.service';
 import { getAllAlerts } from '../services/alert.service';
-import {
-  SANDBOX,
-  MULTICAST_HOME,
-  PORT,
-  SCANNING_FREQUENCY,
-  DISABLE_PLAYGROUND,
-} from '../services/config.service';
+import { getConfig } from '../services/config.service';
 
 import Device from '../models/device.model';
 import Channel from '../models/channel.model';
@@ -36,9 +30,15 @@ export const Query = {
     return { active: Boolean(channel), channel };
   },
   status() {
-    return { sandbox: SANDBOX };
+    return { sandbox: getConfig().SANDBOX };
   },
   configuration() {
+    const {
+      MULTICAST_HOME,
+      PORT,
+      SCANNING_FREQUENCY,
+      DISABLE_PLAYGROUND,
+    } = getConfig();
     return {
       home: MULTICAST_HOME,
       port: PORT,

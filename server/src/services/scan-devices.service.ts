@@ -4,7 +4,7 @@ import { annotateDevice, dedupe } from '../utils';
 
 import Device from '../models/device.model';
 
-import { SCANNING_FREQUENCY } from './config.service';
+import { getConfig } from './config.service';
 import { publish, TOPICS } from './subscriptions.service';
 
 import { ChromecastService } from '../types';
@@ -23,7 +23,7 @@ mdns.on('response', res => handler.onResponse(res));
 export function startScanning(): void {
   if (scanInterval) clearInterval(scanInterval);
   scanDevices();
-  scanInterval = setInterval(scanDevices, SCANNING_FREQUENCY);
+  scanInterval = setInterval(scanDevices, getConfig().SCANNING_FREQUENCY);
 }
 
 export async function recordDevice(

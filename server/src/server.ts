@@ -11,12 +11,7 @@ import { Subscription } from './resolvers/Subscription';
 import proxy from './routers/proxy.router';
 import client from './routers/client.router';
 
-import {
-  PORT,
-  DISABLE_PLAYGROUND,
-  PLAYGROUND_URL,
-  SANDBOX,
-} from './services/config.service';
+import { setConfig } from './services/config.service';
 import { initializeDatabase } from './services/initialize-database.service';
 import { startScanning } from './services/scan-devices.service';
 
@@ -31,7 +26,8 @@ const resolvers = {
   Subscription,
 };
 
-export async function startServer(fallback = false) {
+async function startServer(fallback, config) {
+  const { PORT, DISABLE_PLAYGROUND, PLAYGROUND_URL, SANDBOX } = config;
   const db = fallback ? null : await initializeDatabase();
   if (db) startScanning();
   const server = new GraphQLServer({
@@ -84,3 +80,22 @@ export async function startServer(fallback = false) {
     },
   );
 }
+
+process.on('message', ({ __type, ...msg }) => {
+  switch (__type) {
+    case 'CONNECT': {
+      setConfig(msg.config);
+      startServer(msg.fallback, msg.config).catch(error => {
+        if (process.send) process.send({ __type: 'FATAL', error });
+        process.exit(1);
+      });
+      break;
+    }
+    // ignore parcel messages
+    case undefined:
+      break;
+    default:
+      console.info(`server process received message: ${__type}`);
+      console.info(msg);
+  }
+});

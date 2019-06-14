@@ -1,6 +1,6 @@
 import * as castv2 from '@superhawk610/castv2';
 
-import { APP_ID } from './config.service';
+import { getConfig } from './config.service';
 
 interface ConnectionMap {
   [host: string]: DeviceConnection;
@@ -64,7 +64,11 @@ export function launchApp(host: string): void {
     }
 
     // launch landing page on device
-    device.receiver.send({ type: 'LAUNCH', appId: APP_ID, requestId: 1 });
+    device.receiver.send({
+      type: 'LAUNCH',
+      appId: getConfig().APP_ID,
+      requestId: 1,
+    });
   });
 }
 

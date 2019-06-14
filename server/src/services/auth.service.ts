@@ -1,5 +1,5 @@
-import { API_KEY } from './config.service';
+import { getConfig } from './config.service';
 
 export function validateToken(token: string | null): boolean {
-  return token === API_KEY;
+  return token === getConfig().API_KEY;
 }
