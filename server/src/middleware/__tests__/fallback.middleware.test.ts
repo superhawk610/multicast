@@ -1,3 +1,7 @@
+jest.mock('../../services/config.service', () => ({
+  loadConfig: jest.fn(),
+}));
+
 import { fallbackMiddleware } from '../fallback.middleware';
 
 describe('fallbackMiddleware', () => {

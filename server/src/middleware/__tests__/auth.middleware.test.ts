@@ -2,6 +2,10 @@ jest.mock('../../services/auth.service', () => ({
   validateToken: (token: string) => token === validToken,
 }));
 
+jest.mock('../../services/config.service', () => ({
+  loadConfig: jest.fn(),
+}));
+
 import { authMiddleware } from '../auth.middleware';
 
 const validToken = 'foo';

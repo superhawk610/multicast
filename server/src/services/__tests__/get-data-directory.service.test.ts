@@ -8,6 +8,10 @@ jest.mock('fs', () => ({
   existsSync: jest.fn(),
 }));
 
+jest.mock('../config.service', () => ({
+  getConfig: () => ({ MULTICAST_HOME: '~/.multicast' }),
+}));
+
 describe('getDataDirectory', () => {
   afterEach(() => {
     (mkdirSync as any).mockClear();

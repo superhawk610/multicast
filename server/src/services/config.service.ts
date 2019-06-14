@@ -83,26 +83,30 @@ export function loadConfig() {
     config.SANDBOX = loadProcessEnvBoolean('SANDBOX');
   }
 
-  if (!config.API_KEY || config.API_KEY.length < 16) {
-    console.error(chalk.red('API_KEY must be set to a random string with 16+ characters'));
-    process.exit(1);
-  }
+  if (process.env.NODE_ENV !== 'test') {
+    if (!config.API_KEY || config.API_KEY.length < 16) {
+      console.error(chalk.red('API_KEY must be set to a random string with 16+ characters'));
+      process.exit(1);
+    }
 
-  if (config.API_KEY === DEFAULT_API_KEY) {
-    console.warn(
-      chalk.yellow('you are using the default API_KEY; this is a potential security vulnerability'),
-    );
-    console.warn(chalk.yellow('please generate a new API_KEY to use in production'));
-  }
+    if (config.API_KEY === DEFAULT_API_KEY) {
+      console.warn(
+        chalk.yellow(
+          'you are using the default API_KEY; this is a potential security vulnerability',
+        ),
+      );
+      console.warn(chalk.yellow('please generate a new API_KEY to use in production'));
+    }
 
-  if (
-    config.PLAYGROUND_URL === '/' ||
-    config.PLAYGROUND_URL === '' ||
-    config.PLAYGROUND_URL === '*'
-  ) {
-    console.error(chalk.red('PLAYGROUND_URL must be a non-root, non-wildcard path'));
-    console.error(chalk.red('current value'), config.PLAYGROUND_URL);
-    process.exit(1);
+    if (
+      config.PLAYGROUND_URL === '/' ||
+      config.PLAYGROUND_URL === '' ||
+      config.PLAYGROUND_URL === '*'
+    ) {
+      console.error(chalk.red('PLAYGROUND_URL must be a non-root, non-wildcard path'));
+      console.error(chalk.red('current value'), config.PLAYGROUND_URL);
+      process.exit(1);
+    }
   }
 
   return config;
