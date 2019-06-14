@@ -1,4 +1,4 @@
-import * as castv2 from 'castv2';
+import * as castv2 from '@superhawk610/castv2';
 
 import { APP_ID } from './config.service';
 

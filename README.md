@@ -96,10 +96,6 @@ If you run into any problems while using this, please report them [here](https:/
 
 See the [contribution guide](CONTRIBUTING.md) for instructions on contributing to the project.
 
-## Security Disclosure
-
-This project relies on [node-castv2](https://github.com/thibauts/node-castv2) which uses an outdated version of [protobuf](https://github.com/dcodeIO/ProtoBuf.js/). Details of the vulnerability can be found [here](https://nvd.nist.gov/vuln/detail/CVE-2018-3738).
-
 ## License
 
 This project is licensed under the MIT License - see [LICENSE](LICENSE) for more details.

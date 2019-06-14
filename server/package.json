@@ -22,7 +22,7 @@
     "typescript": "^3.3.3333"
   },
   "dependencies": {
-    "castv2": "^0.1.9",
+    "@superhawk610/castv2": "^0.2.0",
     "cross-env": "^5.2.0",
     "dotenv": "^7.0.0",
     "graphql-import": "^0.7.1",
