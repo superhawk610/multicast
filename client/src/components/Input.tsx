@@ -8,12 +8,7 @@ import { Themes, THEMES } from '../constants';
 
 import { InputEvent } from '../types';
 
-type InputTheme =
-  | Themes.primary
-  | Themes.info
-  | Themes.success
-  | Themes.warning
-  | Themes.danger;
+type InputTheme = Themes.primary | Themes.info | Themes.success | Themes.warning | Themes.danger;
 
 interface Props {
   label?: string;
@@ -59,14 +54,8 @@ const Input = ({
 
   return (
     <div className="field">
-      {label && (
-        <label className={`label ${error ? 'has-text-danger' : ''}`}>
-          {label}
-        </label>
-      )}
-      <p
-        className={`control ${loadingClass} ${leftIconClass} ${rightIconClass}`}
-      >
+      {label && <label className={`label ${error ? 'has-text-danger' : ''}`}>{label}</label>}
+      <p className={`control ${loadingClass} ${leftIconClass} ${rightIconClass}`}>
         <input
           type={type}
           className={`input ${error ? THEMES.danger : theme}`}

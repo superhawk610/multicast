@@ -57,10 +57,7 @@ export function loadConfig() {
 
   // time (ms) to wait between mdns scans
   if (envHas('SCANNING_FREQUENCY')) {
-    config.SCANNING_FREQUENCY = parseInt(
-      process.env.SCANNING_FREQUENCY as string,
-      10,
-    );
+    config.SCANNING_FREQUENCY = parseInt(process.env.SCANNING_FREQUENCY as string, 10);
   }
 
   // key to prevent random access to GraphQL endpoint
@@ -91,9 +88,7 @@ export function loadConfig() {
   }
 
   if (config.API_KEY === DEFAULT_API_KEY) {
-    console.warn(
-      'you are using the default API_KEY; this is a potential security vulnerability',
-    );
+    console.warn('you are using the default API_KEY; this is a potential security vulnerability');
     console.warn('please generate a new API_KEY to use in production');
   }
 
@@ -130,9 +125,7 @@ export async function updateConfig(changes) {
 
   if (!isParent) {
     if (!process.send) {
-      console.error(
-        'attempted to update config as child from a parent process',
-      );
+      console.error('attempted to update config as child from a parent process');
       process.exit(1);
     }
 

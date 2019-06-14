@@ -8,12 +8,7 @@ import { Themes, THEMES } from '../constants';
 
 import { InputEvent } from '../types';
 
-type SelectTheme =
-  | Themes.primary
-  | Themes.info
-  | Themes.success
-  | Themes.warning
-  | Themes.danger;
+type SelectTheme = Themes.primary | Themes.info | Themes.success | Themes.warning | Themes.danger;
 
 interface OptionMeta {
   name: string;
@@ -79,10 +74,8 @@ const Select = ({
             onChange={changeHandler}
           >
             {options.map((option, index) => {
-              const optionName =
-                typeof option === 'object' ? option.name : option;
-              const optionValue =
-                typeof option === 'object' ? option.value : option;
+              const optionName = typeof option === 'object' ? option.name : option;
+              const optionValue = typeof option === 'object' ? option.value : option;
 
               return (
                 <option key={index} value={optionValue}>

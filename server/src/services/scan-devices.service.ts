@@ -26,9 +26,7 @@ export function startScanning(): void {
   scanInterval = setInterval(scanDevices, getConfig().SCANNING_FREQUENCY);
 }
 
-export async function recordDevice(
-  service: ChromecastService,
-): Promise<Device | null> {
+export async function recordDevice(service: ChromecastService): Promise<Device | null> {
   const identifier = service.id;
   const model = service.model;
 
@@ -85,9 +83,7 @@ export function scanDevices(): Promise<void> {
 
       // ...and mark them as 'offline'
       await Promise.all(
-        absentDevices.map((device: Device) =>
-          device.update({ status: 'offline' }),
-        ),
+        absentDevices.map((device: Device) => device.update({ status: 'offline' })),
       );
 
       // find all previously 'online' devices that aren't accounted for...
@@ -100,9 +96,7 @@ export function scanDevices(): Promise<void> {
 
       // ...and mark them as 'searching'
       await Promise.all(
-        hidingDevices.map((device: Device) =>
-          device.update({ status: 'searching' }),
-        ),
+        hidingDevices.map((device: Device) => device.update({ status: 'searching' })),
       );
 
       // publish devices to any active subscribers

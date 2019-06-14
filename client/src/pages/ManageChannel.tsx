@@ -23,11 +23,7 @@ const ManageChannel = ({ match }: RouteComponentProps<{ id: string }>) => {
   if (error || !channel) return <Redirect to="/404" />;
 
   return (
-    <Page
-      heading="Manage Channel"
-      subheading={channel.name}
-      parent={routes.Channels}
-    >
+    <Page heading="Manage Channel" subheading={channel.name} parent={routes.Channels}>
       <ChannelForm />
     </Page>
   );

@@ -1,5 +1,5 @@
-import { Nullable, ChromecastService, GoogleDeviceModel } from "../types";
-import { objectFromKeyValuePairs } from "../utils";
+import { Nullable, ChromecastService, GoogleDeviceModel } from '../types';
+import { objectFromKeyValuePairs } from '../utils';
 
 // these interfaces are incomplete and only type the relevant
 // parts of the response
@@ -11,7 +11,13 @@ interface Response<T> {
   name: string;
   type: T;
   ttl: number;
-  data: T extends 'A' ? string : T extends 'TXT' ? Buffer[] : T extends 'SRV' ? { port: number } : undefined;
+  data: T extends 'A'
+    ? string
+    : T extends 'TXT'
+    ? Buffer[]
+    : T extends 'SRV'
+    ? { port: number }
+    : undefined;
 }
 
 interface CastDeviceResponse {
@@ -80,5 +86,5 @@ export function validateCastResponse({ additionals }: MDNSResponse): CastDeviceR
     }
   }
 
-  return (records.A && records.SRV && records.TXT) ? records as CastDeviceResponse : null;
+  return records.A && records.SRV && records.TXT ? (records as CastDeviceResponse) : null;
 }

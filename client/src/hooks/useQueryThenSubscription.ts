@@ -20,18 +20,13 @@ export function useQueryThenSubscription<T>(
   queryError?: ApolloError;
   subscriptionError?: ApolloError;
 } {
-  const {
-    data: queryData,
-    loading: queryLoading,
-    error: queryError,
-  } = useQuery(query);
+  const { data: queryData, loading: queryLoading, error: queryError } = useQuery(query);
   const {
     data: subscriptionData = {},
     loading: subscriptionLoading,
     error: subscriptionError,
   } = useSubscription(subscription) as any;
-  const data =
-    subscriptionData[querySelector] || queryData[querySelector] || defaultValue;
+  const data = subscriptionData[querySelector] || queryData[querySelector] || defaultValue;
   const loading = queryLoading || subscriptionLoading;
   const error = subscriptionError || queryError;
   return {

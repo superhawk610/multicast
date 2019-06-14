@@ -70,21 +70,14 @@ export const Mutation = {
   },
   async startTakeover(_, { channel }) {
     const model = await Channel.findByPk(channel);
-    return model
-      ? { active: true, channel: start(model) }
-      : { active: false, channel: null };
+    return model ? { active: true, channel: start(model) } : { active: false, channel: null };
   },
   endTakeover() {
     stop();
     return { active: false, channel: null };
   },
   async updateConfiguration(_, { changes }) {
-    const {
-      MULTICAST_HOME,
-      PORT,
-      SCANNING_FREQUENCY,
-      DISABLE_PLAYGROUND,
-    } = await updateConfig({
+    const { MULTICAST_HOME, PORT, SCANNING_FREQUENCY, DISABLE_PLAYGROUND } = await updateConfig({
       MULTICAST_HOME: changes.home,
       PORT: changes.port,
       SCANNING_FREQUENCY: changes.scanningFrequency,

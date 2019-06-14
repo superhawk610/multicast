@@ -25,12 +25,11 @@ const Devices = () => {
   const { showDialog } = React.useContext(AppContext);
   const onStartTakeover = () => showDialog();
 
-  const {
-    data: devices,
-    loading,
-    queryLoading,
-    error,
-  } = useQueryThenSubscription(DEVICES, SUB_DEVICES, 'devices');
+  const { data: devices, loading, queryLoading, error } = useQueryThenSubscription(
+    DEVICES,
+    SUB_DEVICES,
+    'devices',
+  );
 
   const supportedDevices = [];
   const unsupportedDevices = [];
@@ -44,17 +43,8 @@ const Devices = () => {
     <div className="with-loading-spinner">Loading...</div>
   ) : (
     <>
-      <Button
-        adjacent
-        text="Create Alert"
-        theme={THEMES.info}
-        onClick={toggleAlertModal}
-      />
-      <Button
-        text="Start Takeover"
-        theme={THEMES.danger}
-        onClick={onStartTakeover}
-      />
+      <Button adjacent text="Create Alert" theme={THEMES.info} onClick={toggleAlertModal} />
+      <Button text="Start Takeover" theme={THEMES.danger} onClick={onStartTakeover} />
       <Spacer />
       {error && (
         <div style={{ padding: '25px' }}>
@@ -68,8 +58,7 @@ const Devices = () => {
       {supportedDevices.length === 0 && (
         <div style={{ padding: '25px' }}>
           <Heading2>There's nothing here!</Heading2>
-          Make sure to follow the setup guide to get your developer devices to
-          show up here.
+          Make sure to follow the setup guide to get your developer devices to show up here.
         </div>
       )}
       {unsupportedDevices.length > 0 && (

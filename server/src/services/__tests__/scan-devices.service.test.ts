@@ -45,9 +45,7 @@ describe('scanDevices', () => {
         address: '10.0.0.10',
       } as ChromecastService;
 
-      Device.default.findOne.mockImplementation(
-        () => null /* no record found */,
-      );
+      Device.default.findOne.mockImplementation(() => null /* no record found */);
 
       await recordDevice(service);
 
@@ -64,9 +62,7 @@ describe('scanDevices', () => {
         address: '10.0.0.10',
       } as ChromecastService;
 
-      Device.default.findOne.mockImplementation(
-        () => ({ update }) /* existing record */,
-      );
+      Device.default.findOne.mockImplementation(() => ({ update }) /* existing record */);
 
       await recordDevice(service);
 

@@ -10,15 +10,9 @@ import { Alert } from '../types';
 const device = getInjected('device', null);
 
 export function useAlerts() {
-  const { data, loading, error } = useQueryThenSubscription<Alert>(
-    ALERTS,
-    SUB_ALERTS,
-    'alerts',
-  );
+  const { data, loading, error } = useQueryThenSubscription<Alert>(ALERTS, SUB_ALERTS, 'alerts');
 
-  const alerts = device
-    ? data.filter(a => !a.devices || a.devices.indexOf(device) > -1)
-    : data;
+  const alerts = device ? data.filter(a => !a.devices || a.devices.indexOf(device) > -1) : data;
 
   return { alerts, loading, error };
 }

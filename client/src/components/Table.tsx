@@ -57,9 +57,7 @@ const Table = <T extends any>({
             {headerLabels ? headerLabels[index] : startCase(header)}
           </HeaderCell>
         ))}
-        {actionForRow && (
-          <HeaderCell style={{ textAlign: 'right' }}>{actionHeader}</HeaderCell>
-        )}
+        {actionForRow && <HeaderCell style={{ textAlign: 'right' }}>{actionHeader}</HeaderCell>}
       </tr>
     </thead>
     <tbody>

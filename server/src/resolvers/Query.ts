@@ -33,12 +33,7 @@ export const Query = {
     return { sandbox: getConfig().SANDBOX };
   },
   configuration() {
-    const {
-      MULTICAST_HOME,
-      PORT,
-      SCANNING_FREQUENCY,
-      DISABLE_PLAYGROUND,
-    } = getConfig();
+    const { MULTICAST_HOME, PORT, SCANNING_FREQUENCY, DISABLE_PLAYGROUND } = getConfig();
     return {
       home: MULTICAST_HOME,
       port: PORT,

@@ -21,12 +21,7 @@ const ConfirmDialog = () => {
         <Box>
           <DialogHeading>{dialog.title}</DialogHeading>
           <DialogMessage>{dialog.body}</DialogMessage>
-          <Button
-            adjacent
-            onClick={onConfirm}
-            text="Confirm"
-            theme={THEMES.danger}
-          />
+          <Button adjacent onClick={onConfirm} text="Confirm" theme={THEMES.danger} />
           <Button onClick={onCancel} text="Cancel" theme={THEMES.light} />
         </Box>
       </div>

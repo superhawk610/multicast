@@ -88,17 +88,9 @@ const AlertForm = ({ id }: Props) => {
       />
       <Spacer />
       <label className="label">Theme</label>
-      <ButtonGroup
-        buttons={themeButtons}
-        value={theme}
-        onChange={onChangeTheme}
-      />
+      <ButtonGroup buttons={themeButtons} value={theme} onChange={onChangeTheme} />
       <label className="label">Duration</label>
-      <ButtonGroup
-        buttons={durationButtons}
-        value={duration}
-        onChange={onChangeDuration}
-      />
+      <ButtonGroup buttons={durationButtons} value={duration} onChange={onChangeDuration} />
     </>
   );
 };

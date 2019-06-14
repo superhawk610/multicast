@@ -25,10 +25,7 @@ export function startCase(str: string): string {
   const w = words(str);
   if (!w) return '';
 
-  return w.reduce(
-    (result, word, index) => result + (index ? ' ' : '') + upperFirst(word),
-    '',
-  );
+  return w.reduce((result, word, index) => result + (index ? ' ' : '') + upperFirst(word), '');
 }
 
 export function colorForStatus(status: DeviceStatus): string {

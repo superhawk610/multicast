@@ -4,12 +4,7 @@ import { Themes, THEMES } from '../constants';
 
 import { InputEvent } from '../types';
 
-type TextAreaTheme =
-  | Themes.primary
-  | Themes.info
-  | Themes.success
-  | Themes.warning
-  | Themes.danger;
+type TextAreaTheme = Themes.primary | Themes.info | Themes.success | Themes.warning | Themes.danger;
 
 interface Props {
   label?: string;

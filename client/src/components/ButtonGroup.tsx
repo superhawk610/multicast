@@ -16,11 +16,7 @@ interface Props<T> {
   onChange: (value: T) => void;
 }
 
-const ButtonGroup = <T extends any = string | number>({
-  buttons,
-  value,
-  onChange,
-}: Props<T>) => (
+const ButtonGroup = <T extends any = string | number>({ buttons, value, onChange }: Props<T>) => (
   <div className="buttons has-addons">
     {buttons.map(({ text, theme = THEMES.dark, value: buttonValue }, index) => {
       const active = buttonValue === value;
@@ -29,9 +25,7 @@ const ButtonGroup = <T extends any = string | number>({
       return (
         <span
           key={index}
-          className={`button ${active ? theme : ''} ${
-            active ? 'is-selected' : ''
-          }`}
+          className={`button ${active ? theme : ''} ${active ? 'is-selected' : ''}`}
           onClick={onClick}
         >
           {text}

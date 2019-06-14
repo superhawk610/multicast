@@ -9,12 +9,7 @@ interface Props {
 }
 
 const Box = ({ color, className = '', onClick, ...delegated }: Props) => (
-  <AccentedBox
-    color={color}
-    className={`box ${className}`}
-    onClick={onClick}
-    {...delegated}
-  />
+  <AccentedBox color={color} className={`box ${className}`} onClick={onClick} {...delegated} />
 );
 
 const AccentedBox = styled.div<{ color?: string; onClick?: () => void }>`

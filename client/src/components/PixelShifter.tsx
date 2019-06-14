@@ -8,13 +8,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const PixelShifter = ({
-  up = 0,
-  right = 0,
-  down = 0,
-  left = 0,
-  children,
-}: Props) => (
+const PixelShifter = ({ up = 0, right = 0, down = 0, left = 0, children }: Props) => (
   <div
     style={{
       display: 'inline-block',

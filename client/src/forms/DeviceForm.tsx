@@ -33,36 +33,13 @@ const DeviceForm = ({ device }: Props) => {
   return (
     <>
       <Input disabled label="Identifier" defaultValue={identifier} />
-      <Input
-        name="nickname"
-        label="Nickname"
-        value={nickname}
-        onChange={onChangeNickname}
-      />
+      <Input name="nickname" label="Nickname" value={nickname} onChange={onChangeNickname} />
       <label className="label">Rotation</label>
-      <ButtonGroup
-        buttons={rotationButtons}
-        value={rotation}
-        onChange={onChangeRotation}
-      />
+      <ButtonGroup buttons={rotationButtons} value={rotation} onChange={onChangeRotation} />
       <InlineHeading color={COLORS.greyLight}>Actions:</InlineHeading>
-      <Button
-        adjacent
-        text="Update Device"
-        theme={THEMES.success}
-        onClick={() => {}}
-      />
-      <Button
-        adjacent
-        text="Reconnect Device"
-        theme={THEMES.warning}
-        onClick={() => {}}
-      />
-      <Button
-        text="Create Alert"
-        theme={THEMES.info}
-        onClick={toggleAlertModal}
-      />
+      <Button adjacent text="Update Device" theme={THEMES.success} onClick={() => {}} />
+      <Button adjacent text="Reconnect Device" theme={THEMES.warning} onClick={() => {}} />
+      <Button text="Create Alert" theme={THEMES.info} onClick={toggleAlertModal} />
       <Modal
         active={alertModalActive}
         heading="Create Alert"

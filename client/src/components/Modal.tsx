@@ -35,11 +35,7 @@ const Modal = ({
       </header>
       <section className="modal-card-body">{children}</section>
       <footer className="modal-card-foot">
-        <Button
-          text={submitText}
-          theme={submitButtonTheme}
-          onClick={onSubmit}
-        />
+        <Button text={submitText} theme={submitButtonTheme} onClick={onSubmit} />
         <Button text="Cancel" theme={THEMES.light} onClick={onClose} />
       </footer>
     </div>

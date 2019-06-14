@@ -9,9 +9,7 @@ export function getDataDirectory(config = getConfig()): string {
   const { MULTICAST_HOME } = config;
 
   const dataDirectory =
-    MULTICAST_HOME[0] === '/'
-      ? MULTICAST_HOME
-      : join(homeDirectory, MULTICAST_HOME);
+    MULTICAST_HOME[0] === '/' ? MULTICAST_HOME : join(homeDirectory, MULTICAST_HOME);
   if (!existsSync(dataDirectory)) {
     mkdirSync(dataDirectory);
   }

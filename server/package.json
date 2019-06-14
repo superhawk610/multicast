@@ -9,12 +9,14 @@
     "start": "ts-node src/index.ts",
     "start:sandbox": "cross-env SANDBOX=1 ts-node src/index.ts",
     "watch": "ts-node-dev --respawn src/index.ts",
-    "watch:sandbox": "cross-env SANDBOX=1 ts-node-dev --respawn src/index.ts"
+    "watch:sandbox": "cross-env SANDBOX=1 ts-node-dev --respawn src/index.ts",
+    "prettier": "prettier --write 'src/**/*.ts'"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
     "@types/node": "^11.10.4",
     "jest": "^24.8.0",
+    "prettier": "^1.18.2",
     "ts-jest": "^24.0.0",
     "ts-lint": "^4.5.1",
     "ts-node": "^8.0.2",
@@ -23,6 +25,7 @@
   },
   "dependencies": {
     "@superhawk610/castv2": "^0.2.0",
+    "chalk": "^2.4.2",
     "cross-env": "^5.2.0",
     "graphql-import": "^0.7.1",
     "graphql-yoga": "^1.17.4",

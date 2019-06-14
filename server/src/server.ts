@@ -1,5 +1,6 @@
 import { join } from 'path';
 import * as requestIp from 'request-ip';
+import chalk from 'chalk';
 
 import { GraphQLServer } from 'graphql-yoga';
 import { importSchema } from 'graphql-import';
@@ -33,11 +34,7 @@ async function startServer(fallback, config) {
   const server = new GraphQLServer({
     typeDefs,
     resolvers,
-    middlewares: SANDBOX
-      ? []
-      : fallback
-      ? [authMiddleware, fallbackMiddleware]
-      : [authMiddleware],
+    middlewares: SANDBOX ? [] : fallback ? [authMiddleware, fallbackMiddleware] : [authMiddleware],
     context: ({ request, connection }) => {
       const authorization = request
         ? request.headers.authorization
@@ -63,22 +60,20 @@ async function startServer(fallback, config) {
   server.express.use('/web', client);
 
   // listen on the provided PORT
-  server.start(
-    { port: PORT, playground: DISABLE_PLAYGROUND ? false : PLAYGROUND_URL },
-    () => {
-      const playgroundMessage = DISABLE_PLAYGROUND
-        ? 'disabled'
-        : `http://localhost:${PORT}${PLAYGROUND_URL}`;
-      console.log();
-      console.log('              ┌────────────────────┐');
-      console.log(`              │ MultiCast is live! │`);
-      console.log('              └────────────────────┘');
-      console.log();
-      console.log(`              Web UI: http://localhost:${PORT}/web`);
-      console.log(`  GraphQL Playground: ${playgroundMessage}`);
-      console.log();
-    },
-  );
+  server.start({ port: PORT, playground: DISABLE_PLAYGROUND ? false : PLAYGROUND_URL }, () => {
+    const playgroundMessage = chalk.white(
+      DISABLE_PLAYGROUND ? 'disabled' : `http://localhost:${PORT}${PLAYGROUND_URL}`,
+    );
+    console.log(`${chalk.green(`
+              ┌────────────────────┐
+              │ MultiCast is live! │
+              └────────────────────┘
+`)}
+              ${chalk.dim('Web UI:')} ${chalk.white(`http://localhost:${PORT}/web`)}
+  ${chalk.dim('GraphQL Playground:')} ${chalk.white(playgroundMessage)}
+
+`);
+  });
 }
 
 process.on('message', ({ __type, ...msg }) => {

@@ -37,10 +37,7 @@ const EvenVerticalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
   </LayoutPreview>
 );
 
-const EvenHorizontalSplitLayout = ({
-  onClick,
-  clickIndicator,
-}: LayoutProps) => (
+const EvenHorizontalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
   <LayoutPreview
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
@@ -52,10 +49,7 @@ const EvenHorizontalSplitLayout = ({
   </LayoutPreview>
 );
 
-const OneTwoVerticalSplitLayout = ({
-  onClick,
-  clickIndicator,
-}: LayoutProps) => (
+const OneTwoVerticalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
   <LayoutPreview
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
@@ -67,10 +61,7 @@ const OneTwoVerticalSplitLayout = ({
   </LayoutPreview>
 );
 
-const OneTwoHorizontalSplitLayout = ({
-  onClick,
-  clickIndicator,
-}: LayoutProps) => (
+const OneTwoHorizontalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
   <LayoutPreview
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
@@ -82,10 +73,7 @@ const OneTwoHorizontalSplitLayout = ({
   </LayoutPreview>
 );
 
-const TwoOneVerticalSplitLayout = ({
-  onClick,
-  clickIndicator,
-}: LayoutProps) => (
+const TwoOneVerticalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
   <LayoutPreview
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
@@ -97,10 +85,7 @@ const TwoOneVerticalSplitLayout = ({
   </LayoutPreview>
 );
 
-const TwoOneHorizontalSplitLayout = ({
-  onClick,
-  clickIndicator,
-}: LayoutProps) => (
+const TwoOneHorizontalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
   <LayoutPreview
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
@@ -112,10 +97,7 @@ const TwoOneHorizontalSplitLayout = ({
   </LayoutPreview>
 );
 
-const OneOneTwoVerticalSplitLayout = ({
-  onClick,
-  clickIndicator,
-}: LayoutProps) => (
+const OneOneTwoVerticalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
   <LayoutPreview
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
@@ -130,10 +112,7 @@ const OneOneTwoVerticalSplitLayout = ({
   </LayoutPreview>
 );
 
-const OneOneTwoHorizontalSplitLayout = ({
-  onClick,
-  clickIndicator,
-}: LayoutProps) => (
+const OneOneTwoHorizontalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
   <LayoutPreview
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
@@ -150,10 +129,7 @@ const OneOneTwoHorizontalSplitLayout = ({
   </LayoutPreview>
 );
 
-const TwoOneOneVerticalSplitLayout = ({
-  onClick,
-  clickIndicator,
-}: LayoutProps) => (
+const TwoOneOneVerticalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
   <LayoutPreview
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
@@ -168,10 +144,7 @@ const TwoOneOneVerticalSplitLayout = ({
   </LayoutPreview>
 );
 
-const TwoOneOneHorizontalSplitLayout = ({
-  onClick,
-  clickIndicator,
-}: LayoutProps) => (
+const TwoOneOneHorizontalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
   <LayoutPreview
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}

@@ -28,9 +28,7 @@ export function annotateDevice(device: Device): AnnotatedDevice {
 //   a: 'b',
 //   foo: 'bar',
 // }
-export function objectFromKeyValuePairs(
-  keyValuePairs: string[],
-): { [key: string]: string } {
+export function objectFromKeyValuePairs(keyValuePairs: string[]): { [key: string]: string } {
   const obj = {};
 
   for (const kvp of keyValuePairs) {

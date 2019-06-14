@@ -34,10 +34,7 @@ const ChannelForm = ({ id }: Props) => {
   const [duration, onChangeDuration] = useInput(0);
   const [urls, onChangeUrlAtIndex, { setInputCount }] = useInputArray('');
 
-  const layoutChangeHandler = (
-    newValue: ChannelLayout,
-    urlSlotCount: number,
-  ) => {
+  const layoutChangeHandler = (newValue: ChannelLayout, urlSlotCount: number) => {
     onChangeLayout(newValue);
     setInputCount(urlSlotCount);
   };
@@ -63,11 +60,7 @@ const ChannelForm = ({ id }: Props) => {
         </Column>
         <Column width={8}>
           <label className="label">Duration</label>
-          <ButtonGroup
-            buttons={durationButtons}
-            value={duration}
-            onChange={onChangeDuration}
-          />
+          <ButtonGroup buttons={durationButtons} value={duration} onChange={onChangeDuration} />
         </Column>
       </Row>
       <ChannelLayoutPicker layout={layout} onChange={layoutChangeHandler}>

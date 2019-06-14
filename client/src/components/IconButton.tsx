@@ -10,13 +10,7 @@ interface Props {
   rotate?: boolean;
 }
 
-const IconButton = ({
-  icon,
-  size = 24,
-  onClick,
-  rotate,
-  ...delegated
-}: Props) => (
+const IconButton = ({ icon, size = 24, onClick, rotate, ...delegated }: Props) => (
   <Button rotate={rotate ? 1 : 0} {...delegated}>
     <Icon icon={icon} size={size} onClick={onClick} />
   </Button>

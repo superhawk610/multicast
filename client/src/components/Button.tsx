@@ -46,9 +46,7 @@ const Button = ({
   style,
   ...delegated
 }: Props) => {
-  const className = `button ${block ? 'is-fullwidth' : ''} ${theme} ${
-    loading ? 'is-loading' : ''
-  }`;
+  const className = `button ${block ? 'is-fullwidth' : ''} ${theme} ${loading ? 'is-loading' : ''}`;
 
   return (
     <button

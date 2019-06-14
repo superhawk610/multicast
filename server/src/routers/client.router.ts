@@ -18,23 +18,18 @@ router.get('*', (req, res) => {
   if (path.indexOf('.') > -1) {
     res.sendFile(join(publicDir, path));
   } else {
-    Device.findOne({ where: { address: (req as Request).clientIp } }).then(
-      device => {
-        const html = readFileSync(index, 'utf-8');
-        res.set('content-type', 'text/html');
-        res.send(
-          html
-            .replace('"#INJECT_ACTIVE"', 'true')
-            .replace('"#INJECT_DEVICE"', device ? `"${device.id}"` : 'null')
-            .replace('#INJECT_HOST', (req as Request).clientIp)
-            .replace(
-              '#INJECT_NAME',
-              device ? device.nickname : 'Unrecognized Device',
-            )
-            .replace('#INJECT_UPSTREAM', 'localhost:4000'),
-        );
-      },
-    );
+    Device.findOne({ where: { address: (req as Request).clientIp } }).then(device => {
+      const html = readFileSync(index, 'utf-8');
+      res.set('content-type', 'text/html');
+      res.send(
+        html
+          .replace('"#INJECT_ACTIVE"', 'true')
+          .replace('"#INJECT_DEVICE"', device ? `"${device.id}"` : 'null')
+          .replace('#INJECT_HOST', (req as Request).clientIp)
+          .replace('#INJECT_NAME', device ? device.nickname : 'Unrecognized Device')
+          .replace('#INJECT_UPSTREAM', 'localhost:4000'),
+      );
+    });
   }
 });
 

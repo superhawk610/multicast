@@ -10,9 +10,7 @@ interface ServerInject {
   upstream: string;
 }
 
-const w = (typeof window === 'undefined'
-  ? { serverInject: {} }
-  : window) as InjectedWindow;
+const w = (typeof window === 'undefined' ? { serverInject: {} } : window) as InjectedWindow;
 
 export function isInjected(): boolean {
   return getInjected('__active', false) as boolean;

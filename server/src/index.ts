@@ -45,12 +45,8 @@ function startServer(config = launchConfig) {
         }
 
         console.error(`restarting (attempt ${restartAttempts})`);
-        if (restartAttemptResetTimeout)
-          clearTimeout(restartAttemptResetTimeout);
-        restartAttemptResetTimeout = setTimeout(
-          () => (restartAttempts = 0),
-          5000,
-        );
+        if (restartAttemptResetTimeout) clearTimeout(restartAttemptResetTimeout);
+        restartAttemptResetTimeout = setTimeout(() => (restartAttempts = 0), 5000);
         startServer(config);
         restartAttempts++;
 
@@ -72,9 +68,7 @@ try {
   try {
     console.error('Failed to start server.');
     console.error(
-      `Make sure ${
-        launchConfig.MULTICAST_HOME
-      } exists and is writable by this process.`,
+      `Make sure ${launchConfig.MULTICAST_HOME} exists and is writable by this process.`,
     );
     console.error();
     console.error(err);

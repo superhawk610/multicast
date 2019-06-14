@@ -11,12 +11,7 @@ const Alerts = () => {
   return (
     <Container>
       {alerts.map((alert, index) => (
-        <Message
-          key={index}
-          heading={alert.title}
-          text={alert.body}
-          theme={alert.theme}
-        />
+        <Message key={index} heading={alert.title} text={alert.body} theme={alert.theme} />
       ))}
     </Container>
   );

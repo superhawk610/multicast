@@ -7,7 +7,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "start": "parcel serve src/index.html",
-    "build": "parcel build src/index.html --public-url /web --out-dir ../server/public"
+    "build": "parcel build src/index.html --public-url /web --out-dir ../server/public",
+    "prettier": "prettier --write 'src/**/*.{ts,tsx}'"
   },
   "devDependencies": {
     "@types/graphql": "^14.0.7",
@@ -19,6 +20,7 @@
     "@types/styled-components": "^4.1.12",
     "jest": "^24.8.0",
     "parcel-bundler": "^1.12.3",
+    "prettier": "^1.18.2",
     "sass": "^1.17.2",
     "ts-jest": "^24.0.0",
     "ts-lint": "^4.5.1",
