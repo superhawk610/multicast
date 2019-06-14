@@ -25,10 +25,6 @@
 
 This branch is in an **unstable**, **pre-release** state. Use at your own risk. You've been warned.
 
-## Known Issues
-
-Parcel currently has an issue with circular dependencies maxing out the call stack. It's been patched (see [here](https://github.com/parcel-bundler/parcel/pull/2660)) but that patch hasn't made it into a release yet. For now, a local tarball with the patches included is bundled in `.pkgs`. Once this patch is merged, I'll pin the newer version and remove the bundled dependency.
-
 ## Usage
 
 TODO: Usage instructions.
