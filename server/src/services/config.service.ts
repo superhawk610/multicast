@@ -1,8 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import { readFileSync, writeFileSync } from 'fs';
+import { join } from 'path';
+import chalk from 'chalk';
 
 const DEFAULT_API_KEY = '46f2c224704811909ffdf0735741b0b8';
-const configPath = path.join(__dirname, '..', '..', 'config.json');
+const configPath = join(__dirname, '..', '..', 'config.json');
 const defaultConfig = {
   MULTICAST_HOME: '.multicast',
   PORT: 4000,
@@ -20,10 +21,10 @@ let isParent = true;
 
 export function loadConfig() {
   try {
-    const json = fs.readFileSync(configPath);
+    const json = readFileSync(configPath, 'utf-8');
     diskConfig = JSON.parse(json);
   } catch (e) {
-    console.error('could not load <rootDir>/config.json, exiting...');
+    console.error(chalk.yellow('could not load <rootDir>/config.json, exiting...'));
     process.exit(1);
   }
 
@@ -83,13 +84,15 @@ export function loadConfig() {
   }
 
   if (!config.API_KEY || config.API_KEY.length < 16) {
-    console.error('API_KEY must be set to a random string with 16+ characters');
+    console.error(chalk.red('API_KEY must be set to a random string with 16+ characters'));
     process.exit(1);
   }
 
   if (config.API_KEY === DEFAULT_API_KEY) {
-    console.warn('you are using the default API_KEY; this is a potential security vulnerability');
-    console.warn('please generate a new API_KEY to use in production');
+    console.warn(
+      chalk.yellow('you are using the default API_KEY; this is a potential security vulnerability'),
+    );
+    console.warn(chalk.yellow('please generate a new API_KEY to use in production'));
   }
 
   if (
@@ -97,8 +100,8 @@ export function loadConfig() {
     config.PLAYGROUND_URL === '' ||
     config.PLAYGROUND_URL === '*'
   ) {
-    console.error('PLAYGROUND_URL must be a non-root, non-wildcard path');
-    console.error('current value', config.PLAYGROUND_URL);
+    console.error(chalk.red('PLAYGROUND_URL must be a non-root, non-wildcard path'));
+    console.error(chalk.red('current value'), config.PLAYGROUND_URL);
     process.exit(1);
   }
 
@@ -107,7 +110,7 @@ export function loadConfig() {
 
 export function getConfig() {
   if (!config) {
-    console.error('attempted to access config before it was loaded');
+    console.error(chalk.red('attempted to access config before it was loaded'));
     process.exit(1);
   }
 
@@ -125,20 +128,22 @@ export async function updateConfig(changes) {
 
   if (!isParent) {
     if (!process.send) {
-      console.error('attempted to update config as child from a parent process');
+      console.error(chalk.red('attempted to update config as child from a parent process'));
       process.exit(1);
     }
 
-    return process.send!({
+    process.send!({
       __type: 'UPDATE_CONFIG',
       changes,
       previousConfig: config,
       updatedConfig,
     });
+
+    return config;
   }
 
   config = updatedConfig;
-  fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+  writeFileSync(configPath, JSON.stringify(config, null, 2));
 
   return config;
 }

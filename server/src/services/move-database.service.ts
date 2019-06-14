@@ -1,6 +1,8 @@
 import { normalize, join } from 'path';
 import { copyFileSync, unlinkSync } from 'fs';
 
+import { getLogger } from '../logger';
+
 import { getDataDirectory } from './get-data-directory.service';
 
 export function moveDatabase({ MULTICAST_HOME: from }, { MULTICAST_HOME: to }) {
@@ -15,7 +17,7 @@ export function moveDatabase({ MULTICAST_HOME: from }, { MULTICAST_HOME: to }) {
     copyFileSync(oldFile, newFile);
     unlinkSync(oldFile);
   } catch (e) {
-    console.error(`could not move database from ${oldFile} to ${newFile}`);
+    getLogger().error(`could not move database from ${oldFile} to ${newFile}`);
     process.exit(1);
   }
 }

@@ -69,6 +69,8 @@ async function startServer(fallback, config) {
               │ MultiCast is live! │
               └────────────────────┘
 `)}
+    ${chalk.blue('https://superhawk610.github.io/multicast-site')}
+
               ${chalk.dim('Web UI:')} ${chalk.white(`http://localhost:${PORT}/web`)}
   ${chalk.dim('GraphQL Playground:')} ${chalk.white(playgroundMessage)}
 

@@ -1,6 +1,7 @@
 import * as castv2 from '@superhawk610/castv2';
 
 import { getConfig } from './config.service';
+import { getLogger } from '../logger';
 
 interface ConnectionMap {
   [host: string]: DeviceConnection;
@@ -23,7 +24,7 @@ export function launchApp(host: string): void {
     fresh = true;
     const client = new castv2.Client();
     client.on('error', (...args) => {
-      console.log('client errored', ...args);
+      getLogger().error('client errored', ...args);
     });
     devices[host] = { client } as DeviceConnection;
   }
@@ -59,7 +60,7 @@ export function launchApp(host: string): void {
 
       // monitor receiver status
       device.receiver.on('message', data => {
-        console.log('receiver got', data);
+        getLogger().info('receiver got', data);
       });
     }
 
