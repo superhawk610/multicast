@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useQuery, useMutation } from 'react-apollo-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useInput } from '../hooks/useInput';
 import { useBooleanState } from '../hooks/useBooleanState';
 
@@ -22,7 +22,7 @@ const ConfigurationForm = () => {
   const { data, loading } = useQuery(CONFIGURATION);
   const { status } = useStatus();
 
-  const updateConfiguration = useMutation(UPDATE_CONFIGURATION, {
+  const [updateConfiguration] = useMutation(UPDATE_CONFIGURATION, {
     variables: {
       changes: {
         home,
@@ -34,8 +34,7 @@ const ConfigurationForm = () => {
   });
 
   React.useEffect(() => {
-    if (data.configuration) {
-      console.table(data);
+    if (data) {
       setHome(data.configuration.home);
       setPort(data.configuration.port);
       setScanningFrequency(data.configuration.scanningFrequency);
@@ -44,7 +43,9 @@ const ConfigurationForm = () => {
   }, [data]);
 
   return loading ? (
-    'Loading...'
+    // FIXME: this should just return 'Loading...' once
+    // https://github.com/microsoft/TypeScript/issues/21699 is resolved
+    <>Loading...</>
   ) : (
     <>
       <Input disabled label="Sandbox" value={status.sandbox ? 'Enabled' : 'Disabled'} />
@@ -53,7 +54,7 @@ const ConfigurationForm = () => {
       <Input
         type="number"
         name="scanningFrequency"
-        label="Scanning Frequency"
+        label="Scanning Frequency (ms)"
         value={scanningFrequency || ''}
         onChange={onChangeScanningFrequency}
       />

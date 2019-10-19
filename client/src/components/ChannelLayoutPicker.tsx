@@ -162,7 +162,7 @@ const TwoOneOneHorizontalSplitLayout = ({ onClick, clickIndicator }: LayoutProps
 interface Props {
   layout: ChannelLayout;
   onChange: (layout: ChannelLayout, urlSlotCount: number) => void;
-  children?: React.ReactNode;
+  children?: any;
 }
 
 interface State {

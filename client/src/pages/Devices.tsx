@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useSubscription, useQuery } from 'react-apollo-hooks';
+import { useSubscription, useQuery } from '@apollo/react-hooks';
 import { useBooleanState } from '../hooks/useBooleanState';
 import { useQueryThenSubscription } from '../hooks/useQueryThenSubscription';
 

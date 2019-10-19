@@ -18,7 +18,7 @@ interface Action<T> {
   onClick: (row: T) => void;
 }
 
-type Render<T> = (row: T) => React.ReactNode;
+type Render<T> = (row: T) => any;
 
 interface RenderMapping<T> {
   [key: string]: Render<T> | undefined;
@@ -32,7 +32,7 @@ interface Props<T> {
   headerLabels?: string[];
   renderRow?: RenderMapping<T>;
   actionForRow?: (row: T) => Action<T>;
-  actionHeader?: React.ReactNode;
+  actionHeader?: any;
   actionTheme?: Theme;
   noRecordsFoundText?: string;
 }

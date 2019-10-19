@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery } from '@apollo/react-hooks';
 
 import { Page } from '../components/Page';
 
@@ -11,15 +11,11 @@ import { CHANNEL } from '../graphql/queries';
 
 const ManageChannel = ({ match }: RouteComponentProps<{ id: string }>) => {
   const { id } = match.params;
-  const {
-    data: { channel },
-    error,
-    loading,
-  } = useQuery(CHANNEL, {
-    variables: { id },
-  });
+  const { data, error, loading } = useQuery(CHANNEL, { variables: { id } });
 
   if (loading) return 'Loading...';
+
+  const { channel } = data;
   if (error || !channel) return <Redirect to="/404" />;
 
   return (

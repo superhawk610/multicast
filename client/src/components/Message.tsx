@@ -16,7 +16,7 @@ export type MessageTheme =
 interface Props {
   theme?: MessageTheme;
   heading?: string;
-  text: React.ReactNode;
+  text: any;
 }
 
 const Message = ({ theme = THEMES.none, heading, text }: Props) => (
