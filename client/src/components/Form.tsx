@@ -2,7 +2,7 @@ import * as React from 'react';
 
 interface Props {
   onSubmit: () => void;
-  children?: React.ReactNode;
+  children?: any;
 }
 
 const Form = ({ onSubmit, ...delegated }: Props) => {

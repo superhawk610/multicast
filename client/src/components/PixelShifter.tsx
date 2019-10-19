@@ -5,7 +5,7 @@ interface Props {
   right?: number;
   down?: number;
   left?: number;
-  children: React.ReactNode;
+  children?: any;
 }
 
 const PixelShifter = ({ up = 0, right = 0, down = 0, left = 0, children }: Props) => (

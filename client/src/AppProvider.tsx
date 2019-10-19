@@ -31,7 +31,7 @@ interface Dialog {
 }
 
 interface Props {
-  children: React.ReactNode;
+  children?: any;
 }
 
 const AppContext = React.createContext({} as ApplicationContext);

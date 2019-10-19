@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { useInput } from '../hooks/useInput';
 
 import { Message, MessageTheme, MessageStyle } from '../components/Message';
@@ -44,11 +44,9 @@ const AlertForm = ({ id }: Props) => {
   const [theme, onChangeTheme] = useInput<MessageTheme>(THEMES.primary);
   const [duration, onChangeDuration] = useInput(60 * 1000);
 
-  const {
-    data: { devices = [] },
-    error,
-    loading,
-  } = useQuery(DEVICES);
+  const { data, error, loading } = useQuery(DEVICES);
+
+  const devices = data && data.devices || [];
 
   return (
     <>

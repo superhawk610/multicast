@@ -15,7 +15,7 @@ interface Props {
   heading?: string;
   subheading?: string;
   parent?: RouteConfiguration;
-  children: React.ReactNode;
+  children?: any;
 }
 
 const Page = ({ heading, subheading, parent, children, ...delegated }: Props) => (

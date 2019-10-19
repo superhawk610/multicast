@@ -6,13 +6,13 @@ import { THEMES } from '../constants';
 
 export interface Props {
   heading: string;
-  accent?: React.ReactNode;
+  accent?: any;
   active: boolean;
   onClose: () => void;
   onSubmit: () => void;
   submitText?: string;
   submitButtonTheme?: ButtonTheme;
-  children: React.ReactNode;
+  children?: any;
 }
 
 const Modal = ({

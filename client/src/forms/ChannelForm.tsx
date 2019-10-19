@@ -43,7 +43,7 @@ const ChannelForm = ({ id }: Props) => {
   const loading = false;
   const error = null;
   const onSubmit = () => {
-    // perform create mutation
+    console.log({ name, layout, duration, urls });
   };
 
   return (

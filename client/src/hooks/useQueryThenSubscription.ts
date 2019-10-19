@@ -1,8 +1,7 @@
-import { useQuery, useSubscription } from 'react-apollo-hooks';
+import { useQuery, useSubscription } from '@apollo/react-hooks';
 
 import { DocumentNode } from 'graphql';
 import { ApolloError } from 'apollo-client';
-import { Alert } from '../types';
 
 export function useQueryThenSubscription<T>(
   query: DocumentNode,
@@ -26,7 +25,7 @@ export function useQueryThenSubscription<T>(
     loading: subscriptionLoading,
     error: subscriptionError,
   } = useSubscription(subscription) as any;
-  const data = subscriptionData[querySelector] || queryData[querySelector] || defaultValue;
+  const data = (subscriptionData && subscriptionData[querySelector]) || (queryData && queryData[querySelector]) || defaultValue;
   const loading = queryLoading || subscriptionLoading;
   const error = subscriptionError || queryError;
   return {
