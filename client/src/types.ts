@@ -28,6 +28,7 @@ export type DeviceRotation = 0 | 90 | 180 | 270;
 export interface Device {
   id: number;
   identifier: string;
+  registered: boolean;
   nickname: string;
   address: string;
   model: string;
@@ -42,7 +43,7 @@ export interface Channel {
   name: string;
   layout: ChannelLayout;
   duration: number;
-  urls: string[];
+  urls: string[][];
   devices: Device[];
 }
 

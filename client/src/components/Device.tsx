@@ -1,6 +1,6 @@
 import * as React from 'react';
-import styled from 'styled-components';
 import { colorForStatus } from '../utils';
+import styled from 'styled-components';
 
 import { Box } from './Box';
 import { Well } from './Well';
@@ -9,6 +9,8 @@ import { IconButton } from './IconButton';
 import { StatusLight } from './StatusLight';
 import { DeviceForm } from '../forms/DeviceForm';
 
+import Icon from 'react-icons-kit';
+import { checkCircle } from 'react-icons-kit/feather/checkCircle';
 import { chevronDown } from 'react-icons-kit/feather/chevronDown';
 
 import { COLORS } from '../constants';
@@ -16,13 +18,46 @@ import { useBooleanState } from '../hooks/useBooleanState';
 import { Device as Props } from '../types';
 
 const Device = (device: Props) => {
-  const { id, address, nickname, model, supported, status } = device;
+  const { registered, address, nickname, model, supported, status } = device;
   const [active, toggleDetails] = useBooleanState();
+
+  const boxColor = () => {
+    switch (true) {
+      case !supported:
+        return COLORS.greyLight;
+      case !registered:
+        return COLORS.cyan;
+      default:
+        return colorForStatus(status);
+    }
+  };
+
+  const renderBadge = () => {
+    switch (true) {
+      case !supported:
+        return null;
+      case !registered:
+        return <Badge>UNREGISTERED</Badge>;
+      default:
+        return (
+          <span title="registered">
+            <Icon
+              style={{
+                transform: 'translateY(-2px)',
+                marginLeft: '0.5rem',
+                color: COLORS.green,
+              }}
+              icon={checkCircle}
+            />
+          </span>
+        );
+    }
+  };
 
   return (
     <>
       <Box
-        color={supported ? colorForStatus(status) : COLORS.greyLight}
+        color={boxColor()}
         onClick={supported ? toggleDetails : undefined}
         style={supported ? {} : { opacity: 0.5 }}
       >
@@ -37,7 +72,10 @@ const Device = (device: Props) => {
             <LevelItem>
               <div>
                 <SmallText>NICKNAME</SmallText>
-                <BoldText>{nickname}</BoldText>
+                <BoldText>
+                  {nickname}
+                  {renderBadge()}
+                </BoldText>
               </div>
             </LevelItem>
           </LevelLeft>
@@ -64,6 +102,18 @@ const Device = (device: Props) => {
     </>
   );
 };
+
+const Badge = styled.div`
+  display: inline-block;
+  vertical-align: top;
+  font-size: 0.5em;
+  font-weight: 700;
+  margin: 0.3rem 0 0 0.75rem;
+  padding: 3px 10px 2px;
+  border-radius: 1000px;
+  background: ${COLORS.greyLighter};
+  color: ${COLORS.white};
+`;
 
 const SmallText = styled.div`
   font-size: 0.8em;

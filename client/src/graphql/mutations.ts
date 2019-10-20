@@ -45,3 +45,37 @@ export const DELETE_CHANNEL = gql`
     }
   }
 `;
+
+export const UPDATE_DEVICE = gql`
+  mutation UpdateDevice($id: ID!, $changes: DeviceUpdateInput!) {
+    updateDevice(id: $id, changes: $changes) {
+      id
+      nickname
+      rotation
+    }
+  }
+`;
+
+export const REGISTER_DEVICE = gql`
+  mutation RegisterDevice($id: ID!) {
+    registerDevice(id: $id) {
+      id
+      registered
+    }
+  }
+`;
+
+export const UNREGISTER_DEVICE = gql`
+  mutation UnregisterDevice($id: ID!) {
+    unregisterDevice(id: $id) {
+      id
+      registered
+    }
+  }
+`;
+
+export const CONNECT_DEVICE = gql`
+  mutation ConnectDevice($id: ID!) {
+    connect(id: $id)
+  }
+`;

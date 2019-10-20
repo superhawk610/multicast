@@ -177,12 +177,12 @@ const ChannelForm = ({ id }: Props) => {
       </ChannelLayoutPicker>
       {error && <ErrorDisplay error={error} />}
       <Button
+        adjacent
         submit
         disabled={deleteLoading}
         loading={saveLoading}
         theme={THEMES.success}
         text="Save"
-        style={{ marginRight: '0.5rem' }}
       />
       {!isCreatingNew && (
         <Button

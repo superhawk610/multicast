@@ -16,6 +16,7 @@ import { Spacer } from '../components/Spacer';
 import { AlertForm } from '../forms/AlertForm';
 
 import Icon from 'react-icons-kit';
+import { helpCircle } from 'react-icons-kit/feather/helpCircle';
 import { arrowRightCircle } from 'react-icons-kit/feather/arrowRightCircle';
 
 import { COLORS, THEMES } from '../constants';
@@ -35,12 +36,21 @@ const Devices = () => {
     'devices',
   );
 
-  const supportedDevices = [];
-  const unsupportedDevices = [];
+  const registeredDevices: DeviceType[] = [];
+  const unregisteredDevices: DeviceType[] = [];
+  const unsupportedDevices: DeviceType[] = [];
 
   for (const device of devices) {
-    if (device.supported) supportedDevices.push(device);
-    else unsupportedDevices.push(device);
+    switch (true) {
+      case !device.supported:
+        unsupportedDevices.push(device);
+        break;
+      case !device.registered:
+        unregisteredDevices.push(device);
+        break;
+      default:
+        registeredDevices.push(device);
+    }
   }
 
   const pageContent = queryLoading ? (
@@ -53,8 +63,8 @@ const Devices = () => {
           {error.message}
         </div>
       )}
-      {supportedDevices.length > 0 ? (
-        supportedDevices.map((device, idx) => (
+      {registeredDevices.length > 0 ? (
+        registeredDevices.map((device, idx) => (
           <React.Fragment key={idx}>
             <Buttons>
               <Button adjacent text="Create Alert" theme={THEMES.info} onClick={toggleAlertModal} />
@@ -74,9 +84,22 @@ const Devices = () => {
           </a>
         </div>
       )}
+      {unregisteredDevices.length > 0 && (
+        <>
+          <Heading2 color={COLORS.grey}>Available Devices</Heading2>
+          {unregisteredDevices.map((device: DeviceType, index: number) => (
+            <Device key={index} {...device} />
+          ))}
+        </>
+      )}
       {unsupportedDevices.length > 0 && (
         <>
-          <Heading2 color={COLORS.grey}>Unsupported Devices</Heading2>
+          <Heading2 color={COLORS.grey}>
+            Unsupported Devices
+            <span title="these devices don't support video streaming">
+              <Icon style={{ marginLeft: '0.5rem' }} icon={helpCircle} />
+            </span>
+          </Heading2>
           {unsupportedDevices.map((device: DeviceType, index: number) => (
             <Device key={index} {...device} />
           ))}
@@ -95,7 +118,7 @@ const Devices = () => {
   );
 
   return (
-    <Page heading="Devices" subheading="Available Devices">
+    <Page heading="Devices" subheading="Registered Devices">
       {pageContent}
     </Page>
   );
