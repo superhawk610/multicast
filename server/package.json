@@ -28,6 +28,7 @@
     "@superhawk610/castv2": "^0.2.0",
     "chalk": "^2.4.2",
     "cross-env": "^5.2.0",
+    "glob": "^7.1.4",
     "graphql-import": "^0.7.1",
     "graphql-yoga": "^1.17.4",
     "home-dir": "^1.0.0",
