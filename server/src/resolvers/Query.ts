@@ -9,18 +9,18 @@ import Channel from '../models/channel.model';
 
 export const Query = {
   async device(_, { id }) {
-    const device = await Device.findByPk(id);
+    const device = await Device.findByPk(id, { include: [Channel] });
     return device ? annotateDevice(device) : null;
   },
   async devices() {
-    const devices = await Device.findAll();
+    const devices = await Device.findAll({ include: [Channel] });
     return devices.map(annotateDevice);
   },
   channel(_, { id }) {
-    return Channel.findByPk(id);
+    return Channel.findByPk(id, { include: [Device] });
   },
   channels() {
-    return Channel.findAll();
+    return Channel.findAll({ include: [Device] });
   },
   alerts() {
     return getAllAlerts();

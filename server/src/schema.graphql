@@ -54,14 +54,14 @@ input ChannelCreateInput {
   name: String!
   layout: String!
   duration: Int!
-  urls: [String!]!
+  urls: [[String!]!]!
 }
 
 input ChannelUpdateInput {
   name: String
   layout: String
   duration: Int
-  urls: [String!]
+  urls: [[String!]!]
 }
 
 input AlertCreateInput {
@@ -129,7 +129,7 @@ type Channel {
   name: String
   layout: String
   duration: Int
-  urls: [String!]!
+  urls: [[String!]!]!
   devices: [Device!]!
 }
 
