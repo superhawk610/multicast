@@ -3,6 +3,8 @@ import { useState } from 'react';
 interface Utils {
   addInputs: (count?: number) => void;
   setInputCount: (count: number) => void;
+  setInputValues: (values: string[]) => void;
+  removeInputs: (from: number, to: number) => void;
 }
 
 export function useInputArray(
@@ -29,5 +31,19 @@ export function useInputArray(
     setValues(newValues);
   };
 
-  return [values, onChangeInputAtIndex, { addInputs, setInputCount }];
+  const removeInputs = (from: number, to: number) => {
+    const newValues = [...values.slice(0, from), ...values.slice(to)];
+    setValues(newValues);
+  };
+
+  return [
+    values,
+    onChangeInputAtIndex,
+    {
+      addInputs,
+      setInputCount,
+      setInputValues: setValues,
+      removeInputs,
+    },
+  ];
 }

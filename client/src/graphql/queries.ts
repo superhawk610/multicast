@@ -41,9 +41,6 @@ export const CHANNELS = gql`
       layout
       duration
       urls
-      devices {
-        id
-      }
     }
   }
 `;
@@ -56,9 +53,6 @@ export const CHANNEL = gql`
       layout
       duration
       urls
-      devices {
-        id
-      }
     }
   }
 `;
