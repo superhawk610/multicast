@@ -23,7 +23,10 @@ const Page = ({ heading, subheading, parent, children, ...delegated }: Props) =>
     {heading && <Heading>{heading}</Heading>}
     {subheading && <Heading2>{subheading}</Heading2>}
     {parent && (
-      <Link to={parent.path} style={{ display: 'block', margin: '-15px 0 15px' }}>
+      <Link
+        to={parent.path}
+        style={{ display: 'block', margin: subheading ? '-15px 0 15px' : '0 0 15px' }}
+      >
         <PixelShifter up={2}>
           <Icon icon={chevronLeft} />
         </PixelShifter>{' '}
