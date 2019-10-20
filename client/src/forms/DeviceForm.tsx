@@ -6,7 +6,6 @@ import { AlertForm } from './AlertForm';
 import { Input } from '../components/Input';
 import { Modal } from '../components/Modal';
 import { Button } from '../components/Button';
-import { InlineHeading } from '../components/Heading';
 import { ButtonGroup, Button as BGButton } from '../components/ButtonGroup';
 
 import { THEMES, COLORS } from '../constants';
@@ -35,7 +34,6 @@ const DeviceForm = ({ device }: Props) => {
       <Input name="nickname" label="Nickname" value={nickname} onChange={setNickname} />
       <label className="label">Rotation</label>
       <ButtonGroup buttons={rotationButtons} value={rotation} onChange={setRotation} />
-      <InlineHeading color={COLORS.greyLight}>Actions:</InlineHeading>
       <Button adjacent text="Update Device" theme={THEMES.success} onClick={() => {}} />
       <Button adjacent text="Reconnect Device" theme={THEMES.warning} onClick={() => {}} />
       <Button text="Create Alert" theme={THEMES.info} onClick={toggleAlertModal} />
