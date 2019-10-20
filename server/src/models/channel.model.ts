@@ -4,8 +4,8 @@ import {
   Column,
   Model,
   HasMany,
-  Sequelize,
   AutoIncrement,
+  DataType,
 } from 'sequelize-typescript';
 
 import Device from './device.model';
@@ -26,12 +26,16 @@ class Channel extends Model<Channel> {
   @Column
   public duration!: number;
 
-  @Column(Sequelize.STRING)
-  public get urls(): string[] {
-    return JSON.parse(this.getDataValue('urls'));
+  @Column(DataType.STRING)
+  public get urls(): string[][] {
+    // TODO: remove type coercion once
+    // https://github.com/sequelize/sequelize/issues/11558 is resolved
+    return JSON.parse((this.getDataValue('urls') as unknown) as string);
   }
 
-  public set urls(value: string[]) {
+  public set urls(value: string[][]) {
+    // TODO: remove once above issue is resolved
+    // @ts-ignore
     this.setDataValue('urls', JSON.stringify(value));
   }
 

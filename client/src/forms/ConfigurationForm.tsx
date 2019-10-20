@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { useInput } from '../hooks/useInput';
 import { useBooleanState } from '../hooks/useBooleanState';
 
 import { Input } from '../components/Input';
@@ -13,10 +12,10 @@ import { UPDATE_CONFIGURATION } from '../graphql/mutations';
 import { useStatus } from '../hooks/useStatus';
 
 const ConfigurationForm = () => {
-  const [home, onChangeHome, setHome] = useInput('');
-  const [port, onChangePort, setPort] = useInput('0');
-  const [scanningFrequency, onChangeScanningFrequency, setScanningFrequency] = useInput('0');
-  const [apiKey, onChangeApiKey] = useInput('');
+  const [home, setHome] = React.useState('');
+  const [port, setPort] = React.useState('0');
+  const [scanningFrequency, setScanningFrequency] = React.useState('0');
+  const [apiKey, setApiKey] = React.useState('');
   const [playgroundEnabled, togglePlayground, setPlaygroundEnabled] = useBooleanState();
 
   const { data, loading } = useQuery(CONFIGURATION);
@@ -49,21 +48,21 @@ const ConfigurationForm = () => {
   ) : (
     <>
       <Input disabled label="Sandbox" value={status.sandbox ? 'Enabled' : 'Disabled'} />
-      <Input name="home" label="Data Directory" value={home || ''} onChange={onChangeHome} />
-      <Input type="number" name="port" label="Port" value={port || ''} onChange={onChangePort} />
+      <Input name="home" label="Data Directory" value={home || ''} onChange={setHome} />
+      <Input type="number" name="port" label="Port" value={port || ''} onChange={setPort} />
       <Input
         type="number"
         name="scanningFrequency"
         label="Scanning Frequency (ms)"
         value={scanningFrequency || ''}
-        onChange={onChangeScanningFrequency}
+        onChange={setScanningFrequency}
       />
       <Input
         name="apiKey"
         label="API Management Key"
         placeholder="<hidden> (set to overwrite)"
         value={apiKey || ''}
-        onChange={onChangeApiKey}
+        onChange={setApiKey}
       />
       <Select
         name="playgroundEnabled"

@@ -2,9 +2,9 @@ import Device from './models/device.model';
 
 import { GoogleDeviceModel, DEVICE_MODELS } from './types';
 
-type AnnotatedDevice = Device & {
+interface AnnotatedDevice extends Device {
   supported: boolean;
-};
+}
 
 // TODO: add support for Google Home Hub?
 export function isSupportedModel(model: GoogleDeviceModel): boolean {
@@ -15,7 +15,7 @@ export function annotateDevice(device: Device): AnnotatedDevice {
   return {
     ...device.toJSON(),
     supported: isSupportedModel(device.model),
-  };
+  } as AnnotatedDevice;
 }
 
 // TODO: unit test

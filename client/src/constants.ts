@@ -2,6 +2,17 @@ import { isInjected } from './getInjected';
 
 export const APPLICATION_BASE = isInjected() ? '/web' : '';
 
+export const MAX_WIDTH = 1400;
+
+export const DURATIONS = {
+  [60 * 1000]: '1m',
+  [5 * 60 * 1000]: '5m',
+  [10 * 60 * 1000]: '10m',
+  [15 * 60 * 1000]: '15m',
+  [30 * 60 * 1000]: '30m',
+  [60 * 60 * 1000]: '1h',
+};
+
 export const COLORS = {
   black: 'hsl(0,0%,4%)',
   black2: 'hsl(0,0%,7%)',
@@ -12,20 +23,20 @@ export const COLORS = {
   greyTint: 'rgba(20,20,20,0.1)',
   greyLight: 'hsl(0,0%,71%)',
   greyLighter: 'hsl(0,0%,86%)',
+  greyLightest: 'hsl(0,0%,92%)',
   white3: 'hsl(0,0%,96%)',
   white2: 'hsl(0,0%,98%)',
   white: 'hsl(0,0%,100%)',
   orange: 'hsl(14,100%,53%)',
   yellow: 'hsl(48,100%,67%)',
-  // green: 'hsl(141,71%,48%)',
-  green: '#66b66a',
+  green: 'hsl(123,35%,56%)',
   greenTint: 'rgba(40,71,42,0.1)',
   greenTintDark: 'rgba(40,71,42,0.5)',
   turquoise: 'hsl(171,100%,41%)',
   cyan: 'hsl(204,86%,53%)',
   blue: 'hsl(217,71%,53%)',
   purple: 'hsl(271,100%,71%)',
-  red: 'hsl(348,100%,61%)',
+  red: 'hsl(8,73%,60%)',
 };
 
 // we need the namespace here to allow components

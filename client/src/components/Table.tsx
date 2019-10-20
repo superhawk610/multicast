@@ -124,7 +124,7 @@ const EmptyTableCell = styled.td`
 `;
 
 const ButtonCell = styled.td`
-  text-align: right;
+  text-align: right !important;
 
   > .button {
     height: auto !important;

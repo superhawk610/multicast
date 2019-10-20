@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { useInput } from '../hooks/useInput';
 
-import { Message, MessageTheme, MessageStyle } from '../components/Message';
+import { Message, MessageTheme } from '../components/Message';
 import { Input } from '../components/Input';
 import { TextArea } from '../components/TextArea';
 import { Select } from '../components/Select';
@@ -38,11 +37,11 @@ const durationButtons: Button<number>[] = [
 ];
 
 const AlertForm = ({ id }: Props) => {
-  const [deviceId, onChangeDeviceId] = useInput('all');
-  const [heading, onChangeHeading] = useInput('');
-  const [message, onChangeMessage] = useInput('');
-  const [theme, onChangeTheme] = useInput<MessageTheme>(THEMES.primary);
-  const [duration, onChangeDuration] = useInput(60 * 1000);
+  const [deviceId, setDeviceId] = React.useState('all');
+  const [heading, setHeading] = React.useState('');
+  const [message, setMessage] = React.useState('');
+  const [theme, setTheme] = React.useState<MessageTheme>(THEMES.primary);
+  const [duration, setDuration] = React.useState(60 * 1000);
 
   const { data, error, loading } = useQuery(DEVICES);
 
@@ -54,7 +53,7 @@ const AlertForm = ({ id }: Props) => {
         label="Device"
         name="identifier"
         value={deviceId}
-        onChange={onChangeDeviceId}
+        onChange={setDeviceId}
         options={
           loading || error
             ? []
@@ -75,20 +74,20 @@ const AlertForm = ({ id }: Props) => {
         label="Heading"
         name="heading"
         value={heading}
-        onChange={onChangeHeading}
+        onChange={setHeading}
       />
       <TextArea
         placeholder="Alert Body"
         label="Message"
         name="message"
         value={message}
-        onChange={onChangeMessage}
+        onChange={setMessage}
       />
       <Spacer />
       <label className="label">Theme</label>
-      <ButtonGroup buttons={themeButtons} value={theme} onChange={onChangeTheme} />
+      <ButtonGroup buttons={themeButtons} value={theme} onChange={setTheme} />
       <label className="label">Duration</label>
-      <ButtonGroup buttons={durationButtons} value={duration} onChange={onChangeDuration} />
+      <ButtonGroup buttons={durationButtons} value={duration} onChange={setDuration} />
     </>
   );
 };

@@ -1,28 +1,15 @@
 import * as React from 'react';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { Page } from '../components/Page';
-
 import { ChannelForm } from '../forms/ChannelForm';
 
 import routes from '../routes';
-import { CHANNEL } from '../graphql/queries';
 
-const ManageChannel = ({ match }: RouteComponentProps<{ id: string }>) => {
-  const { id } = match.params;
-  const { data, error, loading } = useQuery(CHANNEL, { variables: { id } });
-
-  if (loading) return 'Loading...';
-
-  const { channel } = data;
-  if (error || !channel) return <Redirect to="/404" />;
-
-  return (
-    <Page heading="Manage Channel" subheading={channel.name} parent={routes.Channels}>
-      <ChannelForm />
-    </Page>
-  );
-};
+const ManageChannel = ({ match }: RouteComponentProps<{ id: string }>) => (
+  <Page heading="Manage Channel" parent={routes.Channels}>
+    <ChannelForm id={parseInt(match.params.id)} />
+  </Page>
+);
 
 export { ManageChannel };

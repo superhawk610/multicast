@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useInput } from '../hooks/useInput';
 import { useBooleanState } from '../hooks/useBooleanState';
 
 import { AlertForm } from './AlertForm';
@@ -26,16 +25,16 @@ const rotationButtons: BGButton<DeviceRotation>[] = [
 
 const DeviceForm = ({ device }: Props) => {
   const [identifier] = React.useState(device.identifier);
-  const [nickname, onChangeNickname] = useInput(device.nickname);
-  const [rotation, onChangeRotation] = useInput(device.rotation);
+  const [nickname, setNickname] = React.useState(device.nickname);
+  const [rotation, setRotation] = React.useState(device.rotation);
   const [alertModalActive, toggleAlertModal] = useBooleanState();
 
   return (
     <>
       <Input disabled label="Identifier" defaultValue={identifier} />
-      <Input name="nickname" label="Nickname" value={nickname} onChange={onChangeNickname} />
+      <Input name="nickname" label="Nickname" value={nickname} onChange={setNickname} />
       <label className="label">Rotation</label>
-      <ButtonGroup buttons={rotationButtons} value={rotation} onChange={onChangeRotation} />
+      <ButtonGroup buttons={rotationButtons} value={rotation} onChange={setRotation} />
       <InlineHeading color={COLORS.greyLight}>Actions:</InlineHeading>
       <Button adjacent text="Update Device" theme={THEMES.success} onClick={() => {}} />
       <Button adjacent text="Reconnect Device" theme={THEMES.warning} onClick={() => {}} />

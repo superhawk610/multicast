@@ -4,7 +4,7 @@ import { InputError } from './InputError';
 
 import Icon from 'react-icons-kit';
 
-import { Themes, THEMES } from '../constants';
+import { Themes, THEMES, COLORS } from '../constants';
 
 import { InputEvent } from '../types';
 
@@ -12,6 +12,7 @@ type InputTheme = Themes.primary | Themes.info | Themes.success | Themes.warning
 
 interface Props {
   label?: string;
+  required?: boolean;
   type?: string;
   placeholder?: string;
   error?: string | null;
@@ -28,6 +29,7 @@ interface Props {
 
 const Input = ({
   label,
+  required,
   type = 'text',
   placeholder,
   error,
@@ -54,9 +56,15 @@ const Input = ({
 
   return (
     <div className="field">
-      {label && <label className={`label ${error ? 'has-text-danger' : ''}`}>{label}</label>}
+      {label && (
+        <label className={`label ${error ? 'has-text-danger' : ''}`}>
+          {label}
+          {required && <span style={{ color: COLORS.greyLighter }}> *</span>}
+        </label>
+      )}
       <p className={`control ${loadingClass} ${leftIconClass} ${rightIconClass}`}>
         <input
+          required={required}
           type={type}
           className={`input ${error ? THEMES.danger : theme}`}
           placeholder={placeholder}

@@ -11,7 +11,7 @@ import { NotFound } from '../pages/NotFound';
 
 import routes from '../routes';
 
-import { COLORS } from '../constants';
+import { MAX_WIDTH, COLORS } from '../constants';
 
 const App = withRouter(({ location }: RouteComponentProps) => {
   const { pathname } = location;
@@ -56,7 +56,7 @@ const Background = styled.div`
 `;
 
 const Constraint = styled.div`
-  max-width: 1250px;
+  max-width: ${MAX_WIDTH}px;
 `;
 
 export { App };
