@@ -16,9 +16,9 @@ type Subscription {
 }
 
 type Mutation {
-  createDevice(model: DeviceCreateInput!): Device!
   updateDevice(id: ID!, changes: DeviceUpdateInput!): Device!
-  deleteDevice(id: ID!): DeleteDeviceResult!
+  registerDevice(id: ID!): Device!
+  unregisterDevice(id: ID!): Device!
   createChannel(model: ChannelCreateInput!): Channel!
   updateChannel(id: ID!, changes: ChannelUpdateInput!): Channel!
   deleteChannel(id: ID!): DeleteChannelResult!
@@ -30,23 +30,9 @@ type Mutation {
   updateConfiguration(changes: ConfigurationUpdateInput!): ConfigurationStatus!
 }
 
-input DeviceCreateInput {
-  identifier: String!
-  nickname: String!
-  address: String!
-  model: String!
-  rotation: Int!
-  status: String!
-  channel: ID
-}
-
 input DeviceUpdateInput {
-  identifier: String
   nickname: String
-  address: String
-  model: String
   rotation: Int
-  status: String
   channel: ID
 }
 
@@ -96,11 +82,6 @@ type ConfigurationStatus {
   playgroundEnabled: Boolean!
 }
 
-type DeleteDeviceResult {
-  ok: Boolean!
-  model: Device
-}
-
 type DeleteChannelResult {
   ok: Boolean!
   model: Channel
@@ -115,6 +96,7 @@ type UpdateSummary {
 type Device {
   id: ID!
   identifier: String!
+  registered: Boolean!
   nickname: String!
   address: String!
   model: String!
