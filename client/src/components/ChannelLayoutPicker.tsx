@@ -12,150 +12,162 @@ import { useBooleanState } from '../hooks/useBooleanState';
 interface LayoutProps {
   onClick: () => void;
   clickIndicator?: boolean;
+  compact?: boolean;
 }
 
-const SingleLayout = ({ onClick, clickIndicator }: LayoutProps) => (
+const SingleLayout = ({ onClick, clickIndicator, compact }: LayoutProps) => (
   <LayoutPreview
+    compact={compact ? 1 : 0}
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
     templateColumns="1fr"
     templateRows="1fr"
   >
-    <LayoutSection>URL 1</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}1</LayoutSection>
   </LayoutPreview>
 );
 
-const EvenVerticalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
+const EvenVerticalSplitLayout = ({ onClick, clickIndicator, compact }: LayoutProps) => (
   <LayoutPreview
+    compact={compact ? 1 : 0}
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
     templateColumns="1fr"
     templateRows="1fr 1fr"
   >
-    <LayoutSection>URL 1</LayoutSection>
-    <LayoutSection>URL 2</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}1</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}2</LayoutSection>
   </LayoutPreview>
 );
 
-const EvenHorizontalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
+const EvenHorizontalSplitLayout = ({ onClick, clickIndicator, compact }: LayoutProps) => (
   <LayoutPreview
+    compact={compact ? 1 : 0}
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
     templateColumns="1fr 1fr"
     templateRows="1fr"
   >
-    <LayoutSection>URL 1</LayoutSection>
-    <LayoutSection>URL 2</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}1</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}2</LayoutSection>
   </LayoutPreview>
 );
 
-const OneTwoVerticalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
+const OneTwoVerticalSplitLayout = ({ onClick, clickIndicator, compact }: LayoutProps) => (
   <LayoutPreview
+    compact={compact ? 1 : 0}
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
     templateColumns="1fr"
     templateRows="1fr 2fr"
   >
-    <LayoutSection>URL 1</LayoutSection>
-    <LayoutSection>URL 2</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}1</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}2</LayoutSection>
   </LayoutPreview>
 );
 
-const OneTwoHorizontalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
+const OneTwoHorizontalSplitLayout = ({ onClick, clickIndicator, compact }: LayoutProps) => (
   <LayoutPreview
+    compact={compact ? 1 : 0}
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
     templateColumns="1fr 2fr"
     templateRows="1fr"
   >
-    <LayoutSection>URL 1</LayoutSection>
-    <LayoutSection>URL 2</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}1</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}2</LayoutSection>
   </LayoutPreview>
 );
 
-const TwoOneVerticalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
+const TwoOneVerticalSplitLayout = ({ onClick, clickIndicator, compact }: LayoutProps) => (
   <LayoutPreview
+    compact={compact ? 1 : 0}
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
     templateColumns="1fr"
     templateRows="2fr 1fr"
   >
-    <LayoutSection>URL 1</LayoutSection>
-    <LayoutSection>URL 2</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}1</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}2</LayoutSection>
   </LayoutPreview>
 );
 
-const TwoOneHorizontalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
+const TwoOneHorizontalSplitLayout = ({ onClick, clickIndicator, compact }: LayoutProps) => (
   <LayoutPreview
+    compact={compact ? 1 : 0}
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
     templateColumns="2fr 1fr"
     templateRows="1fr"
   >
-    <LayoutSection>URL 1</LayoutSection>
-    <LayoutSection>URL 2</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}1</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}2</LayoutSection>
   </LayoutPreview>
 );
 
-const OneOneTwoVerticalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
+const OneOneTwoVerticalSplitLayout = ({ onClick, clickIndicator, compact }: LayoutProps) => (
   <LayoutPreview
+    compact={compact ? 1 : 0}
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
     templateColumns="1fr 1fr"
     templateRows="1fr 1fr"
   >
-    <LayoutSection>URL 1</LayoutSection>
-    <LayoutSection>URL 2</LayoutSection>
-    <LayoutSection startColumn={1} endColumn={3} startRow={2} endRow={2}>
-      URL 3
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}1</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}2</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0} startColumn={1} endColumn={3} startRow={2} endRow={2}>
+      {!compact && 'URL '}3
     </LayoutSection>
   </LayoutPreview>
 );
 
-const OneOneTwoHorizontalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
+const OneOneTwoHorizontalSplitLayout = ({ onClick, clickIndicator, compact }: LayoutProps) => (
   <LayoutPreview
+    compact={compact ? 1 : 0}
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
     templateColumns="1fr 1fr"
     templateRows="1fr 1fr"
   >
-    <LayoutSection>URL 1</LayoutSection>
-    <LayoutSection startColumn={1} endColumn={2} startRow={2} endRow={2}>
-      URL 2
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}1</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0} startColumn={1} endColumn={2} startRow={2} endRow={2}>
+      {!compact && 'URL '}2
     </LayoutSection>
-    <LayoutSection startColumn={2} endColumn={2} startRow={1} endRow={3}>
-      URL 3
+    <LayoutSection compact={compact ? 1 : 0} startColumn={2} endColumn={2} startRow={1} endRow={3}>
+      {!compact && 'URL '}3
     </LayoutSection>
   </LayoutPreview>
 );
 
-const TwoOneOneVerticalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
+const TwoOneOneVerticalSplitLayout = ({ onClick, clickIndicator, compact }: LayoutProps) => (
   <LayoutPreview
+    compact={compact ? 1 : 0}
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
     templateColumns="1fr 1fr"
     templateRows="1fr 1fr"
   >
-    <LayoutSection startColumn={1} endColumn={3} startRow={1} endRow={1}>
-      URL 1
+    <LayoutSection compact={compact ? 1 : 0} startColumn={1} endColumn={3} startRow={1} endRow={1}>
+      {!compact && 'URL '}1
     </LayoutSection>
-    <LayoutSection>URL 2</LayoutSection>
-    <LayoutSection>URL 3</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}2</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}3</LayoutSection>
   </LayoutPreview>
 );
 
-const TwoOneOneHorizontalSplitLayout = ({ onClick, clickIndicator }: LayoutProps) => (
+const TwoOneOneHorizontalSplitLayout = ({ onClick, clickIndicator, compact }: LayoutProps) => (
   <LayoutPreview
+    compact={compact ? 1 : 0}
     clickIndicator={clickIndicator ? 1 : 0}
     onClick={onClick}
     templateColumns="1fr 1fr"
     templateRows="1fr 1fr"
   >
-    <LayoutSection startColumn={1} endColumn={1} startRow={1} endRow={3}>
-      URL 1
+    <LayoutSection compact={compact ? 1 : 0} startColumn={1} endColumn={1} startRow={1} endRow={3}>
+      {!compact && 'URL '}1
     </LayoutSection>
-    <LayoutSection>URL 2</LayoutSection>
-    <LayoutSection>URL 3</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}2</LayoutSection>
+    <LayoutSection compact={compact ? 1 : 0}>{!compact && 'URL '}3</LayoutSection>
   </LayoutPreview>
 );
 
@@ -163,10 +175,6 @@ interface Props {
   layout: ChannelLayout;
   onChange: (layout: ChannelLayout, urlSlotCount: number) => void;
   children?: any;
-}
-
-interface State {
-  active: boolean;
 }
 
 interface ChannelLayoutConfig {
@@ -179,7 +187,7 @@ interface ChannelLayoutMapping {
   [layout: string]: ChannelLayoutConfig;
 }
 
-const channelLayouts: ChannelLayoutMapping = {
+export const channelLayoutMap: ChannelLayoutMapping = {
   single: { Component: SingleLayout, value: 'single', urlSlotCount: 1 },
   '1-1-vertical': {
     Component: EvenVerticalSplitLayout,
@@ -233,12 +241,12 @@ const channelLayouts: ChannelLayoutMapping = {
   },
 };
 
-const rows = chunk(Object.values(channelLayouts), 3);
+const rows = chunk(Object.values(channelLayoutMap), 3);
 
 const ChannelLayoutPicker = ({ layout, onChange, children }: Props) => {
   const [active, togglePicker] = useBooleanState();
 
-  const ActiveLayoutComponent = channelLayouts[layout].Component;
+  const ActiveLayoutComponent = channelLayoutMap[layout].Component;
 
   return (
     <>
@@ -275,6 +283,7 @@ const ChannelLayoutPicker = ({ layout, onChange, children }: Props) => {
 };
 
 const LayoutSection = styled.div<{
+  compact?: number;
   startColumn?: number;
   endColumn?: number;
   startRow?: number;
@@ -283,7 +292,7 @@ const LayoutSection = styled.div<{
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid ${COLORS.grey};
+  border: ${props => (props.compact ? 1 : 2)}px solid ${COLORS.grey};
   background: ${COLORS.greyTint};
   ${props =>
     props.startColumn &&
@@ -296,6 +305,7 @@ const LayoutSection = styled.div<{
 `;
 
 const LayoutPreview = styled.div<{
+  compact?: number;
   clickIndicator?: number;
   templateColumns: string;
   templateRows: string;
@@ -303,39 +313,45 @@ const LayoutPreview = styled.div<{
   display: grid;
   grid-template-columns: ${props => props.templateColumns};
   grid-template-rows: ${props => props.templateRows};
-  border: 4px solid ${COLORS.grey};
+  border: ${props => (props.compact ? 2 : 4)}px solid ${COLORS.grey};
   border-radius: 4px;
-  height: 200px;
-  cursor: pointer;
+  height: ${props => (props.compact ? 44 : 200)}px;
   position: relative;
 
-  &:hover {
-    box-shadow: 0 0 5px ${COLORS.green};
-    border-color: ${COLORS.green};
-
-    > ${LayoutSection} {
-      border-color: ${COLORS.green};
-      background: ${COLORS.greenTint};
-      color: ${COLORS.green};
-    }
-
-    ${props =>
-      props.clickIndicator &&
+  ${props =>
+    props.compact
+      ? `
+        cursor: default;
+        font-size: 10px;
       `
-      ::after {
-        content: '';
-        display: block;
-        position: absolute;
-        bottom: 5px;
-        right: 5px;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 5px;
-        border-color: transparent ${COLORS.green} ${COLORS.green} transparent;
-      }
-      `};
-  }
+      : `
+        &:hover {
+          cursor: pointer;
+          box-shadow: 0 0 5px ${COLORS.green};
+          border-color: ${COLORS.green};
+
+          > ${LayoutSection} {
+            border-color: ${COLORS.green};
+            background: ${COLORS.greenTint};
+            color: ${COLORS.green};
+          }
+
+          ${props.clickIndicator &&
+            `
+            ::after {
+              content: '';
+              display: block;
+              position: absolute;
+              bottom: 5px;
+              right: 5px;
+              width: 0;
+              height: 0;
+              border-style: solid;
+              border-width: 5px;
+              border-color: transparent ${COLORS.green} ${COLORS.green} transparent;
+            }
+            `};
+        }`}
 `;
 
 export { ChannelLayoutPicker };
