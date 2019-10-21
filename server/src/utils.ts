@@ -6,7 +6,7 @@ interface AnnotatedDevice extends Device {
   supported: boolean;
 }
 
-// TODO: add support for Google Home Hub?
+// TODO: add support for Google Home Hub/Chromecast Ultra?
 export function isSupportedModel(model: GoogleDeviceModel): boolean {
   return model === DEVICE_MODELS.Chromecast;
 }

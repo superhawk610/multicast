@@ -2,7 +2,7 @@ import { annotateDevice } from '../utils';
 
 import { start, stop } from '../services/takeover.service';
 import { launchApp } from '../services/launch-app.service';
-import { updateConfig } from '../services/config.service';
+import { getConfig, updateConfig } from '../services/config.service';
 
 import Device from '../models/device.model';
 import Channel from '../models/channel.model';
@@ -22,7 +22,7 @@ export const Mutation = {
     if (!device) {
       throw new Error(`No device found for id ${id}`);
     }
-    if (!device.supported) {
+    if (!annotateDevice(device).supported) {
       throw new Error(`Device model ${device.model} is unsupported`);
     }
     await device.update({ registered: true });
@@ -64,6 +64,8 @@ export const Mutation = {
     return createAlert(options);
   },
   async connectAll() {
+    if (getConfig().SANDBOX) return true;
+
     (await Device.findAll())
       .map(annotateDevice)
       .filter(d => d.supported)
@@ -71,6 +73,8 @@ export const Mutation = {
     return true;
   },
   async connect(_, { id }) {
+    if (getConfig().SANDBOX) return true;
+
     const device = await Device.findByPk(id);
     if (!device) return false;
     launchApp(device.address);

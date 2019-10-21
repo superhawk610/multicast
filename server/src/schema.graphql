@@ -54,7 +54,6 @@ input AlertCreateInput {
   title: String
   body: String
   theme: String
-  style: String
   duration: Int
   device: ID
 }
