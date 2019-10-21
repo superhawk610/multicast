@@ -6,14 +6,17 @@ import { ApolloLink, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
+const host = process.env.SERVER_HOST;
+const port = process.env.SERVER_PORT;
+
 export function configureApolloClient() {
   const httpLink = new HttpLink({
-    uri: 'http://localhost:4000',
+    uri: `http://${host}:${port}`,
     credentials: 'same-origin',
   });
 
   const wsLink = new WebSocketLink({
-    uri: 'ws://localhost:4000',
+    uri: `ws://${host}:${port}`,
     options: {
       reconnect: true,
     },
