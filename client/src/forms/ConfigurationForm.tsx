@@ -1,15 +1,35 @@
 import * as React from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useBooleanState } from '../hooks/useBooleanState';
+import styled from 'styled-components';
 
 import { Input } from '../components/Input';
 import { Select } from '../components/Select';
 import { Button } from '../components/Button';
 
-import { THEMES } from '../constants';
+import { THEMES, COLORS } from '../constants';
 import { CONFIGURATION } from '../graphql/queries';
 import { UPDATE_CONFIGURATION } from '../graphql/mutations';
 import { useStatus } from '../hooks/useStatus';
+import { Spacer } from '../components/Spacer';
+
+function parseHome(path: string) {
+  if (path[0] === '~' && path[1] === '/') {
+    return path.substr(2);
+  } else {
+    return path;
+  }
+}
+
+function displayHome(path: string) {
+  switch (true) {
+    case path[0] === '~' && path[1] === '/':
+    case path[0] === '/':
+      return path;
+    default:
+      return `~/${path}`;
+  }
+}
 
 const ConfigurationForm = () => {
   const [home, setHome] = React.useState('');
@@ -24,7 +44,7 @@ const ConfigurationForm = () => {
   const [updateConfiguration] = useMutation(UPDATE_CONFIGURATION, {
     variables: {
       changes: {
-        home,
+        home: parseHome(home),
         port: parseInt(port),
         scanningFrequency: parseInt(scanningFrequency),
         playgroundEnabled,
@@ -34,7 +54,7 @@ const ConfigurationForm = () => {
 
   React.useEffect(() => {
     if (data) {
-      setHome(data.configuration.home);
+      setHome(displayHome(data.configuration.home));
       setPort(data.configuration.port);
       setScanningFrequency(data.configuration.scanningFrequency);
       setPlaygroundEnabled(data.configuration.playgroundEnabled);
@@ -47,7 +67,11 @@ const ConfigurationForm = () => {
     <>Loading...</>
   ) : (
     <>
-      <Input disabled label="Sandbox" value={status.sandbox ? 'Enabled' : 'Disabled'} />
+      <Input
+        disabled
+        label="Sandbox"
+        value={`${status.sandbox ? 'Enabled' : 'Disabled'} (can only be modified at server launch)`}
+      />
       <Input name="home" label="Data Directory" value={home || ''} onChange={setHome} />
       <Input type="number" name="port" label="Port" value={port || ''} onChange={setPort} />
       <Input
@@ -71,9 +95,18 @@ const ConfigurationForm = () => {
         options={[{ name: 'Enabled', value: 'true' }, { name: 'Disabled', value: 'false' }]}
         onChange={togglePlayground}
       />
+      <Spacer />
       <Button text="Save Changes" theme={THEMES.success} onClick={updateConfiguration} />
+      <Info>
+        Saving will restart the server, clearing any active alerts and ending any active takeovers.
+      </Info>
     </>
   );
 };
+
+const Info = styled.p`
+  color: ${COLORS.greyLight};
+  margin-top: 1rem;
+`;
 
 export { ConfigurationForm };

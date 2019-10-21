@@ -6,6 +6,8 @@ $family-primary: $family-serif;
 $green: hsl(123, 35%, 56%);
 $red: hsl(8, 73%, 60%);
 
+$modal-content-width: 700px;
+
 @import '~bulma';
 
 .with-loading-spinner {

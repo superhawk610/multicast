@@ -5,6 +5,7 @@ export const SUB_DEVICES = gql`
     devices {
       id
       identifier
+      registered
       nickname
       address
       model

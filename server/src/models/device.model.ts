@@ -29,6 +29,9 @@ class Device extends Model<Device> {
   public identifier!: string;
 
   @Column
+  public registered!: boolean;
+
+  @Column
   public nickname!: string;
 
   @Column

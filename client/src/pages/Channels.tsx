@@ -34,7 +34,7 @@ const Channels = withRouter(({ history }: RouteComponentProps) => {
           name: ({ name }: Channel) => <span style={{ whiteSpace: 'nowrap' }}>{name}</span>,
           duration: ({ duration }: Channel) => {
             if (duration === -1) return <span style={{ color: COLORS.greyLight }}>indefinite</span>;
-            return DURATIONS[duration];
+            return DURATIONS[duration] || `${duration}ms`;
           },
           layout: ({ layout }: Channel) => {
             const { Component } = channelLayoutMap[layout];

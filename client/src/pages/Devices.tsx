@@ -1,18 +1,24 @@
 import * as React from 'react';
-import { useSubscription, useQuery } from '@apollo/react-hooks';
 import { useBooleanState } from '../hooks/useBooleanState';
 import { useQueryThenSubscription } from '../hooks/useQueryThenSubscription';
+import styled from 'styled-components';
 
 import { AppContext } from '../AppProvider';
 
 import { Page } from '../components/Page';
-import { Heading2 } from '../components/Heading';
+import { Heading2, Heading3 } from '../components/Heading';
 import { Device } from '../components/Device';
 import { Button } from '../components/Button';
-import { Modal } from '../components/Modal';
 import { CornerCat } from '../components/CornerCat';
 import { Spacer } from '../components/Spacer';
-import { AlertForm } from '../forms/AlertForm';
+
+import { AlertModal } from '../forms/AlertModal';
+
+import Icon from 'react-icons-kit';
+import { rss } from 'react-icons-kit/feather/rss';
+import { helpCircle } from 'react-icons-kit/feather/helpCircle';
+import { monitor } from 'react-icons-kit/feather/monitor';
+import { arrowRightCircle } from 'react-icons-kit/feather/arrowRightCircle';
 
 import { COLORS, THEMES } from '../constants';
 import { Device as DeviceType } from '../types';
@@ -25,67 +31,111 @@ const Devices = () => {
   const { showDialog } = React.useContext(AppContext);
   const onStartTakeover = () => showDialog();
 
-  const { data: devices, loading, queryLoading, error } = useQueryThenSubscription(
+  const { data: devices, loading, queryLoading, error } = useQueryThenSubscription<DeviceType>(
     DEVICES,
     SUB_DEVICES,
     'devices',
   );
 
-  const supportedDevices = [];
-  const unsupportedDevices = [];
+  const registeredDevices: DeviceType[] = [];
+  const unregisteredDevices: DeviceType[] = [];
+  const unsupportedDevices: DeviceType[] = [];
 
   for (const device of devices) {
-    if (device.supported) supportedDevices.push(device);
-    else unsupportedDevices.push(device);
+    switch (true) {
+      case !device.supported:
+        unsupportedDevices.push(device);
+        break;
+      case !device.registered:
+        unregisteredDevices.push(device);
+        break;
+      default:
+        registeredDevices.push(device);
+    }
   }
 
   const pageContent = queryLoading ? (
     <div className="with-loading-spinner">Loading...</div>
   ) : (
     <>
-      <Button adjacent text="Create Alert" theme={THEMES.info} onClick={toggleAlertModal} />
-      <Button text="Start Takeover" theme={THEMES.danger} onClick={onStartTakeover} />
-      <Spacer />
       {error && (
         <div style={{ padding: '25px' }}>
           <Heading2 color={COLORS.red}>Oops! We encountered an error.</Heading2>
           {error.message}
         </div>
       )}
-      {supportedDevices.map((device: DeviceType, index: number) => (
-        <Device key={index} {...device} />
-      ))}
-      {supportedDevices.length === 0 && (
-        <div style={{ padding: '25px' }}>
-          <Heading2>There's nothing here!</Heading2>
+      {registeredDevices.length > 0 ? (
+        <>
+          <Buttons>
+            <Button
+              adjacent
+              leftIcon={monitor}
+              text="Create Alert"
+              theme={THEMES.info}
+              onClick={toggleAlertModal}
+            />
+            <Button
+              leftIcon={rss}
+              text="Start Takeover"
+              theme={THEMES.dark}
+              onClick={onStartTakeover}
+            />
+          </Buttons>
+          <Spacer />
+          {registeredDevices.map((device, idx) => (
+            <Device key={idx} {...device} />
+          ))}
+        </>
+      ) : (
+        <div style={{ padding: '10px 25px 50px' }}>
+          <Heading3>There's nothing here :(</Heading3>
           Make sure to follow the setup guide to get your developer devices to show up here.
+          <Spacer />
+          <a target="_blank" href="https://superhawk610.github.io/multicast-site/">
+            View Documentation <Icon icon={arrowRightCircle} />
+          </a>
         </div>
+      )}
+      {unregisteredDevices.length > 0 && (
+        <>
+          <Heading2 color={COLORS.grey}>Available Devices</Heading2>
+          {unregisteredDevices.map((device: DeviceType, index: number) => (
+            <Device key={index} {...device} />
+          ))}
+        </>
       )}
       {unsupportedDevices.length > 0 && (
         <>
-          <Heading2 color={COLORS.grey}>Unsupported Devices</Heading2>
+          <Heading2 color={COLORS.grey}>
+            Unsupported Devices
+            <span title="these devices don't support video streaming">
+              <Icon style={{ marginLeft: '0.5rem' }} icon={helpCircle} />
+            </span>
+          </Heading2>
           {unsupportedDevices.map((device: DeviceType, index: number) => (
             <Device key={index} {...device} />
           ))}
         </>
       )}
-      <Modal
-        active={alertModalActive}
-        heading="Create Alert"
-        onClose={toggleAlertModal}
-        onSubmit={() => {}}
-      >
-        <AlertForm />
-      </Modal>
+      <AlertModal active={alertModalActive} onClose={toggleAlertModal} />
       <CornerCat in={!loading && devices.length === 0} />
     </>
   );
 
   return (
-    <Page heading="Devices" subheading="Available Devices">
+    <Page heading="Devices" subheading="Registered Devices">
       {pageContent}
     </Page>
   );
 };
+
+const Buttons = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  > button {
+    flex: 1;
+  }
+`;
 
 export { Devices };

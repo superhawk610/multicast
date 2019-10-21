@@ -26,12 +26,9 @@ const Heading2 = styled.h2<{ color?: string }>`
   }
 `;
 
-const InlineHeading = styled.h2<{ color?: string }>`
-  display: inline;
-  font-size: 1.2em;
+const Heading3 = styled.h3`
+  font-size: 1.1em;
   font-weight: 700;
-  color: ${props => props.color || COLORS.green};
-  margin-right: 1em;
 `;
 
-export { Heading, Heading2, InlineHeading };
+export { Heading, Heading2, Heading3 };

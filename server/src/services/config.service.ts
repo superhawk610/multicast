@@ -128,6 +128,7 @@ export async function updateConfig(changes) {
     ...defaultConfig,
     ...diskConfig,
     ...changes,
+    SANDBOX: loadProcessEnvBoolean('SANDBOX'),
   };
 
   if (!isParent) {

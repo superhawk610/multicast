@@ -29,12 +29,19 @@ const resolvers = {
 
 async function startServer(fallback, config) {
   const { PORT, DISABLE_PLAYGROUND, PLAYGROUND_URL, SANDBOX } = config;
+
   const db = fallback ? null : await initializeDatabase();
-  if (db) startScanning();
+  const middlewares: any[] = [];
+  if (!SANDBOX) {
+    if (db) startScanning();
+    middlewares.push(authMiddleware);
+    if (fallback) middlewares.push(fallbackMiddleware);
+  }
+
   const server = new GraphQLServer({
     typeDefs,
     resolvers,
-    middlewares: SANDBOX ? [] : fallback ? [authMiddleware, fallbackMiddleware] : [authMiddleware],
+    middlewares,
     context: ({ request, connection }) => {
       const authorization = request
         ? request.headers.authorization
