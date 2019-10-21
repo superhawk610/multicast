@@ -79,3 +79,11 @@ export const CONNECT_DEVICE = gql`
     connect(id: $id)
   }
 `;
+
+export const CREATE_ALERT = gql`
+  mutation CreateAlert($options: AlertCreateInput!) {
+    createAlert(options: $options) {
+      id
+    }
+  }
+`;

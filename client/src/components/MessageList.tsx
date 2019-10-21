@@ -38,6 +38,7 @@ const Container = styled.div<{ compact: number }>`
   align-items: ${props => (props.compact ? 'flex-start' : 'center')};
   justify-content: flex-end;
   padding: 1.5rem;
+  pointer-events: none;
 
   > article {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);

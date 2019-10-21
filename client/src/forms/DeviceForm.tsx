@@ -2,10 +2,11 @@ import * as React from 'react';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import { useBooleanState } from '../hooks/useBooleanState';
 
-import { AlertForm } from './AlertForm';
+import { AppContext } from '../AppProvider';
+
+import { AlertModal } from './AlertModal';
 
 import { Input } from '../components/Input';
-import { Modal } from '../components/Modal';
 import { Button } from '../components/Button';
 import { Form } from '../components/Form';
 import { Select } from '../components/Select';
@@ -20,6 +21,12 @@ import {
   UNREGISTER_DEVICE,
   CONNECT_DEVICE,
 } from '../graphql/mutations';
+import {
+  updateCacheAfterRegister,
+  updateCacheAfterUpdate,
+  updateCacheAfterUnregister,
+  updateCacheAfterConnect,
+} from './updaters/device';
 
 interface Props {
   device: Device;
@@ -37,18 +44,23 @@ const DeviceForm = ({ device }: Props) => {
   const [rotation, setRotation] = React.useState(device.rotation);
   const [channel, setChannel] = React.useState(device.channel ? device.channel.id : -1);
   const [alertModalActive, toggleAlertModal] = useBooleanState();
+  const ctx = React.useContext(AppContext);
 
   const [getChannels, channelQuery] = useLazyQuery(CHANNELS);
   const [updateDevice, updateMutation] = useMutation(UPDATE_DEVICE, {
+    update: updateCacheAfterUpdate(ctx),
     variables: { id: device.id, changes: { nickname, rotation } },
   });
   const [registerDevice, registerMutation] = useMutation(REGISTER_DEVICE, {
+    update: updateCacheAfterRegister(ctx),
     variables: { id: device.id },
   });
   const [unregisterDevice, unregisterMutation] = useMutation(UNREGISTER_DEVICE, {
+    update: updateCacheAfterUnregister(ctx),
     variables: { id: device.id },
   });
   const [connectDevice, connectMutation] = useMutation(CONNECT_DEVICE, {
+    update: updateCacheAfterConnect(ctx),
     variables: { id: device.id },
   });
 
@@ -65,8 +77,8 @@ const DeviceForm = ({ device }: Props) => {
       <>
         <Input disabled label="Identifier" defaultValue={device.identifier} />
         <Input disabled label="Nickname" defaultValue={nickname} />
-        <Button adjacent text="Register Device" theme={THEMES.success} onClick={() => {}} />
-        <Button text="Connect Device" theme={THEMES.info} onClick={() => {}} />
+        <Button adjacent text="Register Device" theme={THEMES.success} onClick={registerDevice} />
+        <Button text="Connect Device" theme={THEMES.info} onClick={connectDevice} />
       </>
     );
   }
@@ -92,18 +104,11 @@ const DeviceForm = ({ device }: Props) => {
               }))),
         ]}
       />
-      <Button adjacent text="Update Device" theme={THEMES.success} onClick={() => {}} />
-      <Button adjacent text="Reconnect Device" theme={THEMES.warning} onClick={() => {}} />
+      <Button adjacent text="Update Device" theme={THEMES.success} onClick={updateDevice} />
+      <Button adjacent text="Reconnect Device" theme={THEMES.warning} onClick={connectDevice} />
       <Button adjacent text="Create Alert" theme={THEMES.info} onClick={toggleAlertModal} />
-      <Button text="Unregister Device" theme={THEMES.danger} onClick={() => {}} />
-      <Modal
-        active={alertModalActive}
-        heading="Create Alert"
-        onClose={toggleAlertModal}
-        onSubmit={() => {}}
-      >
-        <AlertForm id={device.id} />
-      </Modal>
+      <Button text="Unregister Device" theme={THEMES.danger} onClick={unregisterDevice} />
+      <AlertModal id={device.id} active={alertModalActive} onClose={toggleAlertModal} />
     </Form>
   );
 };

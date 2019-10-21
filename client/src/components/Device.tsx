@@ -16,6 +16,7 @@ import { chevronDown } from 'react-icons-kit/feather/chevronDown';
 import { COLORS } from '../constants';
 import { useBooleanState } from '../hooks/useBooleanState';
 import { Device as Props } from '../types';
+import { PixelShifter } from './PixelShifter';
 
 const Device = (device: Props) => {
   const { registered, address, nickname, model, supported, status } = device;
@@ -41,14 +42,15 @@ const Device = (device: Props) => {
       default:
         return (
           <span title="registered">
-            <Icon
-              style={{
-                transform: 'translateY(-2px)',
-                marginLeft: '0.5rem',
-                color: COLORS.green,
-              }}
-              icon={checkCircle}
-            />
+            <PixelShifter up={2}>
+              <Icon
+                style={{
+                  marginLeft: '0.5rem',
+                  color: COLORS.green,
+                }}
+                icon={checkCircle}
+              />
+            </PixelShifter>
           </span>
         );
     }

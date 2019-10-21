@@ -25,6 +25,7 @@ import {
   updateCacheAfterUpdate,
   updateCacheAfterDelete,
 } from './updaters/channel';
+import { PixelShifter } from '../components/PixelShifter';
 
 interface Props {
   id?: number;
@@ -95,7 +96,7 @@ const ChannelForm = ({ id }: Props) => {
     if (deleteMutation.called && !deleteMutation.loading && !deleteMutation.error) {
       window.location.replace('/channels');
     }
-  }, [deleteMutation.called, deleteMutation.loading]);
+  }, [deleteMutation.loading]);
 
   if (!isCreatingNew && notFound) {
     return <>Channel not found</>;
@@ -154,7 +155,9 @@ const ChannelForm = ({ id }: Props) => {
             </option>
           ))}
         </PageSelect>
-        <PageCount>of {pages.length}</PageCount>
+        <PixelShifter down={1}>
+          <PageCount>of {pages.length}</PageCount>
+        </PixelShifter>
         <IconButton icon={plus} title="add page" onClick={addPage} />
         <IconButton
           icon={trash2}
@@ -210,7 +213,6 @@ const PageLabel = styled.label`
 
 const PageCount = styled.div`
   display: inline-block;
-  transform: translateY(1px);
   margin-right: 0.5rem;
 `;
 

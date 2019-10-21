@@ -1,19 +1,26 @@
 import * as React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import styled from 'styled-components';
 
 import { Message, MessageTheme } from '../components/Message';
 import { Input } from '../components/Input';
 import { TextArea } from '../components/TextArea';
 import { Select } from '../components/Select';
+import { Modal } from '../components/Modal';
 import { ButtonGroup, Button } from '../components/ButtonGroup';
 import { Spacer } from '../components/Spacer';
 
 import { THEMES } from '../constants';
 import { DEVICES } from '../graphql/queries';
 import { Device } from '../types';
+import { CREATE_ALERT } from '../graphql/mutations';
+import { updateCacheAfterCreate } from './updaters/alert';
+import { AppContext } from '../AppProvider';
 
 interface Props {
   id?: number;
+  active: boolean;
+  onClose: () => void;
 }
 
 const themeButtons: Button<MessageTheme>[] = [
@@ -36,19 +43,44 @@ const durationButtons: Button<number>[] = [
   { text: '24h', value: 24 * 60 * 60 * 1000 },
 ];
 
-const AlertForm = ({ id }: Props) => {
-  const [deviceId, setDeviceId] = React.useState('all');
+const AlertModal = ({ id, active, onClose }: Props) => {
+  const [deviceId, setDeviceId] = React.useState(id ? id.toString() : 'all');
   const [heading, setHeading] = React.useState('');
   const [message, setMessage] = React.useState('');
   const [theme, setTheme] = React.useState<MessageTheme>(THEMES.primary);
   const [duration, setDuration] = React.useState(60 * 1000);
+  const ctx = React.useContext(AppContext);
 
   const { data, error, loading } = useQuery(DEVICES);
+  const [createAlert, createMutation] = useMutation(CREATE_ALERT, {
+    update: updateCacheAfterCreate(ctx),
+    variables: {
+      options: {
+        title: heading,
+        body: message,
+        theme,
+        duration,
+        device: deviceId === 'all' ? null : deviceId,
+      },
+    },
+  });
 
-  const devices = data && data.devices || [];
+  React.useEffect(() => {
+    if (createMutation.called && !createMutation.loading && !createMutation.error) {
+      onClose();
+    }
+  }, [createMutation.loading]);
+
+  const devices: Device[] = (data && data.devices) || [];
 
   return (
-    <>
+    <Modal
+      accent={createMutation.loading && 'Loading...'}
+      heading="Create Alert"
+      onSubmit={createAlert}
+      active={active}
+      onClose={onClose}
+    >
       <Select
         label="Device"
         name="identifier"
@@ -59,15 +91,19 @@ const AlertForm = ({ id }: Props) => {
             ? []
             : [
                 { name: 'All Devices', value: 'all' },
-                ...devices.map((device: Device) => ({
-                  name: device.nickname,
-                  value: device.id,
-                })),
+                ...devices
+                  .filter(d => d.registered)
+                  .map(d => ({
+                    name: d.nickname,
+                    value: d.id.toString(),
+                  })),
               ]
         }
       />
       <Spacer />
-      <Message theme={theme} heading={heading} text={message || 'Alert Body'} />
+      <FullWidth>
+        <Message theme={theme} heading={heading} text={message || 'Alert Body'} />
+      </FullWidth>
       <Spacer />
       <Input
         placeholder="Alert Heading"
@@ -88,8 +124,15 @@ const AlertForm = ({ id }: Props) => {
       <ButtonGroup buttons={themeButtons} value={theme} onChange={setTheme} />
       <label className="label">Duration</label>
       <ButtonGroup buttons={durationButtons} value={duration} onChange={setDuration} />
-    </>
+    </Modal>
   );
 };
 
-export { AlertForm };
+const FullWidth = styled.div`
+  > article {
+    max-width: auto !important;
+    width: 100% !important;
+  }
+`;
+
+export { AlertModal };

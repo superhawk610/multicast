@@ -9,14 +9,15 @@ import { Page } from '../components/Page';
 import { Heading2, Heading3 } from '../components/Heading';
 import { Device } from '../components/Device';
 import { Button } from '../components/Button';
-import { Modal } from '../components/Modal';
 import { CornerCat } from '../components/CornerCat';
 import { Spacer } from '../components/Spacer';
 
-import { AlertForm } from '../forms/AlertForm';
+import { AlertModal } from '../forms/AlertModal';
 
 import Icon from 'react-icons-kit';
+import { rss } from 'react-icons-kit/feather/rss';
 import { helpCircle } from 'react-icons-kit/feather/helpCircle';
+import { monitor } from 'react-icons-kit/feather/monitor';
 import { arrowRightCircle } from 'react-icons-kit/feather/arrowRightCircle';
 
 import { COLORS, THEMES } from '../constants';
@@ -64,16 +65,27 @@ const Devices = () => {
         </div>
       )}
       {registeredDevices.length > 0 ? (
-        registeredDevices.map((device, idx) => (
-          <React.Fragment key={idx}>
-            <Buttons>
-              <Button adjacent text="Create Alert" theme={THEMES.info} onClick={toggleAlertModal} />
-              <Button text="Start Takeover" theme={THEMES.danger} onClick={onStartTakeover} />
-            </Buttons>
-            <Spacer />
-            <Device {...device} />
-          </React.Fragment>
-        ))
+        <>
+          <Buttons>
+            <Button
+              adjacent
+              leftIcon={monitor}
+              text="Create Alert"
+              theme={THEMES.info}
+              onClick={toggleAlertModal}
+            />
+            <Button
+              leftIcon={rss}
+              text="Start Takeover"
+              theme={THEMES.dark}
+              onClick={onStartTakeover}
+            />
+          </Buttons>
+          <Spacer />
+          {registeredDevices.map((device, idx) => (
+            <Device key={idx} {...device} />
+          ))}
+        </>
       ) : (
         <div style={{ padding: '10px 25px 50px' }}>
           <Heading3>There's nothing here :(</Heading3>
@@ -105,14 +117,7 @@ const Devices = () => {
           ))}
         </>
       )}
-      <Modal
-        active={alertModalActive}
-        heading="Create Alert"
-        onClose={toggleAlertModal}
-        onSubmit={() => {}}
-      >
-        <AlertForm />
-      </Modal>
+      <AlertModal active={alertModalActive} onClose={toggleAlertModal} />
       <CornerCat in={!loading && devices.length === 0} />
     </>
   );
