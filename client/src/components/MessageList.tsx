@@ -14,16 +14,18 @@ interface Props {
 
 const MessageList = ({ messages, compact }: Props) => (
   <Container compact={compact ? 1 : 0}>
-    {messages.map(message => {
-      const messageProps = {
-        key: message.id,
-        theme: message.theme || THEMES.info,
-        heading: message.title,
-        text: message.body,
-      };
+    {messages
+      .filter(m => m.body.trim())
+      .map((message, idx) => {
+        const messageProps = {
+          key: idx,
+          theme: message.theme || THEMES.info,
+          heading: message.title,
+          text: message.body,
+        };
 
-      return <Message {...messageProps} />;
-    })}
+        return <Message {...messageProps} />;
+      })}
   </Container>
 );
 
@@ -43,9 +45,9 @@ const Container = styled.div<{ compact: number }>`
   > article {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     opacity: 0.5;
-    ${props => props.compact && 'max-width: 200px;'}
+    ${props => (props.compact ? 'max-width: 200px;' : '')}
 
-    &:nth-last-child(1) {
+    &:last-child {
       opacity: 1;
     }
 

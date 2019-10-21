@@ -220,22 +220,22 @@ export const channelLayoutMap: ChannelLayoutMapping = {
     urlSlotCount: 2,
   },
   '2-1-1-vertical': {
-    Component: OneOneTwoVerticalSplitLayout,
+    Component: TwoOneOneVerticalSplitLayout,
     value: '2-1-1-vertical',
     urlSlotCount: 3,
   },
   '2-1-1-horizontal': {
-    Component: OneOneTwoHorizontalSplitLayout,
+    Component: TwoOneOneHorizontalSplitLayout,
     value: '2-1-1-horizontal',
     urlSlotCount: 3,
   },
   '1-1-2-vertical': {
-    Component: TwoOneOneVerticalSplitLayout,
+    Component: OneOneTwoVerticalSplitLayout,
     value: '1-1-2-vertical',
     urlSlotCount: 3,
   },
   '1-1-2-horizontal': {
-    Component: TwoOneOneHorizontalSplitLayout,
+    Component: OneOneTwoHorizontalSplitLayout,
     value: '1-1-2-horizontal',
     urlSlotCount: 3,
   },

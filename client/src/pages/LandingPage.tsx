@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useLazyQuery, useSubscription } from '@apollo/react-hooks';
 import { getInjected } from '../getInjected';
 import { basePath } from '../utils';
 import styled from 'styled-components';
@@ -9,29 +10,61 @@ import { Spacer } from '../components/Spacer';
 import { Alerts } from '../components/Alerts';
 
 import { COLORS } from '../constants';
+import { SUB_UPDATES } from '../graphql/subscriptions';
+import { DEVICE } from '../graphql/queries';
+import { ChannelDisplay } from '../components/ChannelDisplay';
+import { Channel } from '../types';
 
 const host = getInjected('host', 'HOST');
 const name = getInjected('name', 'NAME');
+const device = getInjected('device', null);
 const upstream = getInjected('upstream', 'UPSTREAM');
 
-const LandingPage = () => (
-  <Page>
-    <Container>
-      <Header>
-        Host <strong>{host}</strong>
-      </Header>
-      <Header>
-        Device <strong>{name}</strong>
-      </Header>
-      <Spacer />
-      <p>
-        To get started, head over to <Link>http://{upstream}/web</Link>
-      </p>
-    </Container>
-    <Alerts />
-    <Logo src={basePath(logo)} />
-  </Page>
-);
+const LandingPage = () => {
+  const [getDevice, getQuery] = useLazyQuery(DEVICE);
+  const updates = useSubscription(SUB_UPDATES, { variables: { device } });
+
+  React.useEffect(() => {
+    if (device) getDevice({ variables: { id: device } });
+  }, []);
+
+  // TODO: use actual device
+  const rotation = 0;
+
+  // TODO: use actual channel
+  const channel = {
+    layout: '2-1-1-vertical',
+    urls: [['http://localhost', 'http://localhost', 'http://localhost']],
+  } as Channel;
+
+  if (channel) {
+    return (
+      <>
+        <ChannelDisplay channel={channel} rotation={rotation} />
+        <Alerts />
+      </>
+    );
+  }
+
+  return (
+    <Page>
+      <Container>
+        <Header>
+          Host <strong>{host}</strong>
+        </Header>
+        <Header>
+          Device <strong>{name}</strong>
+        </Header>
+        <Spacer />
+        <p>
+          To get started, head over to <Link>http://{upstream}/web</Link>
+        </p>
+      </Container>
+      <Alerts />
+      <Logo src={basePath(logo)} />
+    </Page>
+  );
+};
 
 const Page = styled.div`
   background: ${COLORS.green};

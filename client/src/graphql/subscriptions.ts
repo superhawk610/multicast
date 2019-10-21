@@ -20,6 +20,30 @@ export const SUB_DEVICES = gql`
   }
 `;
 
+export const SUB_UPDATES = gql`
+  subscription Updates($device: ID) {
+    updates(device: $device) {
+      channel {
+        id
+        name
+        layout
+        duration
+        urls
+      }
+      takeover {
+        active
+        channel {
+          id
+          name
+          layout
+          duration
+          urls
+        }
+      }
+    }
+  }
+`;
+
 export const SUB_ALERTS = gql`
   subscription {
     alerts {

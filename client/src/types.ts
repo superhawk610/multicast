@@ -54,3 +54,8 @@ export interface Alert {
   theme: MessageTheme;
   devices: string[] | null;
 }
+
+export interface TakeoverStatus {
+  active: boolean;
+  channel: Channel | null;
+}

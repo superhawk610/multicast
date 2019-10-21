@@ -23,6 +23,23 @@ export const DEVICES = gql`
   }
 `;
 
+export const DEVICE = gql`
+  query Device($id: ID!) {
+    device(id: $id) {
+      id
+      identifier
+      rotation
+      channel {
+        id
+        name
+        layout
+        duration
+        urls
+      }
+    }
+  }
+`;
+
 export const ALERTS = gql`
   {
     alerts {
