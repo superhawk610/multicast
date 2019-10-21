@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Sidebar } from './Sidebar';
 import { SandboxWarning } from './SandboxWarning';
 import { ConfirmDialog } from './ConfirmDialog';
+import { Notifications } from './Notifications';
 
 import { LandingPage } from '../pages/LandingPage';
 import { NotFound } from '../pages/NotFound';
@@ -24,6 +25,7 @@ const App = withRouter(({ location }: RouteComponentProps) => {
           <Sidebar />
           <SandboxWarning />
           <ConfirmDialog />
+          <Notifications />
         </>
       )}
       <Constraint>
