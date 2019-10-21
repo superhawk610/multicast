@@ -4,6 +4,7 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
 const host = process.env.SERVER_HOST;
@@ -15,12 +16,19 @@ export function configureApolloClient() {
     credentials: 'same-origin',
   });
 
-  const wsLink = new WebSocketLink({
-    uri: `ws://${host}:${port}`,
-    options: {
-      reconnect: true,
-    },
-  });
+  /**
+   * TODO: when the React DevTools extension is enabled in Chrome, you will see
+   * a set of warnings that looks something like the following:
+   *
+   * ```
+   * WebSocket connection to 'ws://localhost:4000/' failed: WebSocket is closed before the connection is established.
+   * ```
+   *
+   * Keep an eye on that issue and update accordingly.
+   * ref: https://github.com/apollographql/subscriptions-transport-ws/issues/377
+   */
+  const client = new SubscriptionClient(`ws://${host}:${port}`, { reconnect: true });
+  const wsLink = new WebSocketLink(client);
 
   const link = split(
     ({ query }) => {

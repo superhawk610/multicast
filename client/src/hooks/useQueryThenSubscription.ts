@@ -25,7 +25,10 @@ export function useQueryThenSubscription<T>(
     loading: subscriptionLoading,
     error: subscriptionError,
   } = useSubscription(subscription) as any;
-  const data = (subscriptionData && subscriptionData[querySelector]) || (queryData && queryData[querySelector]) || defaultValue;
+  const data =
+    (subscriptionData && subscriptionData[querySelector]) ||
+    (queryData && queryData[querySelector]) ||
+    defaultValue;
   const loading = queryLoading || subscriptionLoading;
   const error = subscriptionError || queryError;
   return {

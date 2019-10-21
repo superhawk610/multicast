@@ -10,7 +10,7 @@ import { Modal } from '../components/Modal';
 import { ButtonGroup, Button } from '../components/ButtonGroup';
 import { Spacer } from '../components/Spacer';
 
-import { THEMES } from '../constants';
+import { THEMES, COLORS } from '../constants';
 import { DEVICES } from '../graphql/queries';
 import { Device } from '../types';
 import { CREATE_ALERT } from '../graphql/mutations';
@@ -49,6 +49,7 @@ const AlertModal = ({ id, active, onClose }: Props) => {
   const [message, setMessage] = React.useState('');
   const [theme, setTheme] = React.useState<MessageTheme>(THEMES.primary);
   const [duration, setDuration] = React.useState(60 * 1000);
+  const [validationError, setValidationError] = React.useState<string | null>(null);
   const ctx = React.useContext(AppContext);
 
   const { data, error, loading } = useQuery(DEVICES);
@@ -67,17 +68,32 @@ const AlertModal = ({ id, active, onClose }: Props) => {
 
   React.useEffect(() => {
     if (createMutation.called && !createMutation.loading && !createMutation.error) {
+      setHeading('');
+      setMessage('');
+      setTheme(THEMES.primary);
+      setDuration(60 * 1000);
       onClose();
     }
   }, [createMutation.loading]);
 
   const devices: Device[] = (data && data.devices) || [];
 
+  const onSubmit = () => {
+    setValidationError(null);
+
+    if (!message.trim()) {
+      setValidationError('Message is required.');
+      return;
+    }
+
+    createAlert();
+  };
+
   return (
     <Modal
       accent={createMutation.loading && 'Loading...'}
       heading="Create Alert"
-      onSubmit={createAlert}
+      onSubmit={onSubmit}
       active={active}
       onClose={onClose}
     >
@@ -104,6 +120,12 @@ const AlertModal = ({ id, active, onClose }: Props) => {
       <FullWidth>
         <Message theme={theme} heading={heading} text={message || 'Alert Body'} />
       </FullWidth>
+      {validationError && (
+        <>
+          <Spacer />
+          <Error>{validationError}</Error>
+        </>
+      )}
       <Spacer />
       <Input
         placeholder="Alert Heading"
@@ -133,6 +155,10 @@ const FullWidth = styled.div`
     max-width: auto !important;
     width: 100% !important;
   }
+`;
+
+const Error = styled.p`
+  color: ${COLORS.red};
 `;
 
 export { AlertModal };
