@@ -338,10 +338,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@superhawk610/castv2@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@superhawk610/castv2/-/castv2-0.2.0.tgz#a1a6bb55bf5a1874804b3475c81243dcf0a3a86f"
-  integrity sha512-AAkDugWmkEGl35EoNw8nvDSnW5cE7D+Mv8OOIIPeFZw7Bvdkh3PFh7ASu050l3CA2/Quoo3HLdEr9OgKp+6SDg==
+"@superhawk610/castv2@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@superhawk610/castv2/-/castv2-0.2.1.tgz#61b2bcace0d693c6ed2fc279cac6d6bb3f24f5a8"
+  integrity sha512-K1F2mTrG1k2yNdTIrAfCl1fQ5U5aMzwwNHepHTcUM8xmNWYJ2l0uFrebaIrYWpIrUNYYTf4CW//LwBHNn5EZ3Q==
   dependencies:
     debug "^2.2.0"
     protobufjs "^6.8.8"
