@@ -3,12 +3,15 @@ import { annotateDevice } from '../utils';
 import { start, stop } from '../services/takeover.service';
 import { launchApp } from '../services/launch-app.service';
 import { getConfig, updateConfig } from '../services/config.service';
+import { createAlert } from '../services/alert.service';
 
 import Device from '../models/device.model';
 import Channel from '../models/channel.model';
-import { createAlert } from '../services/alert.service';
 
 export const Mutation = {
+  async validateLogin(_, { token }) {
+    return getConfig().API_KEY === token;
+  },
   async updateDevice(_, { id, changes }) {
     const device = await Device.findByPk(id);
     if (!device) {

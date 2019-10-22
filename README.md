@@ -1,7 +1,7 @@
 <br />
 <br />
 <p align="center">
-  <img src="images/multicast.png" width=250 />
+  <img src="assets/multicast.png" width=250 />
 </p>
 <br />
 

@@ -8,6 +8,7 @@ interface ServerInject {
   host: string;
   name: string;
   upstream: string;
+  token: string;
 }
 
 const w = (typeof window === 'undefined' ? { serverInject: {} } : window) as InjectedWindow;

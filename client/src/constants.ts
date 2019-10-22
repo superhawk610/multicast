@@ -1,8 +1,8 @@
 import { isInjected } from './getInjected';
 
 export const APPLICATION_BASE = isInjected() ? '/web' : '';
-
 export const MAX_WIDTH = 1400;
+export const AUTH_TOKEN = 'auth_token';
 
 export const DURATIONS = {
   [60 * 1000]: '1m',
@@ -24,6 +24,7 @@ export const COLORS = {
   greyLight: 'hsl(0,0%,71%)',
   greyLighter: 'hsl(0,0%,86%)',
   greyLightest: 'hsl(0,0%,92%)',
+  white4: 'hsl(0,0%,92%)',
   white3: 'hsl(0,0%,96%)',
   white2: 'hsl(0,0%,98%)',
   white: 'hsl(0,0%,100%)',

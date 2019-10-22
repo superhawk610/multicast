@@ -1,5 +1,11 @@
 import gql from 'graphql-tag';
 
+export const LOGIN = gql`
+  mutation Login($token: String!) {
+    validateLogin(token: $token)
+  }
+`;
+
 export const UPDATE_CONFIGURATION = gql`
   mutation UpdateConfiguration($changes: ConfigurationUpdateInput!) {
     updateConfiguration(changes: $changes) {
@@ -77,6 +83,12 @@ export const UNREGISTER_DEVICE = gql`
 export const CONNECT_DEVICE = gql`
   mutation ConnectDevice($id: ID!) {
     connect(id: $id)
+  }
+`;
+
+export const CONNECT_ALL_DEVICES = gql`
+  mutation ConnectAllDevices {
+    connectAll
   }
 `;
 

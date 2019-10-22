@@ -23,8 +23,8 @@ export function launchApp(host: string): void {
   if (!Object.prototype.hasOwnProperty.call(devices, host)) {
     fresh = true;
     const client = new castv2.Client();
-    client.on('error', (...args) => {
-      getLogger().error('client errored', ...args);
+    client.on('error', error => {
+      getLogger().error('client errored: ', error);
     });
     devices[host] = { client } as DeviceConnection;
   }

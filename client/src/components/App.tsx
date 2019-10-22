@@ -9,6 +9,8 @@ import { Notifications } from './Notifications';
 import { FlyingCat } from './FlyingCat';
 
 import { LandingPage } from '../pages/LandingPage';
+import { LoginPage } from '../pages/LoginPage';
+import { LogoutPage } from '../pages/LogoutPage';
 import { NotFound } from '../pages/NotFound';
 
 import routes from '../routes';
@@ -17,7 +19,7 @@ import { MAX_WIDTH, COLORS } from '../constants';
 
 const App = withRouter(({ location }: RouteComponentProps) => {
   const { pathname } = location;
-  const hideUI = pathname.match(/^\/(?:landing|1337)/);
+  const hideUI = pathname.match(/^\/(?:landing|login|logout|1337)/);
 
   return (
     <Background>
@@ -32,6 +34,8 @@ const App = withRouter(({ location }: RouteComponentProps) => {
       <Constraint>
         <Switch>
           <Route path="/landing" component={LandingPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/logout" component={LogoutPage} />
           <Route path="/1337" component={FlyingCat} />
           {Object.keys(routes).map((key, index) => {
             const route = routes[key];

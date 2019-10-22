@@ -36,6 +36,7 @@ export async function recordDevice(service: ChromecastService): Promise<Device |
   if (!device) {
     const newDevice = new Device({
       identifier,
+      registered: false,
       nickname: service.name,
       address: service.address,
       model,

@@ -16,26 +16,34 @@ import { AlertModal } from '../forms/AlertModal';
 
 import Icon from 'react-icons-kit';
 import { rss } from 'react-icons-kit/feather/rss';
-import { helpCircle } from 'react-icons-kit/feather/helpCircle';
+import { loader } from 'react-icons-kit/feather/loader';
 import { monitor } from 'react-icons-kit/feather/monitor';
+import { helpCircle } from 'react-icons-kit/feather/helpCircle';
 import { arrowRightCircle } from 'react-icons-kit/feather/arrowRightCircle';
 
 import { COLORS, THEMES } from '../constants';
 import { Device as DeviceType } from '../types';
 import { DEVICES } from '../graphql/queries';
 import { SUB_DEVICES } from '../graphql/subscriptions';
+import { ErrorDisplay } from '../components/ErrorDisplay';
+import { useMutation } from '@apollo/react-hooks';
+import { CONNECT_ALL_DEVICES } from '../graphql/mutations';
 
 const Devices = () => {
   const [alertModalActive, toggleAlertModal] = useBooleanState();
 
   const { showDialog } = React.useContext(AppContext);
-  const onStartTakeover = () => showDialog();
+
+  // TODO: implement takeovers
+  const onStartTakeover = () => showDialog({ body: '🚧 TAKEOVERS ARE UNDER CONSTRUCTION 🚧' });
 
   const { data: devices, loading, queryLoading, error } = useQueryThenSubscription<DeviceType>(
     DEVICES,
     SUB_DEVICES,
     'devices',
   );
+
+  const [connectAll, connectAllMutation] = useMutation(CONNECT_ALL_DEVICES);
 
   const registeredDevices: DeviceType[] = [];
   const unregisteredDevices: DeviceType[] = [];
@@ -58,12 +66,7 @@ const Devices = () => {
     <div className="with-loading-spinner">Loading...</div>
   ) : (
     <>
-      {error && (
-        <div style={{ padding: '25px' }}>
-          <Heading2 color={COLORS.red}>Oops! We encountered an error.</Heading2>
-          {error.message}
-        </div>
-      )}
+      {error && <ErrorDisplay error={error} />}
       {registeredDevices.length > 0 ? (
         <>
           <Buttons>
@@ -75,10 +78,18 @@ const Devices = () => {
               onClick={toggleAlertModal}
             />
             <Button
+              adjacent
               leftIcon={rss}
               text="Start Takeover"
               theme={THEMES.dark}
               onClick={onStartTakeover}
+            />
+            <Button
+              loading={connectAllMutation.loading}
+              leftIcon={loader}
+              text="Connect All Devices"
+              theme={THEMES.success}
+              onClick={connectAll}
             />
           </Buttons>
           <Spacer />

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { basePath } from '../utils';
 import styled from 'styled-components';
 
 import audio from '../assets/catloop.mp3';
@@ -6,8 +7,8 @@ import gif from '../assets/nyan.gif';
 
 const FlyingCat = () => (
   <>
-    <audio src={audio} autoPlay loop />
-    <FullscreenGif src={gif}></FullscreenGif>
+    <audio src={basePath(audio)} autoPlay loop />
+    <FullscreenGif src={basePath(gif)}></FullscreenGif>
   </>
 );
 
