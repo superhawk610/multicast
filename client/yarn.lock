@@ -2223,6 +2223,11 @@ concat-stream@~1.6.0:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
+console-badge@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/console-badge/-/console-badge-1.3.0.tgz#16fc7506a12ea428806d269e22dcf6b35d1f40f1"
+  integrity sha512-Y9JMpBdLuZp8ANqBFvXxoi92RJU9cfp4XL7R3Izo6/4VJzGXiZ2/h+stwkNXGyrRuHWEPIHU+66cjAb9VfM4wQ==
+
 console-browserify@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-browserify/-/console-browserify-1.1.0.tgz#f0241c45730a9fc6323b206dbf38edc741d0bb10"

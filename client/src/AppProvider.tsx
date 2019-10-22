@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { MessageTheme } from './components/Message';
+import { configureApolloClient } from './configureApollo';
+import { NormalizedCacheObject } from 'apollo-cache-inmemory';
+import ApolloClient from 'apollo-client';
 
 export interface ApplicationContext {
+  client: ApolloClient<NormalizedCacheObject>;
+  reloadClient: () => void;
   subscribeToMessages: (observer: MessagesObserver) => Unsubscribe;
   showMessage: MessageDispatch;
   dialog: Dialog;
@@ -47,6 +52,9 @@ const AppContext = React.createContext({} as ApplicationContext);
 const context = createAppContext();
 
 const AppProvider = ({ children }: Props) => {
+  const [client, setClient] = React.useState(configureApolloClient());
+  const reloadClient = () => setClient(configureApolloClient());
+
   const [dialog, setDialog] = React.useState<Dialog>({
     title: '',
     body: '',
@@ -76,7 +84,9 @@ const AppProvider = ({ children }: Props) => {
   };
 
   return (
-    <AppContext.Provider value={{ ...context, dialog, showDialog, hideDialog }}>
+    <AppContext.Provider
+      value={{ ...context, client, reloadClient, dialog, showDialog, hideDialog }}
+    >
       {children}
     </AppContext.Provider>
   );

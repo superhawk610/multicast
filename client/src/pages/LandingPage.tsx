@@ -4,7 +4,7 @@ import { getInjected } from '../getInjected';
 import { basePath } from '../utils';
 import styled from 'styled-components';
 
-import logo from '../images/watermark.png';
+import logo from '../assets/watermark.png';
 
 import { Spacer } from '../components/Spacer';
 import { Alerts } from '../components/Alerts';

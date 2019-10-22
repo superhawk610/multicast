@@ -2,7 +2,7 @@ import * as React from 'react';
 import { basePath } from '../utils';
 import styled from 'styled-components';
 
-import cat from '../images/cat.png';
+import cat from '../assets/cat.png';
 
 interface Props {
   in: boolean;
