@@ -1,6 +1,7 @@
 import { join } from 'path';
 import { readFileSync } from 'fs';
 import { Router, Request as ExpressRequest } from 'express';
+import { getConfig } from '../services/config.service';
 
 import Device from '../models/device.model';
 
@@ -27,7 +28,8 @@ router.get('*', (req, res) => {
           .replace('"#INJECT_DEVICE"', device ? `"${device.id}"` : 'null')
           .replace('#INJECT_HOST', (req as Request).clientIp)
           .replace('#INJECT_NAME', device ? device.nickname : 'Unrecognized Device')
-          .replace('#INJECT_UPSTREAM', 'localhost:4000'),
+          .replace('#INJECT_UPSTREAM', 'localhost:4000')
+          .replace('"#INJECT_TOKEN"', device ? `"${getConfig().API_KEY}` : 'null'),
       );
     });
   }

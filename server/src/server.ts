@@ -28,7 +28,7 @@ const resolvers = {
 };
 
 async function startServer(fallback, config) {
-  const { PORT, DISABLE_PLAYGROUND, PLAYGROUND_URL, SANDBOX } = config;
+  const { PORT, DISABLE_PLAYGROUND, PLAYGROUND_URL, SANDBOX, API_KEY } = config;
 
   const db = fallback ? null : await initializeDatabase();
   const middlewares: any[] = [];
@@ -53,6 +53,11 @@ async function startServer(fallback, config) {
       return {
         db,
         user: { token },
+        // WebSocket connections just send an auth token upon initial connection
+        // (authentication is handled in `subscriptions.onConnect` when calling
+        // `server.start`). Since they don't have a token attached permanently,
+        // we need to tell the auth middleware to allow these requests through.
+        authorized: !request && Boolean(connection),
       };
     },
   });
@@ -67,11 +72,21 @@ async function startServer(fallback, config) {
   server.express.use('/web', client);
 
   // listen on the provided PORT
-  server.start({ port: PORT, playground: DISABLE_PLAYGROUND ? false : PLAYGROUND_URL }, () => {
-    const playgroundMessage = chalk.white(
-      DISABLE_PLAYGROUND ? 'disabled' : `http://localhost:${PORT}${PLAYGROUND_URL}`,
-    );
-    console.log(`${chalk.green(`
+  server.start(
+    {
+      port: PORT,
+      playground: DISABLE_PLAYGROUND ? false : PLAYGROUND_URL,
+      subscriptions: {
+        onConnect: ({ token }) => {
+          if (!SANDBOX && token !== API_KEY) throw new Error('401: You must be logged in.');
+        },
+      },
+    },
+    () => {
+      const playgroundMessage = chalk.white(
+        DISABLE_PLAYGROUND ? 'disabled' : `http://localhost:${PORT}${PLAYGROUND_URL}`,
+      );
+      console.log(`${chalk.green(`
               ┌────────────────────┐
               │ MultiCast is live! │
               └────────────────────┘
@@ -82,7 +97,8 @@ async function startServer(fallback, config) {
   ${chalk.dim('GraphQL Playground:')} ${chalk.white(playgroundMessage)}
 
 `);
-  });
+    },
+  );
 }
 
 process.on('message', ({ __type, ...msg }) => {

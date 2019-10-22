@@ -16,6 +16,7 @@ type Subscription {
 }
 
 type Mutation {
+  validateLogin(token: String!): Boolean!
   updateDevice(id: ID!, changes: DeviceUpdateInput!): Device!
   registerDevice(id: ID!): Device!
   unregisterDevice(id: ID!): Device!
