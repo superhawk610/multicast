@@ -18,7 +18,7 @@ import { updateCacheAfterCreate } from './updaters/alert';
 import { AppContext } from '../AppProvider';
 
 interface Props {
-  id?: number;
+  id?: string;
   active: boolean;
   onClose: () => void;
 }

@@ -46,7 +46,7 @@ export interface DEVICE_Data {
 }
 
 export interface DEVICE_Variables {
-  id: number;
+  id: string;
 }
 
 export const ALERTS = gql`

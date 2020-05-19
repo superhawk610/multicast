@@ -7,7 +7,7 @@ import { SUB_UPDATES_Data, SUB_UPDATES_Variables, SUB_UPDATES } from '../graphql
 
 import { ChannelLayout } from './channels/ChannelLayout';
 
-const device = getInjected('device', null) as number;
+const device = getInjected('device', null) as string;
 
 interface Props {
   channel: Channel;

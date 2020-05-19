@@ -4,7 +4,7 @@ type InjectedWindow = Window & {
 
 interface ServerInject {
   __active: boolean | string;
-  device: number | null;
+  device: string | null;
   host: string;
   name: string;
   upstream: string;

@@ -53,7 +53,7 @@ export interface SUB_UPDATES_Data {
 }
 
 export interface SUB_UPDATES_Variables {
-  device: number;
+  device: string;
 }
 
 export const SUB_ALERTS = gql`
