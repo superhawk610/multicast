@@ -8,7 +8,7 @@ import {
 import { basePath } from '../utils';
 import styled from 'styled-components';
 
-import logo from '../images/multicast.png';
+import logo from '../assets/multicast.png';
 
 import { COLORS } from '../constants';
 

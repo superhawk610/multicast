@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { DeviceRotation, ChannelLayout, Channel, Device } from '../types';
 
 export const DEVICES = gql`
   {
@@ -22,6 +23,31 @@ export const DEVICES = gql`
     }
   }
 `;
+
+export const DEVICE = gql`
+  query Device($id: ID!) {
+    device(id: $id) {
+      id
+      identifier
+      rotation
+      channel {
+        id
+        name
+        layout
+        duration
+        urls
+      }
+    }
+  }
+`;
+
+export interface DEVICE_Data {
+  device: Device;
+}
+
+export interface DEVICE_Variables {
+  id: string;
+}
 
 export const ALERTS = gql`
   {

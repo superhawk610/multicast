@@ -8,6 +8,7 @@ type TextAreaTheme = Themes.primary | Themes.info | Themes.success | Themes.warn
 
 interface Props {
   label?: string;
+  required?: boolean;
   placeholder?: string;
   name?: string;
   value?: string | number;
@@ -20,6 +21,7 @@ interface Props {
 
 const TextArea = ({
   label,
+  required,
   placeholder,
   name,
   value,
@@ -41,6 +43,7 @@ const TextArea = ({
       {label && <label className="label">{label}</label>}
       <p className={`control ${loading ? 'is-loading' : ''}`}>
         <textarea
+          required={required}
           className={`textarea ${theme}`}
           placeholder={placeholder}
           disabled={disabled}

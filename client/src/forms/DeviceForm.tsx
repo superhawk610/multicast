@@ -13,6 +13,7 @@ import { Select } from '../components/Select';
 import { ButtonGroup, Button as BGButton } from '../components/ButtonGroup';
 
 import { THEMES } from '../constants';
+import { externalLink } from 'react-icons-kit/feather/externalLink';
 import { Device, DeviceRotation, Channel } from '../types';
 import { CHANNELS } from '../graphql/queries';
 import {
@@ -63,6 +64,7 @@ const DeviceForm = ({ device }: Props) => {
     update: updateCacheAfterConnect(ctx),
     variables: { id: device.id },
   });
+  const viewDevice = () => window.open(`/landing?device=${device.id}`, '_blank', 'noopener');
 
   React.useEffect(() => {
     if (device.registered) getChannels();
@@ -108,6 +110,13 @@ const DeviceForm = ({ device }: Props) => {
       <Button adjacent text="Reconnect Device" theme={THEMES.warning} onClick={connectDevice} />
       <Button adjacent text="Create Alert" theme={THEMES.info} onClick={toggleAlertModal} />
       <Button text="Unregister Device" theme={THEMES.danger} onClick={unregisterDevice} />
+      <Button
+        style={{ float: 'right' }}
+        leftIcon={externalLink}
+        text="View"
+        theme={THEMES.light}
+        onClick={viewDevice}
+      />
       <AlertModal id={device.id} active={alertModalActive} onClose={toggleAlertModal} />
     </Form>
   );

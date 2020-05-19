@@ -1,7 +1,5 @@
 import { MessageTheme } from './components/Message';
 
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
 export type ChannelLayout =
   | 'single'
   | '1-1-vertical'
@@ -26,7 +24,7 @@ export type DeviceStatus = 'online' | 'offline' | 'searching';
 export type DeviceRotation = 0 | 90 | 180 | 270;
 
 export interface Device {
-  id: number;
+  id: string;
   identifier: string;
   registered: boolean;
   nickname: string;
@@ -39,7 +37,7 @@ export interface Device {
 }
 
 export interface Channel {
-  id: number;
+  id: string;
   name: string;
   layout: ChannelLayout;
   duration: number;
@@ -48,9 +46,14 @@ export interface Channel {
 }
 
 export interface Alert {
-  id: number;
+  id: string;
   title: string;
   body: string;
   theme: MessageTheme;
   devices: string[] | null;
+}
+
+export interface TakeoverStatus {
+  active: boolean;
+  channel: Channel | null;
 }

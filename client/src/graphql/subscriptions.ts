@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { Channel, TakeoverStatus } from '../types';
 
 export const SUB_DEVICES = gql`
   subscription {
@@ -19,6 +20,41 @@ export const SUB_DEVICES = gql`
     }
   }
 `;
+
+export const SUB_UPDATES = gql`
+  subscription Updates($device: ID) {
+    updates(device: $device) {
+      channel {
+        id
+        name
+        layout
+        duration
+        urls
+      }
+      takeover {
+        active
+        channel {
+          id
+          name
+          layout
+          duration
+          urls
+        }
+      }
+    }
+  }
+`;
+
+export interface SUB_UPDATES_Data {
+  updates: {
+    channel: Channel;
+    takeover: TakeoverStatus;
+  };
+}
+
+export interface SUB_UPDATES_Variables {
+  device: string;
+}
 
 export const SUB_ALERTS = gql`
   subscription {

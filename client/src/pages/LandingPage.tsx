@@ -1,20 +1,30 @@
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { useLazyQuery } from '@apollo/react-hooks';
+import useConstant from 'use-constant';
 import { getInjected } from '../getInjected';
 import { basePath } from '../utils';
 import styled from 'styled-components';
+import * as qs from 'qs';
 
-import logo from '../images/watermark.png';
+import logo from '../assets/watermark.png';
 
 import { Spacer } from '../components/Spacer';
 import { Alerts } from '../components/Alerts';
 
 import { COLORS } from '../constants';
+import { DEVICE, DEVICE_Data, DEVICE_Variables } from '../graphql/queries';
+import { ChannelDisplay } from '../components/ChannelDisplay';
+
+interface Props extends RouteComponentProps {}
 
 const host = getInjected('host', 'HOST');
 const name = getInjected('name', 'NAME');
+const deviceFromServerInject = getInjected('device', null);
 const upstream = getInjected('upstream', 'UPSTREAM');
+const env = process.env.NODE_ENV;
 
-const LandingPage = () => (
+const DeviceUninitialized = () => (
   <Page>
     <Container>
       <Header>
@@ -32,6 +42,34 @@ const LandingPage = () => (
     <Logo src={basePath(logo)} />
   </Page>
 );
+
+const LandingPage = ({ location }: Props) => {
+  const parsed = useConstant(() => qs.parse(location.search, { ignoreQueryPrefix: true }));
+  const device = (parsed.device as string) || deviceFromServerInject;
+
+  const [getDevice, getQuery] = useLazyQuery<DEVICE_Data, DEVICE_Variables>(DEVICE);
+
+  React.useEffect(() => {
+    if (device) getDevice({ variables: { id: device } });
+  }, []);
+
+  if (getQuery.loading) return null;
+
+  if (getQuery.error) {
+    // don't leak error details in production
+    const message = env === 'development' ? getQuery.error.message : '';
+    return <div>something went wrong! {message}</div>;
+  }
+
+  if (!device || !getQuery.data || !getQuery.data.device.channel) return <DeviceUninitialized />;
+
+  return (
+    <ChannelDisplay
+      channel={getQuery.data.device.channel}
+      rotation={getQuery.data.device.rotation}
+    />
+  );
+};
 
 const Page = styled.div`
   background: ${COLORS.green};

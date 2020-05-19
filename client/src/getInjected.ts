@@ -4,10 +4,11 @@ type InjectedWindow = Window & {
 
 interface ServerInject {
   __active: boolean | string;
-  device: string;
+  device: string | null;
   host: string;
   name: string;
   upstream: string;
+  token: string;
 }
 
 const w = (typeof window === 'undefined' ? { serverInject: {} } : window) as InjectedWindow;
@@ -20,10 +21,5 @@ export function getInjected<T extends keyof ServerInject, D>(
   key: T,
   defaultValue: D,
 ): ServerInject[T] | D {
-  const value = w.serverInject[key];
-  return typeof value === 'string'
-    ? value.match(/^#INJECT/)
-      ? defaultValue
-      : w.serverInject[key]
-    : value;
+  return typeof w.serverInject === 'string' ? defaultValue : w.serverInject[key];
 }

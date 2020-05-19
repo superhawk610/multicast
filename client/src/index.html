@@ -3,18 +3,12 @@
   <head>
     <title>MultiCast | Web UI</title>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="/images/multicast.png" />
+    <link rel="icon" type="image/png" href="/assets/multicast.png" />
   </head>
   <body style="background: #66b66a">
     <div id="root"></div>
     <script type="text/javascript">
-      window.serverInject = {
-        __active: '#INJECT_ACTIVE',
-        device: '#INJECT_DEVICE',
-        host: '#INJECT_HOST',
-        name: '#INJECT_NAME',
-        upstream: '#INJECT_UPSTREAM',
-      };
+      window.serverInject = "#SERVER_INJECT";
     </script>
     <script src="./index.tsx"></script>
   </body>

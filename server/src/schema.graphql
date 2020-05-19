@@ -12,10 +12,11 @@ type Query {
 type Subscription {
   devices: [Device!]!
   alerts: [Alert!]!
-  updates(device: ID!): UpdateSummary!
+  updates(device: ID): UpdateSummary!
 }
 
 type Mutation {
+  validateLogin(token: String!): Boolean!
   updateDevice(id: ID!, changes: DeviceUpdateInput!): Device!
   registerDevice(id: ID!): Device!
   unregisterDevice(id: ID!): Device!
@@ -87,7 +88,6 @@ type DeleteChannelResult {
 }
 
 type UpdateSummary {
-  urls: [String!]
   channel: Channel
   takeover: TakeoverStatus
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { Heading2 } from './Heading';
+import { Heading3 } from './Heading';
 
 import Icon from 'react-icons-kit';
 import { alertCircle } from 'react-icons-kit/feather/alertCircle';
@@ -31,7 +31,7 @@ const Container = styled.div`
   margin-bottom: 25px;
 `;
 
-const ErrorHeading = styled(Heading2)`
+const ErrorHeading = styled(Heading3)`
   color: ${COLORS.red};
 `;
 
