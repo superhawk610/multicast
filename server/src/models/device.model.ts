@@ -44,7 +44,7 @@ class Device extends Model<Device> {
   @Column
   public address!: string;
 
-  @Column
+  @Column(DataType.STRING)
   public model!: GoogleDeviceModel;
 
   @Is(/0|90|180|270/)
