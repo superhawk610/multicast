@@ -1,8 +1,11 @@
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
+import useConstant from 'use-constant';
 import { getInjected } from '../getInjected';
 import { basePath } from '../utils';
 import styled from 'styled-components';
+import * as qs from 'qs';
 
 import logo from '../assets/watermark.png';
 
@@ -13,9 +16,11 @@ import { COLORS } from '../constants';
 import { DEVICE, DEVICE_Data, DEVICE_Variables } from '../graphql/queries';
 import { ChannelDisplay } from '../components/ChannelDisplay';
 
+interface Props extends RouteComponentProps {}
+
 const host = getInjected('host', 'HOST');
 const name = getInjected('name', 'NAME');
-const device = getInjected('device', null);
+const deviceFromServerInject = getInjected('device', null);
 const upstream = getInjected('upstream', 'UPSTREAM');
 const env = process.env.NODE_ENV;
 
@@ -38,7 +43,10 @@ const DeviceUninitialized = () => (
   </Page>
 );
 
-const LandingPage = () => {
+const LandingPage = ({ location }: Props) => {
+  const parsed = useConstant(() => qs.parse(location.search, { ignoreQueryPrefix: true }));
+  const device = (parsed.device as string) || deviceFromServerInject;
+
   const [getDevice, getQuery] = useLazyQuery<DEVICE_Data, DEVICE_Variables>(DEVICE);
 
   React.useEffect(() => {
