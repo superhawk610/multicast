@@ -20,17 +20,17 @@ router.get('*', (req, res) => {
     res.sendFile(join(publicDir, path));
   } else {
     Device.findOne({ where: { address: (req as Request).clientIp } }).then(device => {
+      const serverInject = {
+        device: device?.id ?? null,
+        host: (req as Request).clientIp,
+        name: device?.nickname ?? 'Unrecognized Device',
+        upstream: 'localhost:4000',
+        token: device ? `"${getConfig().API_KEY}` : null,
+      };
+
       const html = readFileSync(index, 'utf-8');
       res.set('content-type', 'text/html');
-      res.send(
-        html
-          .replace('"#INJECT_ACTIVE"', 'true')
-          .replace('"#INJECT_DEVICE"', device ? `"${device.id}"` : 'null')
-          .replace('#INJECT_HOST', (req as Request).clientIp)
-          .replace('#INJECT_NAME', device ? device.nickname : 'Unrecognized Device')
-          .replace('#INJECT_UPSTREAM', 'localhost:4000')
-          .replace('"#INJECT_TOKEN"', device ? `"${getConfig().API_KEY}` : 'null'),
-      );
+      res.send(html.replace('"#SERVER_INJECT"', JSON.stringify(serverInject)));
     });
   }
 });
