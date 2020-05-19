@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useLazyQuery, useSubscription } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { getInjected } from '../getInjected';
 import { basePath } from '../utils';
 import styled from 'styled-components';
@@ -10,59 +10,56 @@ import { Spacer } from '../components/Spacer';
 import { Alerts } from '../components/Alerts';
 
 import { COLORS } from '../constants';
-import { SUB_UPDATES } from '../graphql/subscriptions';
-import { DEVICE } from '../graphql/queries';
+import { DEVICE, DEVICE_Data, DEVICE_Variables } from '../graphql/queries';
 import { ChannelDisplay } from '../components/ChannelDisplay';
-import { Channel } from '../types';
 
 const host = getInjected('host', 'HOST');
 const name = getInjected('name', 'NAME');
 const device = getInjected('device', null);
 const upstream = getInjected('upstream', 'UPSTREAM');
+const env = process.env.NODE_ENV;
+
+const DeviceUninitialized = () => (
+  <Page>
+    <Container>
+      <Header>
+        Host <strong>{host}</strong>
+      </Header>
+      <Header>
+        Device <strong>{name}</strong>
+      </Header>
+      <Spacer />
+      <p>
+        To get started, head over to <Link>http://{upstream}/web</Link>
+      </p>
+    </Container>
+    <Alerts />
+    <Logo src={basePath(logo)} />
+  </Page>
+);
 
 const LandingPage = () => {
-  const [getDevice, getQuery] = useLazyQuery(DEVICE);
-  const updates = useSubscription(SUB_UPDATES, { variables: { device } });
+  const [getDevice, getQuery] = useLazyQuery<DEVICE_Data, DEVICE_Variables>(DEVICE);
 
   React.useEffect(() => {
     if (device) getDevice({ variables: { id: device } });
   }, []);
 
-  // TODO: use actual device
-  const rotation = 0;
+  if (getQuery.loading) return null;
 
-  // TODO: use actual channel
-  const channel = {
-    layout: '2-1-1-vertical',
-    urls: [['http://localhost', 'http://localhost', 'http://localhost']],
-  } as Channel;
-
-  if (channel) {
-    return (
-      <>
-        <ChannelDisplay channel={channel} rotation={rotation} />
-        <Alerts />
-      </>
-    );
+  if (getQuery.error) {
+    // don't leak error details in production
+    const message = env === 'development' ? getQuery.error.message : '';
+    return <div>something went wrong! {message}</div>;
   }
 
+  if (!device || !getQuery.data || !getQuery.data.device.channel) return <DeviceUninitialized />;
+
   return (
-    <Page>
-      <Container>
-        <Header>
-          Host <strong>{host}</strong>
-        </Header>
-        <Header>
-          Device <strong>{name}</strong>
-        </Header>
-        <Spacer />
-        <p>
-          To get started, head over to <Link>http://{upstream}/web</Link>
-        </p>
-      </Container>
-      <Alerts />
-      <Logo src={basePath(logo)} />
-    </Page>
+    <ChannelDisplay
+      channel={getQuery.data.device.channel}
+      rotation={getQuery.data.device.rotation}
+    />
   );
 };
 

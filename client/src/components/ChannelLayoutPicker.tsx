@@ -259,7 +259,7 @@ const ChannelLayoutPicker = ({ layout, onChange, children }: Props) => {
       </Row>
       {active && (
         <Well>
-          <label className="label">Select A Layout</label>
+          <label className="label">Select a Layout</label>
           {rows.map((row, rowIndex) => (
             <Row key={rowIndex}>
               {row.map(({ Component, value, urlSlotCount }, layoutIndex) => {
