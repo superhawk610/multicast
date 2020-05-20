@@ -29,15 +29,20 @@ This branch is in an **unstable**, **pre-release** state. Use at your own risk. 
 
 TODO: Usage instructions.
 
+## Migration (2.x -> 3.0)
+
+If you're migrating an existing Multicast 2.x installation, follow the [Setup](#setup) instructions as normal but skip the initial section around registering for a Chromecast Developer account (you should
+already have one). Unfortunately there's no automated tool for importing channels from an existing
+installation, so once you're up and running you'll need to manually create any channels from your
+existing install.
+
 ## Getting Started
 
 ### Prerequisites
 
-This project requires Node.js and NPM (bundled with Node), as well as a MongoDB server. Since Node is cross-platform, it should work on Windows, MacOS, and Linux.
+This project requires a recent version of Node.js. Since Node is cross-platform, it should work on Windows, MacOS, and Linux. See [here](https://nodejs.org/) for installation instructions for your platform.
 
-### Setup
-
-Grab the latest stable copy of Node/NPM from [here](https://nodejs.org/en/download/) or install it via [nvm](http://nvm.sh).
+### Register as a Cast Developer
 
 In order to access the Chromecast API, you need to [register as a Cast developer](https://cast.google.com/publish/) (it costs \$5).
 
@@ -47,7 +52,46 @@ Once you've done this, log in to the [Cast Developer SDK Console](https://cast.g
 
 You now need to register your Chromecast devices as developer devices. For each device, locate the Serial Number (located on the back of the device and on the box), click **Add New Device**, and enter the Serial Number and a brief Description. (**NOTE**: This may take up to 15 minutes to take effect. Go grab a cup of coffee and then head back.)
 
-TODO: Application-specific installation instructions.
+### Server Configuration
+
+TODO: update this section to accomodate global installations via NPM
+
+Copy `config-example.json` to `config.json` and update the values to reflect your Cast developer account:
+
+```
+{
+  "APP_ID": "ABCDEF123",                          // you should have this from when you registered
+  "MULTICAST_HOME": ".multicast",                 // this is where Multicast will store its database
+  "PORT": 4000,                                   // this is the port that the server will use
+  "SQL_LOGGING": false,                           // enable this to view SQL statements as they're run
+  "SCANNING_FREQUENCY": 15000,                    // how often the server scans for devices (ms)
+  "API_KEY": "46f2c224704811909ffdf0735741b0b8",  // use a long random value here (for admin login)
+  "DISABLE_PLAYGROUND": false,                    // disable this to prevent GQL playground access
+  "PLAYGROUND_URL": "/playground"                 // modify the GQL playground URL
+}
+```
+
+Build the `client` app:
+
+```
+cd client && yarn build
+```
+
+Run the `server` app:
+
+```
+cd server && yarn start
+```
+
+If you don't have any real devices on your network, you can enable the server's sandbox mode by setting
+the `SANDBOX` environment variable to any truthy value, or using the `start:sandbox` script:
+
+```
+cd server && yarn start:sandbox
+```
+
+You can access Multicast's web interface at [http://localhost:4000/web](http://localhost:4000/web) and the
+GraphQL playground at [http://localhost:4000/playground](http://localhost:4000/playground).
 
 ### Firewall Settings
 
