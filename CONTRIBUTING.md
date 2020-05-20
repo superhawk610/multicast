@@ -1,7 +1,3 @@
-<h2 align="center"><strong>MultiCast</strong></h2>
-<p align="center">Contribution Guide</p>
-<br />
-
 ## PRE-RELEASE
 
 This branch is in an **unstable**, **pre-release** state. Use at your own risk. You've been warned.
