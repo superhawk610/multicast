@@ -24,7 +24,7 @@ router.get('*', (req, res) => {
         device: device?.id ?? null,
         host: (req as Request).clientIp,
         name: device?.nickname ?? 'Unrecognized Device',
-        upstream: 'localhost:4000',
+        upstream: ['localhost', '4000'],
         token: device ? `"${getConfig().API_KEY}` : null,
       };
 

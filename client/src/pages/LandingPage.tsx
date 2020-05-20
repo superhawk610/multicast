@@ -21,7 +21,7 @@ interface Props extends RouteComponentProps {}
 const host = getInjected('host', 'HOST');
 const name = getInjected('name', 'NAME');
 const deviceFromServerInject = getInjected('device', null);
-const upstream = getInjected('upstream', 'UPSTREAM');
+const upstream = getInjected('upstream', ['UPSTREAM_HOST', 'UPSTREAM_PORT']);
 const env = process.env.NODE_ENV;
 
 const DeviceUninitialized = () => (
@@ -35,7 +35,10 @@ const DeviceUninitialized = () => (
       </Header>
       <Spacer />
       <p>
-        To get started, head over to <Link>http://{upstream}/web</Link>
+        To get started, head over to{' '}
+        <Link>
+          http://{upstream[0]}:{upstream[1]}/web
+        </Link>
       </p>
     </Container>
     <Alerts />

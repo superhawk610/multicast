@@ -12,7 +12,7 @@ import { Form } from '../components/Form';
 import { Select } from '../components/Select';
 import { ButtonGroup, Button as BGButton } from '../components/ButtonGroup';
 
-import { THEMES } from '../constants';
+import { THEMES, APPLICATION_BASE } from '../constants';
 import { externalLink } from 'react-icons-kit/feather/externalLink';
 import { Device, DeviceRotation, Channel } from '../types';
 import { CHANNELS } from '../graphql/queries';
@@ -64,7 +64,8 @@ const DeviceForm = ({ device }: Props) => {
     update: updateCacheAfterConnect(ctx),
     variables: { id: device.id },
   });
-  const viewDevice = () => window.open(`/landing?device=${device.id}`, '_blank', 'noopener');
+  const viewDevice = () =>
+    window.open(`${APPLICATION_BASE}/landing?device=${device.id}`, '_blank', 'noopener');
 
   React.useEffect(() => {
     if (device.registered) getChannels();

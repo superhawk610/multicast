@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { DeviceRotation, ChannelLayout, Channel, Device } from '../types';
+import { Device } from '../types';
 
 export const DEVICES = gql`
   {

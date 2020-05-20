@@ -1,6 +1,6 @@
 import { isInjected } from './getInjected';
 
-export const APPLICATION_BASE = isInjected() ? '/web' : '';
+export const APPLICATION_BASE = isInjected ? '/web' : '';
 export const MAX_WIDTH = 1400;
 export const AUTH_TOKEN = 'auth_token';
 
