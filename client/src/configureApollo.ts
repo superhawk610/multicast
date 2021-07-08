@@ -7,7 +7,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { getInjected } from './getInjected';
-import { AUTH_TOKEN, COLORS } from './constants';
+import { AUTH_TOKEN, COLORS, APPLICATION_BASE } from './constants';
 import * as badge from 'console-badge';
 
 const upstream = getInjected('upstream', '');
@@ -80,7 +80,7 @@ export function configureApolloClient() {
 
         if (unauthorized && !window.location.pathname.match(/^\/login/)) {
           localStorage.removeItem(AUTH_TOKEN);
-          window.location.replace('/login');
+          window.location.replace(`${APPLICATION_BASE}/login`);
         }
       }),
       link,
