@@ -24,7 +24,7 @@ export function loadConfig() {
     const json = readFileSync(configPath, 'utf-8');
     diskConfig = JSON.parse(json);
   } catch (e) {
-    console.error(chalk.yellow('could not load <rootDir>/config.json, exiting...'));
+    console.error(chalk.yellow(`could not load ${configPath}, exiting...`));
     process.exit(1);
   }
 
